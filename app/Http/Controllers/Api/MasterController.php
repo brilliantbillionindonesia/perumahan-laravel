@@ -302,7 +302,7 @@ class MasterController extends Controller
                     }
                 },
             ],
-            'rowId' => ['required', 'integer', 'exists:' . $request->input('entity') . ',id,deleted_at,NULL'],
+            'rowId' => ['required', 'exists:' . $request->input('entity') . ',id,deleted_at,NULL'],
             'data' => ['required', 'array'],
             'data.*.name' => ['required', 'string'],
             'data.*.value' => ['nullable'],
@@ -507,6 +507,5 @@ class MasterController extends Controller
             ], HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }
