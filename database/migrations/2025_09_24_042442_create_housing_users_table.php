@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('housing_id');
             $table->uuid('user_id');
-            $table->integer('is_active');
+            $table->string('role_code')->default('citizen');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('adress');
             $table->string('rt');
             $table->string('rw');
-            $table->string('subdistrict');
+            $table->string('village_code');
+            $table->string('subdistrict_code');
             $table->string('district');
             $table->string('province');
             $table->string('postal_code');

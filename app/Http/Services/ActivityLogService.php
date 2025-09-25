@@ -17,7 +17,7 @@ class ActivityLogService
 
         $allowed = ['create', 'update', 'delete', 'restore'];
         if (! in_array($type, $allowed, true)) {
-            throw new \InvalidArgumentException("Invalid log type: $type");
+            throw new \InvalidArgumentException("Invalid type: {$type}. Must be one of: " . implode(', ', $allowed));
         }
 
         ActivityLog::create([
