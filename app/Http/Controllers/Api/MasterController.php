@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Services\ActivityLogService;
+use Cache;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,14 @@ class MasterController extends Controller
         'subdistricts'
     ];
 
+    public function cacheColumns($table){
+        return Cache::remember(
+            "schema:{$table}:columns",
+            3600,
+            fn() => Schema::getColumnListing($table)
+        );
+    }
+
     public function list(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -28,16 +37,11 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'columns' => ['nullable', 'array'],
             'columns.*' => ['string'],
             'page' => ['nullable', 'integer', 'min:1'],
-            'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
             'order_by' => ['nullable', 'string'],
             'order_dir' => ['nullable', Rule::in(['asc', 'desc', 'ASC', 'DESC'])],
             'with_trashed' => ['nullable', 'boolean'],
@@ -64,17 +68,14 @@ class MasterController extends Controller
         $withTrashed = (bool) ($request->input('with_trashed', false));
 
         // Validate columns (if provided)
+        $cachedColumns = $this->cacheColumns($table);
         if ($columns) {
-            $invalid = [];
-            foreach ($columns as $col) {
-                if (!Schema::hasColumn($table, $col)) {
-                    $invalid[] = $col;
-                }
-            }
+            $invalid = array_diff($columns, $cachedColumns);
+
             if (!empty($invalid)) {
                 return response()->json([
                     'success' => false,
-                    'code' => 400,
+                    'code'    => 400,
                     'message' => "Invalid columns in `{$table}`: " . implode(', ', $invalid),
                 ], 400);
             }
@@ -83,10 +84,10 @@ class MasterController extends Controller
         // Validate columns (if provided)
         if ($filters) {
             foreach ($filters as $filter) {
-                if (!Schema::hasColumn($table, $filter['column'])) {
+                if (!in_array($filter['column'], $cachedColumns, true)) {
                     return response()->json([
                         'success' => false,
-                        'code' => 400,
+                        'code'    => 400,
                         'message' => "Invalid filter column `{$filter['column']}` in table `{$table}`.",
                     ], 400);
                 }
@@ -112,8 +113,10 @@ class MasterController extends Controller
         }
 
         // Optional ordering (only if column exists)
-        if ($orderBy && Schema::hasColumn($table, $orderBy)) {
+        if ($orderBy && in_array($request->input('order_by'), $cachedColumns, true)) {
             $builder->orderBy($orderBy, $orderDir);
+        } else {
+            $builder->orderBy('created_at', 'desc');
         }
 
         // Length-aware pagination
@@ -153,11 +156,6 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'rowId' => ['required', 'exists:' . $request->input('entity') . ',id,deleted_at,NULL'],
             'with_trashed' => ['nullable', 'boolean'],
@@ -196,11 +194,6 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'data' => ['required', 'array'],
             'data.*.name' => ['required', 'string'],
@@ -223,14 +216,14 @@ class MasterController extends Controller
 
         $validData = [];
         $invalidColumns = [];
+        $cachedColumns = $this->cacheColumns($table);
         foreach ($rawData as $col => $val) {
-            if (Schema::hasColumn($table, $col)) {
+            if (in_array($col, $cachedColumns, true)) {
                 $validData[$col] = $val;
             } else {
                 $invalidColumns[] = $col;
             }
         }
-
         if (empty($validData)) {
             return response()->json([
                 'success' => false,
@@ -297,11 +290,6 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'rowId' => ['required', 'exists:' . $request->input('entity') . ',id,deleted_at,NULL'],
             'data' => ['required', 'array'],
@@ -325,14 +313,14 @@ class MasterController extends Controller
 
         $validData = [];
         $invalidColumns = [];
+        $cachedColumns = $this->cacheColumns($table);
         foreach ($rawData as $col => $val) {
-            if (Schema::hasColumn($table, $col)) {
+            if (in_array($col, $cachedColumns, true)) {
                 $validData[$col] = $val;
             } else {
                 $invalidColumns[] = $col;
             }
         }
-
         if (empty($validData)) {
             return response()->json([
                 'success' => false,
@@ -401,11 +389,6 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'rowId' => ['required', 'exists:' . $request->input('entity') . ',id,deleted_at,NULL'],
         ]);
@@ -457,11 +440,6 @@ class MasterController extends Controller
                 'required',
                 'string',
                 Rule::in($this->allowedEntities),
-                function ($attribute, $value, $fail) {
-                    if (!Schema::hasTable($value)) {
-                        $fail("Table '{$value}' does not exist.");
-                    }
-                },
             ],
             'rowId' => [
                 'required',
