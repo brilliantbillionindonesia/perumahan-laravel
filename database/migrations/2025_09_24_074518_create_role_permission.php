@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('code')->unique();
             $table->string('name')->unique();
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->id();
             $table->string('code');
             $table->string('name')->unique();
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->id();
             $table->string('permission_code');
             $table->string('role_code');
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->index(['permission_code', 'role_code']);

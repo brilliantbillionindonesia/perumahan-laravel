@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('province_code');
             $table->string('name');
             $table->string('code');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
