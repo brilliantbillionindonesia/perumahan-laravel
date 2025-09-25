@@ -9,7 +9,8 @@ class RoleMiddleware
 {
     public function handle($request, Closure $next, $role)
     {
-        if (! $request->user() || ! $request->user()->hasRole($role)) {
+
+        if ($request->current_housing->role_code != $role) {
             return response()->json([
                 'success' => false,
                 'code' => HttpStatusCodes::HTTP_FORBIDDEN,

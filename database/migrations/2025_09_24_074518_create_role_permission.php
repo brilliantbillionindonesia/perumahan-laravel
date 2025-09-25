@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('permission_role', function (Blueprint $table) {
+        Schema::create('permission_roles', function (Blueprint $table) {
             $table->id();
             $table->string('permission_code');
             $table->string('role_code');
@@ -36,7 +36,7 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('permission_role');
+        Schema::dropIfExists('permission_roles');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
     }

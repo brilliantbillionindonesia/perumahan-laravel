@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -71,14 +72,30 @@ class AuthController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
-    public function profile(Request $request)
+    public function me(Request $request)
     {
+        $userId    = $request->user()->id;
+        $housingId = $request->current_housing->housing_id;
+
+        $rows = DB::table('users as u')
+        ->join('housing_users as hu', 'hu.user_id', '=', 'u.id')
+        ->join('roles as role', 'role.code', '=', 'hu.role_code')
+        ->where('hu.user_id', $userId)
+        ->where('hu.housing_id', $housingId)
+        ->select(
+            'u.id',
+            'u.name',
+            'u.email',
+            DB::raw('role.name as role_name')
+        )
+        ->first();
+
         return response()->json([
-                'success' => true,
-                'code' => HttpStatusCodes::HTTP_CREATED,
-                'message' => "Success",
-                'data' => $request->user(),
-            ], HttpStatusCodes::HTTP_CREATED);
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_CREATED,
+            'message' => "Success",
+            'data' => $rows
+        ], HttpStatusCodes::HTTP_CREATED);
 
     }
 }
