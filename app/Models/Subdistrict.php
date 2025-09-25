@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Subdistrict extends Model
 {
     protected $table = 'subdistricts';
-
     protected $fillable = [
-        'id', 'code', 'name', 'district_code',
+        'code',
+        'name',
+        'district_code',
+        'created_at',
+        'updated_at'
     ];
-
 }
