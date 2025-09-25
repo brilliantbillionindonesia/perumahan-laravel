@@ -17,6 +17,7 @@ class MasterController extends Controller
     private array $allowedEntities = [
         'roles',
         'permissions',
+        'subdistricts',
         'permission_role',
     ];
 

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\MasterController;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\ApI\AuthController;
 use App\Http\Controllers\Api\UserController;
 
 Route::prefix('auth')->group(function () {
