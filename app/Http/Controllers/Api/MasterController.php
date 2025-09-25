@@ -18,6 +18,7 @@ class MasterController extends Controller
         'roles',
         'permissions',
         'permission_role',
+        'subdistricts'
     ];
 
     public function list(Request $request)

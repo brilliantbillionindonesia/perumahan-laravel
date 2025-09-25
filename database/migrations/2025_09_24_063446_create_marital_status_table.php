@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('marital_status', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->integer('code');
             $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('house_number');
             $table->string('block');
             $table->integer('number');
-            $table->string('family_card_id');
+            $table->uuid('family_card_id');
             $table->timestamps();
         });
     }
