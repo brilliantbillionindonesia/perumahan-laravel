@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subdistricts', function (Blueprint $table) {
+        Schema::create('vilages', function (Blueprint $table) {
             $table->id();
             $table->string('province_code');
             $table->string('district_code');
+            $table->string('subdistrict_code');
             $table->string('name');
             $table->string('code');
             $table->softDeletes();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subdistricts');
+        Schema::dropIfExists('villages');
     }
 };

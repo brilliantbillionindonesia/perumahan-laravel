@@ -48,20 +48,4 @@ class User extends Authenticatable
             'updated_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_code', 'code');
-    }
-
-    public function hasRole(string $code): bool
-    {
-        return $this->role && $this->role->code === $code;
-    }
-
-    public function hasPermission(string $permissionCode): bool
-    {
-        return $this->role
-            && $this->role->permissions()->where('code', $permissionCode)->exists();
-    }
 }

@@ -2,21 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Housing extends Model
 {
+    use HasUuids;
+
     protected $table = 'housings';
-    protected $fillable = [
-        'housing_name',
-        'address',
-        'rt',
-        'rw',
-        'subdistrict',
-        'district',
-        'province',
-        'postal_code',
-        'created_at',
-        'updated_at'
-    ];
+    protected $guarded = [];
 }
