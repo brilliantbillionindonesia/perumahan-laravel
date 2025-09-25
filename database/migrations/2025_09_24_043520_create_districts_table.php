@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('districts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('province_code');
             $table->string('name');
             $table->string('code');
