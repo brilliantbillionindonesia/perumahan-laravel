@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\NgarondaController;
 use App\Http\Controllers\Api\UserController;
 
 Route::prefix('auth')->group(function () {
@@ -32,5 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/update', [MasterController::class, 'update']);
         Route::delete('/delete', [MasterController::class, 'delete']);
         Route::put('/restore', [MasterController::class, 'restore']);
+    });
+
+    Route::prefix('ngaronda')->group(function () {
+        Route::get('list', [NgarondaController::class, 'list']);
     });
 });

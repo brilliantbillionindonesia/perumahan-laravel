@@ -19,7 +19,8 @@ class MasterController extends Controller
         'roles',
         'permissions',
         'permission_role',
-        'subdistricts'
+        'subdistricts',
+        'districts',
     ];
 
     public function cacheColumns($table){
