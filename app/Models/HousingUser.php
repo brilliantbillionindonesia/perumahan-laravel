@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class HousingUser extends Model
 {
+    use HasUuids;
+
     protected $table = 'housing_users';
     protected $guarded = [];
 
@@ -23,5 +26,10 @@ class HousingUser extends Model
     {
         return $this->role
             && $this->role->permissions()->where('code', $permissionCode)->exists();
+    }
+
+    public function housing()
+    {
+        return $this->belongsTo(Housing::class);
     }
 }

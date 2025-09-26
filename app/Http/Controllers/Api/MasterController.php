@@ -20,6 +20,7 @@ class MasterController extends Controller
         'permissions',
         'subdistricts',
         'permission_role',
+        'permission_roles',
         'subdistricts',
         'districts',
         'villages',
