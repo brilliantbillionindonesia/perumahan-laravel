@@ -1,0 +1,9 @@
+[
+    { "code": 1, "name": "Islam" },
+    { "code": 2, "name": "Kristen Protestan" },
+    { "code": 3, "name": "Katolik" },
+    { "code": 4, "name": "Hindu" },
+    { "code": 5, "name": "Buddha" },
+    { "code": 6, "name": "Konghucu" },
+    { "code": 7, "name": "Lainnya" }
+  ]

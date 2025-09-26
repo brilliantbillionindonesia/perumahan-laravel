@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\MasterController;
-<<<<<<< HEAD
 use App\Http\Controllers\ApI\AuthController;
-=======
-use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\NgarondaController;
->>>>>>> d4c9526795b5af6294e3a1213dee8d5c4a1d33c2
 use App\Http\Controllers\Api\UserController;
 
 Route::prefix('auth')->group(function () {

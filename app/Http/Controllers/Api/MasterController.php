@@ -22,6 +22,10 @@ class MasterController extends Controller
         'permission_role',
         'subdistricts',
         'districts',
+        'villages',
+        'provinces',
+        'religions',
+        'marital_status',
     ];
 
     public function cacheColumns($table){

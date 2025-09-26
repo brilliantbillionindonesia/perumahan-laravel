@@ -1,0 +1,14 @@
+[
+    { "code": 101, "name": "Pelajar/Mahasiswa" },
+    { "code": 102, "name": "PNS" },
+    { "code": 103, "name": "TNI" },
+    { "code": 104, "name": "Polri" },
+    { "code": 105, "name": "Pegawai Swasta" },
+    { "code": 106, "name": "Wiraswasta" },
+    { "code": 107, "name": "Petani" },
+    { "code": 108, "name": "Nelayan" },
+    { "code": 109, "name": "Buruh" },
+    { "code": 110, "name": "Ibu Rumah Tangga" },
+    { "code": 111, "name": "Pensiunan" },
+    { "code": 112, "name": "Tidak Bekerja" }
+  ]

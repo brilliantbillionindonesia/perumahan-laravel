@@ -26,11 +26,15 @@ class SubdistrictSeeder extends Seeder
             $districtCode = pathinfo($file->getFilename(), PATHINFO_FILENAME);
 
             foreach ($data as $item) {
+                // Ambil 2 digit pertama dari district_code → province_code
+                $provinceCode = substr($districtCode, 0, 2);
+            
                 Subdistrict::updateOrCreate(
                     ['code' => $item['id']], // JSON "id" → DB "code"
                     [
-                        'name'          => $item['nama'],       // JSON "nama" → DB "name"
-                        'district_code' => $districtCode,       // nama file → district_code
+                        'name'          => $item['nama'],        // JSON "nama" → DB "name"
+                        'district_code' => $districtCode,        // nama file → district_code
+                        'province_code' => $provinceCode,        // ambil otomatis dari district_code
                     ]
                 );
             }
