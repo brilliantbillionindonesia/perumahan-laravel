@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Citizen extends Model
 {
+    use HasUuids;
+
     protected $table = 'citizens';
     protected $fillable = [
         'family_card_id',

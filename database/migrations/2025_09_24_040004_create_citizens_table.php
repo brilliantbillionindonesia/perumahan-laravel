@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('family_card_id');
             $table->string('citizen_card_number');
             $table->string('fullname');
+            $table->string('gender');
             $table->string('birth_place');
             $table->date('birth_date');
             $table->string('blood_type');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('work_type');
             $table->string('education_type');
             $table->string('citizenship');
+            $table->uuid('death_certificate_id')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });

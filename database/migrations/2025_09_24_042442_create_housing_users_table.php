@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('housing_users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('housing_id');
-            $table->uuid('user_id');
+            $table->uuid('citizen_id')->nullable();
+            $table->uuid('user_id')->nullable();
             $table->string('role_code')->default('citizen');
             $table->integer('is_active')->default(1);
             $table->timestamps();

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('family_cards', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('family_card_number');
-            $table->string('adress');
+            $table->string('address');
             $table->string('rt');
             $table->string('rw');
             $table->string('village_code');
             $table->string('subdistrict_code');
-            $table->string('district');
-            $table->string('province');
+            $table->string('district_code');
+            $table->string('province_code');
             $table->string('postal_code');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
