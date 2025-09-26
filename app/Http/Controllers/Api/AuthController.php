@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -39,24 +40,38 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users',
             'password' => 'required',
+        ], [
+            'email.exists' => 'Email tidak ditemukan',
+            'password.required' => 'Password harus diisi',
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Email atau password salah',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
 
         // jika berhasil, buat token
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
-            'message' => 'Login successful',
+            'message' => 'Berhasil login',
             'token' => $token,
             'user' => $user,
         ], HttpStatusCodes::HTTP_OK);
