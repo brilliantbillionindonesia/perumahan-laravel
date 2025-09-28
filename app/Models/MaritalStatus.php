@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MaritalStatus extends Model
 {
-    protected $table = 'marital_statuses';
+    protected $table = 'marital_status';
     protected $fillable = [
         'name',
         'code',

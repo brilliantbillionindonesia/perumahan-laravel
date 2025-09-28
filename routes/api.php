@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\HousingController;
 use App\Http\Controllers\Api\MasterController;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\ApI\AuthController;
 use App\Http\Controllers\Api\NgarondaController;
 use App\Http\Controllers\Api\UserController;
 

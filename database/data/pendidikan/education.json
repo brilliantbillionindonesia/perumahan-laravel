@@ -1,0 +1,12 @@
+[
+    { "code": "01", "name": "Tidak / Belum Sekolah" },
+    { "code": "02", "name": "Belum Tamat SD / Sederajat" },
+    { "code": "03", "name": "Tamat SD / Sederajat" },
+    { "code": "04", "name": "SLTP / Sederajat" },
+    { "code": "05", "name": "SLTA / Sederajat" },
+    { "code": "06", "name": "Diploma I / II" },
+    { "code": "07", "name": "Akademi / Diploma III / Sarjana Muda" },
+    { "code": "08", "name": "Diploma IV / Strata I (S1)" },
+    { "code": "09", "name": "Strata II (S2)" },
+    { "code": "10", "name": "Strata III (S3)" }
+  ]

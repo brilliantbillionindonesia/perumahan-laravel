@@ -18,9 +18,15 @@ class MasterController extends Controller
     private array $allowedEntities = [
         'roles',
         'permissions',
+        'subdistricts',
+        'permission_role',
         'permission_roles',
         'subdistricts',
         'districts',
+        'villages',
+        'provinces',
+        'religions',
+        'marital_status',
     ];
 
     public function cacheColumns($table){
