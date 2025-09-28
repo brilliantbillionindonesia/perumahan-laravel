@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('houses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('housing_id');
-            $table->string('house_number');
+            $table->string('house_name');
             $table->string('block');
             $table->integer('number');
             $table->uuid('family_card_id');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CitizenController;
 use App\Http\Controllers\Api\HousingController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\ApI\AuthController;
@@ -24,18 +25,25 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
-    Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+
+    Route::middleware(['role:admin'])->group(function () {
         Route::get('admin/dashboard', fn() => 'Welcome admin');
     });
 
-    Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    // Route::middleware(['auth:sanctum', 'permission:manage_users'])->group(function () {
+    Route::middleware(['role:admin'])->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('list', [UserController::class, 'list']);
             Route::post('store', [UserController::class, 'store']);
             Route::put('role', [UserController::class, 'changeRole']);
         });
     });
+
+    Route::prefix('citizens')->group(function () {
+        Route::get('list', [CitizenController::class, 'list']);
+        Route::get('show', [CitizenController::class, 'show']);
+    });
+
+
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

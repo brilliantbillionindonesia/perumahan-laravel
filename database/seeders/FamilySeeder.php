@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Constants\RelationshipStatusOption;
+use App\Models\FamilyMember;
+use App\Models\House;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +22,7 @@ use App\Constants\MaritalStatusOption;
 use App\Constants\WorkTypeOption;
 use App\Constants\EducationTypeOption;
 use App\Constants\CitizenshipOption;
+use Schema;
 
 class FamilySeeder extends Seeder
 {
@@ -42,34 +46,34 @@ class FamilySeeder extends Seeder
                 'address'        => 'Jl. Mustika Karawang',
                 'rt'             => '01',
                 'rw'             => '01',
-                'village_code'   => '01',
-                'subdistrict_code'=> '01',
-                'district_code'  => '01',
-                'province_code'  => '01',
-                'postal_code'    => '41351',
+                'village_code'   => '1101012001',
+                'subdistrict_code'=> '110101',
+                'district_code'  => '1101',
+                'province_code'  => '11',
+                'postal_code'    => '41352',
             ]);
 
             $createdHousing2 = Housing::firstOrCreate([
                 'housing_name'   => 'Griya Sentosa',
                 'address'        => 'Jl. Griya Sentosa',
-                'rt'             => '01',
-                'rw'             => '01',
-                'village_code'   => '01',
-                'subdistrict_code'=> '01',
-                'district_code'  => '01',
-                'province_code'  => '01',
+                'rt'             => '02',
+                'rw'             => '02',
+                'village_code'   => '1101012001',
+                'subdistrict_code'=> '110101',
+                'district_code'  => '1101',
+                'province_code'  => '11',
                 'postal_code'    => '41352',
             ]);
 
             $createdHousing3 = Housing::firstOrCreate([
                 'housing_name'   => 'Brilliant Appartment',
                 'address'        => 'Jl. Brilliant Billion Indonesia',
-                'rt'             => '01',
-                'rw'             => '01',
-                'village_code'   => '01',
-                'subdistrict_code'=> '01',
-                'district_code'  => '01',
-                'province_code'  => '01',
+                'rt'             => '03',
+                'rw'             => '03',
+                'village_code'   => '1101012001',
+                'subdistrict_code'=> '110101',
+                'district_code'  => '1101',
+                'province_code'  => '11',
                 'postal_code'    => '41352',
             ]);
 
@@ -109,19 +113,32 @@ class FamilySeeder extends Seeder
                     'address'            => 'Jl. Mustika Karawang',
                     'rt'                 => '01',
                     'rw'                 => '01',
-                    'village_code'       => '01',
-                    'subdistrict_code'   => '01',
-                    'district_code'      => '01',
-                    'province_code'      => '01',
-                    'postal_code'        => '41352',
+                    'village_code'   => '1101012001',
+                    'subdistrict_code'=> '110101',
+                    'district_code'  => '1101',
+                    'province_code'  => '11',
+                    'postal_code'    => '41352',
                     'housing_id'         => [
                         $createdHousing->id,
                         $createdHousing3->id,
                     ],
+                    'houses' => [
+                        [
+                            'housing_id' => $createdHousing->id,
+                            'house_name' => 'Rumah pak Mustika',
+                            'block'      => 'A2',
+                            'number'     => 10,
+                        ], [
+                            'housing_id' => $createdHousing3->id,
+                            'house_name' => 'Rumah pak Mustika',
+                            'block'      => 'A4',
+                            'number'     => 30,
+                        ]
+                    ],
                     'citizens'           => [
                         [
                             'citizen_card_number' => '1234567890113456',
-                            'fullname'            => 'Si Kepala',
+                            'fullname'            => 'Pak Mustika',
                             'gender'              => GenderOption::LAKILAKI,
                             'birth_place'         => 'Jakarta',
                             'birth_date'          => '2000-01-01',
@@ -137,10 +154,11 @@ class FamilySeeder extends Seeder
                                 'email'    => 'si-kepala@mail.com',
                                 'password' => 'password',
                             ],
+                            'relationship_status' => RelationshipStatusOption::KEPALA_KELUARGA
                         ],
                         [
                             'citizen_card_number' => '1234567890113457',
-                            'fullname'            => 'Si Ibu',
+                            'fullname'            => 'Ibu Mustika',
                             'gender'              => GenderOption::PEREMPUAN,
                             'birth_place'         => 'Jakarta',
                             'birth_date'          => '2000-01-01',
@@ -151,7 +169,8 @@ class FamilySeeder extends Seeder
                             'education_type'      => EducationTypeOption::SMP,
                             'citizenship'         => CitizenshipOption::WNI,
                             'death_certificate_id'=> null,
-                            'user'                => [], // tanpa akun user
+                            'user'                => [], // tanpa akun user.
+                            'relationship_status' => RelationshipStatusOption::ISTRI
                         ],
                     ],
                 ],
@@ -160,15 +179,33 @@ class FamilySeeder extends Seeder
                     'address'            => 'Jl. Melati Raya',
                     'rt'                 => '02',
                     'rw'                 => '02',
-                    'village_code'       => '02',
-                    'subdistrict_code'   => '02',
-                    'district_code'      => '02',
-                    'province_code'      => '01',
-                    'postal_code'        => '41353',
+                    'village_code'   => '1101012001',
+                    'subdistrict_code'=> '110101',
+                    'district_code'  => '1101',
+                    'province_code'  => '11',
+                    'postal_code'    => '41352',
                     'housing_id'         => [
                         $createdHousing->id,
                         $createdHousing2->id,
                         $createdHousing3->id,
+                    ],
+                    'houses' => [
+                        [
+                            'housing_id' => $createdHousing->id,
+                            'house_name' => 'Rumah pak Melati',
+                            'block'      => 'A1',
+                            'number'     => 10,
+                        ], [
+                            'housing_id' => $createdHousing2->id,
+                            'house_name' => 'Rumah pak Melati',
+                            'block'      => 'A2',
+                            'number'     => 20,
+                        ], [
+                            'housing_id' => $createdHousing3->id,
+                            'house_name' => 'Rumah pak Melati',
+                            'block'      => 'A3',
+                            'number'     => 30,
+                        ]
                     ],
                     'citizens'           => [
                         [
@@ -189,6 +226,7 @@ class FamilySeeder extends Seeder
                                 'email'    => 'bapak-melati@mail.com',
                                 'password' => 'password',
                             ],
+                            'relationship_status' => RelationshipStatusOption::KEPALA_KELUARGA
                         ],
                         [
                             'citizen_card_number' => '2234567890113457',
@@ -204,6 +242,7 @@ class FamilySeeder extends Seeder
                             'citizenship'         => CitizenshipOption::WNI,
                             'death_certificate_id'=> null,
                             'user'                => [],
+                            'relationship_status' => RelationshipStatusOption::ISTRI
                         ],
                     ],
                 ],
@@ -212,15 +251,33 @@ class FamilySeeder extends Seeder
                     'address'            => 'Jl. Kenanga Indah',
                     'rt'                 => '03',
                     'rw'                 => '03',
-                    'village_code'       => '03',
-                    'subdistrict_code'   => '03',
-                    'district_code'      => '03',
-                    'province_code'      => '01',
-                    'postal_code'        => '41354',
+                    'village_code'   => '1101012001',
+                    'subdistrict_code'=> '110101',
+                    'district_code'  => '1101',
+                    'province_code'  => '11',
+                    'postal_code'    => '41352',
                     'housing_id'         => [
                         $createdHousing->id,
                         $createdHousing2->id,
                         $createdHousing3->id,
+                    ],
+                    'houses' => [
+                        [
+                            'housing_id' => $createdHousing->id,
+                            'house_name' => 'Rumah pak Kenanga',
+                            'block'      => 'A1',
+                            'number'     => 1,
+                        ], [
+                            'housing_id' => $createdHousing2->id,
+                            'house_name' => 'Rumah pak Kenanga',
+                            'block'      => 'A2',
+                            'number'     => 2,
+                        ], [
+                            'housing_id' => $createdHousing3->id,
+                            'house_name' => 'Rumah pak Kenanga',
+                            'block'      => 'A3',
+                            'number'     => 3,
+                        ]
                     ],
                     'citizens'           => [
                         [
@@ -237,6 +294,7 @@ class FamilySeeder extends Seeder
                             'citizenship'         => CitizenshipOption::WNI,
                             'death_certificate_id'=> null,
                             'user'                => [],
+                            'relationship_status' => RelationshipStatusOption::KEPALA_KELUARGA
                         ],
                         [
                             'citizen_card_number' => '3234567890113457',
@@ -252,29 +310,54 @@ class FamilySeeder extends Seeder
                             'citizenship'         => CitizenshipOption::WNI,
                             'death_certificate_id'=> null,
                             'user'                => [],
+                            'relationship_status' => RelationshipStatusOption::ISTRI
                         ],
                     ],
                 ],
             ];
 
-            // ===== Insert FamilyCards & Citizens (+ optional Users & HousingUsers) =====
-            foreach ($familyCards as $fcData) {
+             foreach ($familyCards as $fcData) {
                 $citizensData = $fcData['citizens'] ?? [];
                 $housingIds   = $fcData['housing_id'] ?? [];
+                $housesData   = $fcData['houses'] ?? [];   // <--- AMBIL HOUSES
 
                 // buang key non-kolom sebelum create
-                unset($fcData['citizens'], $fcData['housing_id']);
+                unset($fcData['citizens'], $fcData['housing_id'], $fcData['houses']);
 
+                // buat family card
                 $familyCard = FamilyCard::create($fcData);
 
+                // ===== SEED HOUSES UNTUK FAMILY CARD INI =====
+                foreach ($housesData as $house) {
+                    // pastikan kolom2 sesuai dengan tabel houses milikmu
+                    House::create([
+                        'housing_id'      => $house['housing_id'],
+                        'family_card_id'  => $familyCard->id,   // <--- KAITKAN DI SINI
+                        'house_name'      => $house['house_name'] ?? null,
+                        'block'           => $house['block'] ?? null,
+                        'number'          => $house['number'] ?? null,
+                        // jika tabel houses punya kolom tambahan (rt/rw/alamat, dsb),
+                        // tambahkan di sini.
+                    ]);
+                }
+
+                // ===== SEED CITIZENS (tetap seperti sebelumnya) =====
                 foreach ($citizensData as $citizenData) {
+                    $relationship = $citizenData['relationship_status']
+                        ?? RelationshipStatusOption::LAINNYA;
+                    unset($citizenData['relationship_status']);
+
                     $userPayload = $citizenData['user'] ?? [];
                     unset($citizenData['user']);
 
                     $citizenData['family_card_id'] = $familyCard->id;
                     $citizen = Citizen::create($citizenData);
 
-                    // Jika user disediakan, buat user lalu tautkan ke semua housing ids sebagai citizen
+                    FamilyMember::create([
+                        'citizen_id'          => $citizen->id,
+                        'relationship_status' => $relationship,
+                    ]);
+
                     $userId = null;
                     if (!empty($userPayload) && !empty($userPayload['email'])) {
                         $user = User::firstOrCreate(
@@ -287,13 +370,12 @@ class FamilySeeder extends Seeder
                         $userId = $user->id;
                     }
 
-                    // Buat HousingUser untuk setiap housing_id yang ditentukan
                     foreach ($housingIds as $hid) {
                         HousingUser::firstOrCreate([
                             'housing_id' => $hid,
-                            'user_id'    => $userId,         // bisa null jika citizen tidak punya akun user
-                            'citizen_id' => $citizen->id,    // hubungkan citizen-nya
-                            'role_code'  => 'citizen',       // default; ubah sesuai kebutuhanmu
+                            'user_id'    => $userId,
+                            'citizen_id' => $citizen->id,
+                            'role_code'  => 'citizen',
                         ]);
                     }
                 }
