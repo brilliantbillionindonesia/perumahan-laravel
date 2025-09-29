@@ -34,7 +34,7 @@ class CitizenController extends Controller
 
         $page = (int) ($request->input('page', 1));
         $perPage = (int) ($request->input('per_page', 10));
-        $data = CitizenRepository::queryCitizen($request->input('housing_id'));
+        $data = CitizenRepository::queryCitizen();
 
         if($request->input('only_head')) {
             $data->where('fm.relationship_status', RelationshipStatusOption::KEPALA_KELUARGA);
@@ -73,4 +73,27 @@ class CitizenController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function show(Request $request){
+        $validator = Validator::make($request->all(), [
+            "housing_user_id" => ['required', 'exists:housing_users,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $data = CitizenRepository::queryCitizen()
+        ->where('hu.id', $request->input('housing_user_id'))
+        ->first();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+    }
 }

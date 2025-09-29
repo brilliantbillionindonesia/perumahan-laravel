@@ -23,4 +23,20 @@ class FamilyCard extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function village(){
+        return $this->belongsTo(Village::class, 'village_code', 'code');
+    }
+
+    public function subdistrict(){
+        return $this->belongsTo(Subdistrict::class, 'subdistrict_code', 'code');
+    }
+
+    public function district(){
+        return $this->belongsTo(District::class, 'district_code', 'code');
+    }
+
+    public function province(){
+        return $this->belongsTo(Province::class, 'province_code', 'code');
+    }
 }

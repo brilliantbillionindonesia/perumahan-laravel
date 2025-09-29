@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CitizenController;
+use App\Http\Controllers\Api\FamilyController;
 use App\Http\Controllers\Api\HousingController;
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\ApI\AuthController;
@@ -41,6 +42,13 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     Route::prefix('citizens')->group(function () {
         Route::get('list', [CitizenController::class, 'list']);
         Route::get('show', [CitizenController::class, 'show']);
+    });
+
+    Route::prefix('family')->group(function () {
+        Route::get('card', [FamilyController::class, 'card']);
+        Route::get('list', [FamilyController::class, 'list']);
+        Route::get('my-list', [FamilyController::class, 'myList']);
+        Route::get('my-card', [FamilyController::class, 'myCard']);
     });
 
 

@@ -101,6 +101,7 @@ class AuthController extends Controller
             'u.id',
             'u.name',
             'u.email',
+            DB::raw('role.code as role_code'),
             DB::raw('role.name as role_name')
         )
         ->first();
