@@ -139,6 +139,7 @@ class MasterController extends Controller
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'data' => $paginator->items(),
+            'message' => 'Success',
             'meta' => [
                 'current_page' => $paginator->currentPage(),
                 'per_page' => $paginator->perPage(),
@@ -189,6 +190,7 @@ class MasterController extends Controller
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
             'data' => $data->first()
         ], HttpStatusCodes::HTTP_OK);
 

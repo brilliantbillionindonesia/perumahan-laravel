@@ -21,6 +21,7 @@ class HousingController extends Controller
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
             'data' => $data->toArray()
         ], HttpStatusCodes::HTTP_OK);
     }
@@ -53,6 +54,7 @@ class HousingController extends Controller
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
             'data' => $data
         ], HttpStatusCodes::HTTP_OK);
 
