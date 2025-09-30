@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\ApI\AuthController;
 use App\Http\Controllers\Api\NgarondaController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OptionController;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -51,7 +52,6 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('my-card', [FamilyController::class, 'myCard']);
     });
 
-
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -62,5 +62,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/update', [MasterController::class, 'update']);
         Route::delete('/delete', [MasterController::class, 'delete']);
         Route::put('/restore', [MasterController::class, 'restore']);
+    });
+    Route::prefix('option')->group(function () {
+        Route::get('list', [OptionController::class, 'index']);
+        Route::get('show/{constant}', [OptionController::class, 'show']);
+        Route::post('store/{constant}', [OptionController::class, 'store']);
+        Route::put('update/{constant}', [OptionController::class, 'update']);
     });
 });
