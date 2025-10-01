@@ -12,6 +12,8 @@ use App\Constants\MaritalStatusOption;
 use App\Constants\RelationshipStatusOption;
 use App\Constants\ReligionOption;
 use App\Constants\WorkTypeOption;
+use App\Models\ComplaintCategory;
+use App\Models\ComplaintStatus;
 
 class OptionController extends Controller
 {
@@ -53,26 +55,6 @@ class OptionController extends Controller
         return response()->json([
             'success' => true,
             'data' => $values
-        ]);
-    }
-    
-    public function store(Request $request, $constant)
-    {
-        // contoh hanya dummy, karena constant biasanya hardcoded
-        return response()->json([
-            'success' => true,
-            'message' => "New value stored in {$constant}",
-            'data' => $request->all(),
-        ]);
-    }
-
-    public function update(Request $request, $constant)
-    {
-        // contoh hanya dummy juga
-        return response()->json([
-            'success' => true,
-            'message' => "Option {$constant} updated successfully",
-            'data' => $request->all(),
         ]);
     }
 }

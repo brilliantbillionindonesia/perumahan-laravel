@@ -11,7 +11,12 @@ class ComplaintLogs extends Model
         'complaint_id',
         'logged_by',
         'logged_at',
-        'status',
+        'status_code',
         'note'
     ];
+
+    public function complaint()
+    {
+        return $this->belongsTo(Complaint::class);
+    }
 }

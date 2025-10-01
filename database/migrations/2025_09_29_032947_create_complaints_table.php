@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->uuid('housing_id');
             $table->uuid('user_id');
             $table->string('title');
-            $table->string('category_id');
+            $table->string('category_code');
             $table->text('description');
-            $table->string('status_id')->default('new');
+            $table->string('status_code')->default('new');
             $table->uuid('updated_by')->nullable();
+            $table->datetime('submitted_at');
             $table->text('note')->nullable();
             $table->softDeletes();
             $table->timestamps();

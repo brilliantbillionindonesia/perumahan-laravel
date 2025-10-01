@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique(); // kategori unik, misalnya "INFRA"
             $table->string('name');           // nama kategori
+            $table->softDeletes();
             $table->timestamps();
         });
     }
