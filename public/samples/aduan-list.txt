@@ -1,0 +1,46 @@
+request body
+
+housing_id : required (udah di handle oleh profile middleware)
+page : optional (default 1, min:1)
+per_page : optional (default 10, max : 30)
+search (title, description) : optional
+category_code : optional
+status_code : optional
+
+sample output :
+
+Keterangan Lain :
+- order date pengaduan terbaru ke yg terlama (desc)
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data",
+    "data": [
+        {
+            "complaint_id" : "bla-bla-bla",
+            "user_id" : "bla-bla-bla",
+            "user_name" : "bla-bla-bla",
+            "category_code" : "bla-bla-bla",
+            "category_name" : "bla-bla-bla",
+            "status_code" : "new",
+            "status_name" : "pengaduan bayu",
+            "admin_id" : null,
+            "admin_name" : null,
+            "submitted_at" : "2022-08-01 00:00:00",
+            "updated_at" : "2022-08-01 00:00:00"
+        }, {
+            "complaint_id" : "bla-bla-bla",
+            "user_id" : "bla-bla-bla",
+            "user_name" : "bla-bla-bla",
+            "category_code" : "bla-bla-bla",
+            "category_name" : "bla-bla-bla",
+            "status_code" : "rejected",
+            "status_name" : "ditoyak",
+            "admin_id" : "bla-bla-bla",
+            "admin_name" : "bla-bla-bla",
+            "submitted_at" : "2022-08-01 00:00:00",
+            "updated_at" : "2022-08-01 00:00:00"
+        }
+    ]
+}
