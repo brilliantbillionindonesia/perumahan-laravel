@@ -8,6 +8,7 @@ use App\Http\Controllers\ApI\AuthController;
 use App\Http\Controllers\Api\NgarondaController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OptionController;
+use App\Http\Controllers\Api\ComplaintController;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -52,6 +53,12 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('my-card', [FamilyController::class, 'myCard']);
     });
 
+    Route::prefix('complaint')->group(function () {
+        Route::get('/list', [ComplaintController::class, 'list']);
+        Route::get('/show/{id}', [ComplaintController::class, 'show']);
+        Route::post('/store', [ComplaintController::class, 'store']);
+        Route::put('/update/{id}', [ComplaintController::class, 'update']);
+    });
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

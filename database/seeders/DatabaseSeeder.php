@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Complaint;
 use App\Models\Housing;
 use App\Models\HousingUser;
 use App\Models\User;
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([RolePermissionSeeder::class]);
         // $this->call([FamilySeeder::class]);
         $this->call([LargeFamilySeeder::class]);
+        $this->call([ComplaintStatusSeeder::class]);
+        $this->call([ComplaintCategorySeeder::class]);
     }
 }

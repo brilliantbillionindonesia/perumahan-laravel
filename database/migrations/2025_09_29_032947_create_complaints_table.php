@@ -16,11 +16,11 @@ return new class extends Migration
             $table->uuid('housing_id');
             $table->uuid('user_id');
             $table->string('title');
-            $table->string('categories');
+            $table->string('category_id');
             $table->text('description');
-            $table->string('status')->default('pending');
-            $table->uuid('updated_by');
-            $table->text('note');
+            $table->string('status_id')->default('new');
+            $table->uuid('updated_by')->nullable();
+            $table->text('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
