@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ForceJsonMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
             'profile' => \App\Http\Middleware\ProfileMiddleware::class,
+        ]);
+        $middleware->group('api', [
+            ForceJsonMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

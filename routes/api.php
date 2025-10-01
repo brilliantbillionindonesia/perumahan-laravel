@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 
 use App\Http\Controllers\Api\HousingController;
