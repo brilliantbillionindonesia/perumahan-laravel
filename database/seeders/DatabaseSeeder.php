@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call([FamilySeeder::class]);
         $this->call([ComplaintStatusSeeder::class]);
         $this->call([ComplaintCategorySeeder::class]);
+        // $this->call([FamilySeeder::class]);
+        $this->call([LargeFamilySeeder::class]);
+
     }
 }

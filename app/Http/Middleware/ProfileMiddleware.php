@@ -18,38 +18,28 @@ class ProfileMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Kalau tidak ada housing_id, langsung lanjut aja
-        if (!$request->has('housing_id')) {
-            return $next($request);
-        }
         $validator = Validator::make($request->all(), [
             'housing_id' => ['required', 'exists:housings,id'],
         ]);
 
         if ($validator->fails()) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                    'message' => $validator->errors()->first(),
-                ],
-                HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-            );
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $data = HousingRepository::queryHousing($request->user()->id)
-            ->where('hu.housing_id', $request->input('housing_id'))
-            ->first();
+        ->where('hu.housing_id', $request->input('housing_id'))
+        ->first();
 
         if (!$data) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
-                    'message' => 'Housing ID not matched',
-                ],
-                HttpStatusCodes::HTTP_NOT_FOUND,
-            );
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Housing ID not matched',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
         $request->current_housing = $data;

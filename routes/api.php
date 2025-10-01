@@ -52,7 +52,6 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('my-list', [FamilyController::class, 'myList']);
         Route::get('my-card', [FamilyController::class, 'myCard']);
     });
-
     Route::prefix('option')->group(function () {
         Route::get('list', [OptionController::class, 'index']);
         Route::get('show/{constant}', [OptionController::class, 'show']);
@@ -75,5 +74,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/update', [MasterController::class, 'update']);
         Route::delete('/delete', [MasterController::class, 'delete']);
         Route::put('/restore', [MasterController::class, 'restore']);
+    });
+    Route::prefix('option')->group(function () {
+        Route::get('list', [OptionController::class, 'index']);
+        Route::get('show/{constant}', [OptionController::class, 'show']);
+        Route::post('store/{constant}', [OptionController::class, 'store']);
+        Route::put('update/{constant}', [OptionController::class, 'update']);
     });
 });

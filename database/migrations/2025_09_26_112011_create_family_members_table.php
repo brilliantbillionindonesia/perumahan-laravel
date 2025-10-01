@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('mother_name')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('citizen_id', 'idx_family_members_citizen_id');
         });
     }
 
