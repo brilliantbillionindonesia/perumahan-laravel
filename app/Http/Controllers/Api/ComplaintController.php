@@ -78,8 +78,6 @@ class ComplaintController extends Controller
             'title'         => 'required|string',
             'description'   => 'required|string',
             'category_code' => 'required|string|exists:complaint_categories,code',
-            'housing_id'    => 'required|exists:housings,id',
-            // status_code tidak usah divalidasi, FE tidak perlu kirim
         ]);
     
         if ($validator->fails()) {
@@ -121,7 +119,7 @@ class ComplaintController extends Controller
             'complaint_id' => $complaint->id,
             'logged_by'    => $request->user()->id,
             'logged_at'    => now(),
-            'status'       => $status->code,
+            'status_code'  => $status->code,
             'note'         => 'Pengaduan dibuat',
         ]);
     
@@ -142,7 +140,7 @@ class ComplaintController extends Controller
         return response()->json([
             'success' => true,
             'code'    => 201,
-            'message' => 'Complaint berhasil ditambahkan',
+            'message' => 'Pengaduan berhasil ditambahkan',
             'data'    => $data,
         ], 201);
     }

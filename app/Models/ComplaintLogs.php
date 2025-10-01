@@ -11,7 +11,7 @@ class ComplaintLogs extends Model
         'complaint_id',
         'logged_by',
         'logged_at',
-        'status',
+        'status_code',
         'note'
     ];
 
