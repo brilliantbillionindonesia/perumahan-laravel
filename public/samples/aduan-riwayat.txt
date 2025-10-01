@@ -1,0 +1,32 @@
+request body
+
+housing id :
+complaint_id :
+
+Keterangan Lain :
+- order date pengaduan terlama ke terbaru
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data",
+    "data": [
+        {
+            "complaint_id" : "bla-bla-bla",
+            "status_code" : "new",
+            "status_name" : "pengaduan bayu",
+            "note" : "",
+            "logged_by" : "yg membuat aduan id",
+            "logged_name" : "yg membuat aduan name",
+            "logged_at" : "2022-08-01 00:00:00",
+        }, {
+            "complaint_id" : "bla-bla-bla",
+            "status_code" : "closed",
+            "status_name" : "sudah zelezai",
+            "note" : "udah zelezai"
+            "logged_by" : "admin_id",
+            "logged_name" : "admin_name",
+            "logged_at" : "2022-08-01 00:00:00",
+        }
+    ]
+}

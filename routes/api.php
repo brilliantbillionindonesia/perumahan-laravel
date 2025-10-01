@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('my-list', [FamilyController::class, 'myList']);
         Route::get('my-card', [FamilyController::class, 'myCard']);
     });
+<<<<<<< HEAD
 
     Route::prefix('option')->group(function () {
         Route::get('list', [OptionController::class, 'index']);
@@ -59,6 +60,8 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::post('store/{constant}', [OptionController::class, 'store']);
         Route::put('update/{constant}', [OptionController::class, 'update']);
     });
+=======
+>>>>>>> 5fef556aba44a218547a3742eb5ab805c63db3ad
 
     Route::prefix('complaint')->group(function () {
         Route::get('/list', [ComplaintController::class, 'list']);

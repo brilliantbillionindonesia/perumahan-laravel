@@ -1,0 +1,20 @@
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data",
+    "data":
+        {
+            "complaint_id" : "bla-bla-bla",
+            "user_id" : "bla-bla-bla",
+            "user_name" : "bla-bla-bla",
+            "category_code" : "bla-bla-bla",
+            "category_name" : "bla-bla-bla",
+            "status_code" : "new",
+            "status_name" : "pengaduan bayu",
+            "admin_id" : null,
+            "admin_name" : null,
+            "submitted_at" : "2022-08-01 00:00:00",
+            "updated_at" : "2022-08-01 00:00:00"
+        }
+}
