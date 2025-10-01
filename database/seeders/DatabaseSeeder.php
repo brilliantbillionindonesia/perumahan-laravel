@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([DistrictSeeder::class]);
         $this->call([ProvinceSeeder::class]);
         $this->call([RolePermissionSeeder::class]);
-        // $this->call([FamilySeeder::class]);
-        $this->call([LargeFamilySeeder::class]);
+        $this->call([FamilySeeder::class]);
         $this->call([ComplaintStatusSeeder::class]);
         $this->call([ComplaintCategorySeeder::class]);
     }
