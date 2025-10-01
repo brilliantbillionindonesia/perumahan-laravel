@@ -14,4 +14,9 @@ class ComplaintLogs extends Model
         'status',
         'note'
     ];
+
+    public function complaint()
+    {
+        return $this->belongsTo(Complaint::class);
+    }
 }

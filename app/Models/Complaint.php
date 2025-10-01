@@ -3,20 +3,44 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Complaint extends Model
 {
     protected $table = 'complaints';
+    protected $keyType = 'string';   // karena UUID string
+    public $incrementing = false;    // bukan auto-increment
 
     protected $fillable = [
-        'housing_id',
-        'user_id',
+        'id',
         'title',
-        'category_id',
         'description',
-        'status_id',
+        'housing_id',
+        'category_code',
+        'status_code',
+        'user_id',
+        'submitted_at',
         'updated_by',
-        'note'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) Str::uuid();
+            }
+        });
+    }
+
+    // Casting field
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s', 
+        'submitted_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime',
+        'status_id' => 'integer',
+        'category_id' => 'integer',
     ];
 
     // Relasi ke kategori
