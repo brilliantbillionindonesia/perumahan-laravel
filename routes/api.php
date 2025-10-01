@@ -1,14 +1,11 @@
+
+
+
+
 <?php
 
-use App\Http\Controllers\Api\CitizenController;
-use App\Http\Controllers\Api\FamilyController;
 use App\Http\Controllers\Api\HousingController;
-use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\ApI\AuthController;
-use App\Http\Controllers\Api\NgarondaController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\OptionController;
-use App\Http\Controllers\Api\ComplaintController;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -28,7 +25,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
-
     Route::middleware(['role:admin'])->group(function () {
         Route::get('admin/dashboard', fn() => 'Welcome admin');
     });
@@ -52,7 +48,6 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('my-list', [FamilyController::class, 'myList']);
         Route::get('my-card', [FamilyController::class, 'myCard']);
     });
-<<<<<<< HEAD
 
     Route::prefix('option')->group(function () {
         Route::get('list', [OptionController::class, 'index']);
@@ -60,8 +55,6 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::post('store/{constant}', [OptionController::class, 'store']);
         Route::put('update/{constant}', [OptionController::class, 'update']);
     });
-=======
->>>>>>> 5fef556aba44a218547a3742eb5ab805c63db3ad
 
     Route::prefix('complaint')->group(function () {
         Route::get('/list', [ComplaintController::class, 'list']);
@@ -85,4 +78,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('store/{constant}', [OptionController::class, 'store']);
         Route::put('update/{constant}', [OptionController::class, 'update']);
     });
+    require __DIR__.'/api/user.php';
+    require __DIR__.'/api/citizens.php';
+    require __DIR__.'/api/complaints.php';
+    require __DIR__.'/api/family.php';
 });
+
+require __DIR__.'/api/master.php';
