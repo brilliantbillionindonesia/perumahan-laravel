@@ -1,0 +1,14 @@
+[
+    {
+      "code": "new",
+      "name": "Pengaduan Baru"
+    },
+    {
+      "code": "in_progress",
+      "name": "Sedang Diproses"
+    },
+    {
+      "code": "closed",
+      "name": "Sudah Ditutup"
+    }
+  ]

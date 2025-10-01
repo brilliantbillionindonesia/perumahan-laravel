@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('complaint_statuses', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('name');
-            $table->string('code');
             $table->softDeletes();
             $table->timestamps();
         });

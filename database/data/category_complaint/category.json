@@ -1,0 +1,22 @@
+[
+    {
+      "code": "infrastructure",
+      "name": "Infrastruktur"
+    },
+    {
+      "code": "security",
+      "name": "Keamanan"
+    },
+    {
+      "code": "environment",
+      "name": "Lingkungan"
+    },
+    {
+      "code": "administration",
+      "name": "Administrasi"
+    },
+    {
+      "code": "others",
+      "name": "Lainnya"
+    }
+  ]
