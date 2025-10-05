@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class House extends Model
+class FinancialTransaction extends Model
 {
     use HasUuids;
 
-    protected $table = 'houses';
+    protected $table = 'financial_transactions';
     protected $guarded = [];
 }

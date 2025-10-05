@@ -15,15 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([VillageSeeder::class]);
-        // $this->call([SubdistrictSeeder::class]);
-        $this->call([DistrictSeeder::class]);
-        $this->call([ProvinceSeeder::class]);
-        $this->call([RolePermissionSeeder::class]);
-        $this->call([FamilySeeder::class]);
-        $this->call([ComplaintStatusSeeder::class]);
-        $this->call([ComplaintCategorySeeder::class]);
-        $this->call([FamilySeeder::class]);
-        $this->call([LargeFamilySeeder::class]);
+        $this->call([
+            DistrictSeeder::class,
+            ProvinceSeeder::class,
+            RolePermissionSeeder::class,
+            FamilySeeder::class,
+            ComplaintStatusSeeder::class,
+            ComplaintCategorySeeder::class,
+            LargeFamilySeeder::class,
+            FinancialCategorySeeder::class,
+            FeeSeeder::class,
+            DueSeeder::class,
+        ]);
     }
 }

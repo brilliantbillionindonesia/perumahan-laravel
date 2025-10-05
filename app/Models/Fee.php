@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class House extends Model
+class Fee extends Model
 {
-    use HasUuids;
+    use HasUuids, SoftDeletes;
 
-    protected $table = 'houses';
+    protected $table = 'fees';
+
     protected $guarded = [];
 }

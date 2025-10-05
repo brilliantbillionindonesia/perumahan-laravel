@@ -79,7 +79,7 @@ class ComplaintController extends Controller
             'description'   => 'required|string',
             'category_code' => 'required|string|exists:complaint_categories,code',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -87,13 +87,13 @@ class ComplaintController extends Controller
                 'message' => $validator->errors()->first(),
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
-    
+
         $data     = $validator->validated();
         $category = ComplaintCategory::where('code', $data['category_code'])->firstOrFail();
-    
+
         // default status = new
         $status   = ComplaintStatus::where('code', 'new')->firstOrFail();
-    
+
         $complaint = Complaint::create([
             'title'        => $data['title'],
             'description'  => $data['description'],
@@ -104,16 +104,16 @@ class ComplaintController extends Controller
             'submitted_at' => now(),
             'updated_by'   => $request->user()->id,
         ]);
-    
-        
+
+
         ActivityLogService::logModel(
             model: $complaint->getTable(),
             rowId: $complaint->id,
             json: $complaint->toArray(),      // ini tetap array untuk JSON
             type: 'create',
         );
-        
-    
+
+
         // complaint log
         ComplaintLogs::create([
             'complaint_id' => $complaint->id,
@@ -122,7 +122,7 @@ class ComplaintController extends Controller
             'status_code'  => $status->code,
             'note'         => 'Pengaduan dibuat',
         ]);
-    
+
         $data = [
             'id'            => $complaint->id,
             'title'         => $complaint->title,
@@ -136,7 +136,7 @@ class ComplaintController extends Controller
             'status_name'   => $status->name,
             'submitted_at'  => $complaint->submitted_at,
         ];
-    
+
         return response()->json([
             'success' => true,
             'code'    => 201,

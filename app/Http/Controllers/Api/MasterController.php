@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Constants\HttpStatusCodes;
 use App\Http\Services\ActivityLogService;
 use Cache;
+use Http;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -53,7 +54,9 @@ class MasterController extends Controller
             'order_dir' => ['nullable', Rule::in(['asc', 'desc', 'ASC', 'DESC'])],
             'with_trashed' => ['nullable', 'boolean'],
             'filters' => ['nullable', 'array'],
+            'filter_query' => ['nullable', 'string'],
             'filters.*.column' => ['required', 'string'],
+            'filters.*.operator' => ['nullable', Rule::in(['=', '!=', '>', '>=', '<', '<='])],
             'filters.*.value' => ['required', 'string'],
         ]);
 
@@ -74,6 +77,7 @@ class MasterController extends Controller
         $orderDir = $request->input('order_dir', 'asc');
         $withTrashed = (bool) ($request->input('with_trashed', false));
 
+
         // Validate columns (if provided)
         $cachedColumns = $this->cacheColumns($table);
         if ($columns) {
@@ -82,9 +86,9 @@ class MasterController extends Controller
             if (!empty($invalid)) {
                 return response()->json([
                     'success' => false,
-                    'code'    => 400,
+                    'code'    => HttpStatusCodes::HTTP_BAD_REQUEST,
                     'message' => "Invalid columns in `{$table}`: " . implode(', ', $invalid),
-                ], 400);
+                ], HttpStatusCodes::HTTP_BAD_REQUEST);
             }
         }
 
@@ -94,14 +98,19 @@ class MasterController extends Controller
                 if (!in_array($filter['column'], $cachedColumns, true)) {
                     return response()->json([
                         'success' => false,
-                        'code'    => 400,
+                        'code'    => HttpStatusCodes::HTTP_BAD_REQUEST,
                         'message' => "Invalid filter column `{$filter['column']}` in table `{$table}`.",
-                    ], 400);
+                    ], HttpStatusCodes::HTTP_BAD_REQUEST);
                 }
             }
         }
 
         $builder = DB::table($table);
+
+        if(!$filters &&$request->has('filter_query') && $request->input('filter_query') !== null){
+            $filter = str_replace('where', '', $request->input('filter_query'));
+            $builder->whereRaw($filter);
+        }
 
         if ($withTrashed === false) {
             $builder->where('deleted_at', null);
@@ -115,18 +124,25 @@ class MasterController extends Controller
 
         if($filters){
             foreach ($filters as $filter) {
-                $builder->where($filter['column'], $filter['value']);
+                $operator = isset($filter['operator']) ? $filter['operator'] : '=';
+                if($operator === '='){
+                    if($filter['value'] === 'null'){
+                        $builder->whereNull($filter['column']);
+                    } else {
+                        $builder->where($filter['column'], $filter['value']);
+                    }
+                } else {
+                    $builder->where($filter['column'], $operator, $filter['value']);
+                }
             }
         }
 
-        // Optional ordering (only if column exists)
         if ($orderBy && in_array($request->input('order_by'), $cachedColumns, true)) {
             $builder->orderBy($orderBy, $orderDir);
         } else {
             $builder->orderBy('created_at', 'desc');
         }
 
-        // Length-aware pagination
         $paginator = $builder->paginate(
             $perPage,
             ['*'],
@@ -138,22 +154,22 @@ class MasterController extends Controller
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
-            'data' => $paginator->items(),
             'message' => 'Success',
-            'meta' => [
-                'current_page' => $paginator->currentPage(),
-                'per_page' => $paginator->perPage(),
-                'total' => $paginator->total(),
-                'last_page' => $paginator->lastPage(),
-                'from' => $paginator->firstItem(),
-                'to' => $paginator->lastItem(),
-            ],
-            'links' => [
-                'first' => $paginator->url(1),
-                'prev' => $paginator->previousPageUrl(),
-                'next' => $paginator->nextPageUrl(),
-                'last' => $paginator->url($paginator->lastPage()),
-            ],
+            'data' => $paginator->items(),
+            // 'meta' => [
+            //     'current_page' => $paginator->currentPage(),
+            //     'per_page' => $paginator->perPage(),
+            //     'total' => $paginator->total(),
+            //     'last_page' => $paginator->lastPage(),
+            //     'from' => $paginator->firstItem(),
+            //     'to' => $paginator->lastItem(),
+            // ],
+            // 'links' => [
+            //     'first' => $paginator->url(1),
+            //     'prev' => $paginator->previousPageUrl(),
+            //     'next' => $paginator->nextPageUrl(),
+            //     'last' => $paginator->url($paginator->lastPage()),
+            // ],
         ], HttpStatusCodes::HTTP_OK);
     }
 
@@ -236,17 +252,17 @@ class MasterController extends Controller
         if (empty($validData)) {
             return response()->json([
                 'success' => false,
-                'code' => 422,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
                 'message' => "No valid columns found for table `{$table}`.",
-            ], 422);
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         if (!empty($invalidColumns)) {
             return response()->json([
                 'success' => false,
-                'code' => 400,
+                'code' => HttpStatusCodes::HTTP_BAD_REQUEST,
                 'message' => "Invalid columns: " . implode(', ', $invalidColumns),
-            ], 400);
+            ], HttpStatusCodes::HTTP_BAD_REQUEST);
         }
 
         $validData['created_at'] = now();
@@ -333,17 +349,17 @@ class MasterController extends Controller
         if (empty($validData)) {
             return response()->json([
                 'success' => false,
-                'code' => 422,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
                 'message' => "No valid columns found for table `{$table}`.",
-            ], 422);
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         if (!empty($invalidColumns)) {
             return response()->json([
                 'success' => false,
-                'code' => 400,
+                'code' => HttpStatusCodes::HTTP_BAD_REQUEST,
                 'message' => "Invalid columns: " . implode(', ', $invalidColumns),
-            ], 400);
+            ], HttpStatusCodes::HTTP_BAD_REQUEST);
         }
 
         try {
