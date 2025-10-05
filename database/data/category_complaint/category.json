@@ -18,5 +18,9 @@
     {
       "code": "others",
       "name": "Lainnya"
+    },
+    {
+      "code": "facilities",
+      "name": "Fasilitas Umum"
     }
   ]
