@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
-use App\Models\HousingUser;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Http\Repositories\HousingRepository;
 
 class HousingController extends Controller
@@ -17,7 +14,6 @@ class HousingController extends Controller
     public function list(Request $request)
     {
         $data = HousingRepository::queryHousing($request->user()->id)->get();
-
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,

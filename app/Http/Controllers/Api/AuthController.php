@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Validator;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -85,6 +86,39 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logged out successfully',
         ], HttpStatusCodes::HTTP_OK);
+    }
+
+
+    public function checkToken(Request $request)
+    {
+        $token = $request->bearerToken(); // ambil token dari header Authorization
+
+        if (!$token) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNAUTHORIZED,
+                'message' => 'Token tidak ditemukan',
+            ], HttpStatusCodes::HTTP_UNAUTHORIZED);
+        }
+
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        if (!$accessToken || $accessToken->expires_at?->isPast()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNAUTHORIZED,
+                'message' => 'Token sudah tidak aktif atau kedaluwarsa',
+            ], HttpStatusCodes::HTTP_UNAUTHORIZED);
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_CREATED,
+            'message' => "Token masih aktif",
+            'data' => $accessToken->tokenable
+        ], HttpStatusCodes::HTTP_CREATED);
+
+
     }
 
     public function me(Request $request)

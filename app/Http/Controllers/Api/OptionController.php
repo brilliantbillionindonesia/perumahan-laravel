@@ -45,13 +45,13 @@ class OptionController extends Controller
                 'message' => 'Option not found'
             ], 404);
         }
-    
+
         $class = $this->options[$constant];
-    
+
         // Ambil semua constant dalam bentuk value saja
         $refClass = new \ReflectionClass($class);
         $values   = array_values($refClass->getConstants());
-    
+
         return response()->json([
             'success' => true,
             'data' => $values

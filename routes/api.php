@@ -1,15 +1,12 @@
-
-
-
-
 <?php
 
 use App\Http\Controllers\Api\HousingController;
-use App\Http\Controllers\ApI\AuthController;
+use App\Http\Controllers\Api\AuthController;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::get('check', [AuthController::class, 'checkToken'])->name('check-token');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
@@ -40,8 +37,12 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     require __DIR__.'/api/citizens.php';
     require __DIR__.'/api/complaints.php';
     require __DIR__.'/api/family.php';
+<<<<<<< HEAD
 
 
+=======
+    require __DIR__.'/api/financial.php';
+>>>>>>> 6ad0d3e96d5d93f0bfb8aecfa1c3a0a0c0d80c96
 });
 
 require __DIR__.'/api/master.php';
