@@ -26,6 +26,13 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
         Route::get('admin/dashboard', fn() => 'Welcome admin');
     });
 
+    Route::middleware(['role:admin'])->group(function () {
+        Route::prefix('user')->group(function () {
+            Route::get('list', [UserController::class, 'list']);
+            Route::post('store', [UserController::class, 'store']);
+            Route::put('role', [UserController::class, 'changeRole']);
+        });
+    });
     require __DIR__.'/api/user.php';
     require __DIR__.'/api/citizens.php';
     require __DIR__.'/api/complaints.php';
@@ -34,3 +41,5 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
 });
 
 require __DIR__.'/api/master.php';
+
+
