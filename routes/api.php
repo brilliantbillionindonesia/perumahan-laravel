@@ -37,12 +37,10 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     require __DIR__.'/api/citizens.php';
     require __DIR__.'/api/complaints.php';
     require __DIR__.'/api/family.php';
-<<<<<<< HEAD
 
 
-=======
     require __DIR__.'/api/financial.php';
->>>>>>> 6ad0d3e96d5d93f0bfb8aecfa1c3a0a0c0d80c96
+
 });
 
 require __DIR__.'/api/master.php';
