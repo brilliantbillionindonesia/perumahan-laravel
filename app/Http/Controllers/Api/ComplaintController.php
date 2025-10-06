@@ -85,72 +85,71 @@ class ComplaintController extends Controller
 
     public function show(Request $request)
     {
-        $housingId = $request->query('housing_id');
-        $id = $request->query('id');
-
-        $complaint = Complaint::where('housing_id', $housingId)->where('id', $id)->first();
-
-        if ($complaint) {
+        // ✅ Validasi input
+        $validator = Validator::make($request->all(), [
+            'housing_id' => 'required|exists:housings,id',
+            'id' => 'required|exists:complaints,id',
+        ]);
+    
+        if ($validator->fails()) {
             return response()->json(
                 [
-                    'code' => 200,
-                    'message' => 'Berhasil menampilkan data',
-                    'data' => $complaint,
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => $validator->errors()->first(),
                 ],
-                200,
+                HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
             );
         }
-
-        return response()->json(
-            [
-                'code' => 404,
-                'message' => 'Data tidak ditemukan',
-                'data' => null,
-            ],
-            404,
-        );
-
+    
+        $data = $validator->validated();
+    
+        // 🔍 Ambil data complaint beserta relasi
         $complaint = Complaint::with(['category', 'status', 'user', 'updatedBy'])
-            ->where('housing_id', $housingId)
-            ->where('id', $id)
+            ->where('housing_id', $data['housing_id'])
+            ->where('id', $data['id'])
             ->first();
-
+    
         if (!$complaint) {
             return response()->json(
                 [
                     'success' => false,
-                    'code' => 404,
-                    'message' => 'Complaint tidak ditemukan.',
+                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                    'message' => 'Data pengaduan tidak ditemukan.',
                 ],
-                404,
+                HttpStatusCodes::HTTP_NOT_FOUND,
             );
         }
-
-        // Format response sesuai permintaan
-        $data = [
+    
+        // ✅ Format response data
+        $responseData = [
             'complaint_id' => $complaint->id,
+            'title' => $complaint->title,
+            'description' => $complaint->description,
             'user_id' => $complaint->user_id,
             'user_name' => $complaint->user?->name,
             'category_code' => $complaint->category_code,
             'category_name' => $complaint->category?->name,
             'status_code' => $complaint->status_code,
             'status_name' => $complaint->status?->name,
-            'admin_id' => $complaint->admin?->id,
-            'admin_name' => $complaint->admin?->name,
+            'updated_by' => $complaint->updatedBy?->id,
+            'updated_by_name' => $complaint->updatedBy?->name,
             'submitted_at' => $complaint->submitted_at,
             'updated_at' => $complaint->updated_at,
         ];
-
+    
+        // ✅ Response sukses
         return response()->json(
             [
                 'success' => true,
-                'code' => 200,
-                'message' => 'Berhasil menampilkan data',
-                'data' => $data,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Berhasil menampilkan data pengaduan',
+                'data' => $responseData,
             ],
-            200,
+            HttpStatusCodes::HTTP_OK,
         );
     }
+    
 
     public function store(Request $request)
     {
@@ -162,7 +161,6 @@ class ComplaintController extends Controller
         ]);
 
         if ($validator->fails()) {
-
             return response()->json(
                 [
                     'success' => false,
@@ -180,18 +178,21 @@ class ComplaintController extends Controller
         // default status = new
         $status = ComplaintStatus::where('code', 'new')->firstOrFail();
         if (!$status) {
-            return response()->json([
-                'success' => false,
-                'code'    => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => $validator->errors()->first(),
-            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(
+                [
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => $validator->errors()->first(),
+                ],
+                HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+            );
         }
 
-        $data     = $validator->validated();
+        $data = $validator->validated();
         $category = ComplaintCategory::where('code', $data['category_code'])->firstOrFail();
 
         // default status = new
-        $status   = ComplaintStatus::where('code', 'new')->firstOrFail();
+        $status = ComplaintStatus::where('code', 'new')->firstOrFail();
 
         $complaint = Complaint::create([
             'title' => $data['title'],
@@ -212,7 +213,6 @@ class ComplaintController extends Controller
             'note' => 'Pengaduan dibuat',
         ]);
 
-
         ActivityLogService::logModel(
             model: $complaint->getTable(),
             rowId: $complaint->id,
@@ -220,14 +220,13 @@ class ComplaintController extends Controller
             type: 'create',
         );
 
-
         // complaint log
         ComplaintLogs::create([
             'complaint_id' => $complaint->id,
-            'logged_by'    => $request->user()->id,
-            'logged_at'    => now(),
-            'status_code'  => $status->code,
-            'note'         => 'Pengaduan dibuat',
+            'logged_by' => $request->user()->id,
+            'logged_at' => now(),
+            'status_code' => $status->code,
+            'note' => 'Pengaduan dibuat',
         ]);
 
         $data = [
@@ -244,7 +243,6 @@ class ComplaintController extends Controller
             'submitted_at' => $complaint->submitted_at,
         ];
 
-
         return response()->json(
             [
                 'success' => true,
@@ -254,13 +252,6 @@ class ComplaintController extends Controller
             ],
             201,
         );
-
-        return response()->json([
-            'success' => true,
-            'code'    => 201,
-            'message' => 'Pengaduan berhasil ditambahkan',
-            'data'    => $data,
-        ], 201);
     }
 
     public function update(Request $request)
@@ -593,7 +584,6 @@ class ComplaintController extends Controller
     }
 
     public function history(Request $request)
-
     {
         // ✅ Validasi input dari body JSON
         $validator = Validator::make($request->json()->all(), [
@@ -657,7 +647,5 @@ class ComplaintController extends Controller
             ],
             HttpStatusCodes::HTTP_OK,
         );
-        
     }
-    
 }
