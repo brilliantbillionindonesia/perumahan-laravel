@@ -11,6 +11,6 @@ Route::prefix('complaint')->group(function () {
     route::get('/history', [ComplaintController::class, 'history']);
 
     Route::middleware(['role:admin'])->group(function () {
-            Route::post('action', [ComplaintController::class, 'action']);
-        });
+        Route::post('action', [ComplaintController::class, 'action']);
+    });
 });

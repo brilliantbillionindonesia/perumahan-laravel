@@ -7,6 +7,7 @@ use App\Constants\DueStatusOption;
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Financial\DueRepository;
+use App\Http\Services\ActivityLogService;
 use App\Models\CashBalance;
 use App\Models\Citizen;
 use App\Models\Due;
@@ -142,8 +143,14 @@ class DueController extends Controller
                 $value->status = "paid";
                 $value->save();
 
+                ActivityLogService::logModel(
+                    model: $value->getTable(),
+                    rowId: $value->id,
+                    json: $value->toArray(), // ini tetap array untuk JSON
+                    type: 'update',
+                );
+
                 $house = House::where('id', $value->house_id)->first();
-                $citizen = Citizen::where('id', $house->head_citizen_id)->first();
 
                 $payment = new Payment();
                 $payment->housing_id = $value->housing_id;
@@ -155,6 +162,14 @@ class DueController extends Controller
                 $payment->note = $request->input('note');
                 $payment->created_by = auth()->user()->id;
                 $payment->save();
+
+                ActivityLogService::logModel(
+                    model: $payment->getTable(),
+                    rowId: $payment->id,
+                    json: $payment->toArray(), // ini tetap array untuk JSON
+                    type: 'create',
+                );
+
 
                 $fee = Fee::where('id', $value->fee_id)->first();
 
@@ -169,6 +184,14 @@ class DueController extends Controller
                 $financialTransaction->note = "Pembayaran " . $fee->name ." ".$house->block." - ".$house->number;
                 $financialTransaction->save();
 
+                ActivityLogService::logModel(
+                    model: $financialTransaction->getTable(),
+                    rowId: $financialTransaction->id,
+                    json: $financialTransaction->toArray(), // ini tetap array untuk JSON
+                    type: 'create',
+                );
+
+
                 $cashBalance = CashBalance::where('housing_id', $value->housing_id)
                 ->where('year', $now->year)
                 ->where('month', $now->month)
@@ -178,6 +201,14 @@ class DueController extends Controller
                     $cashBalance->income += $value->amount;
                     $cashBalance->closing_balance += $value->amount;
                     $cashBalance->save();
+
+                    ActivityLogService::logModel(
+                        model: $cashBalance->getTable(),
+                        rowId: $cashBalance->id,
+                        json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                        type: 'create',
+                    );
+
                 } else {
                     $prevBalance = CashBalance::where('housing_id', $value->housing_id)
                         ->orderBy('year', 'desc')
@@ -194,7 +225,16 @@ class DueController extends Controller
                     $cashBalance->income = $value->amount;
                     $cashBalance->closing_balance = $value->amount;
                     $cashBalance->save();
+
+                    ActivityLogService::logModel(
+                        model: $cashBalance->getTable(),
+                        rowId: $cashBalance->id,
+                        json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                        type: 'update',
+                    );
                 }
+
+
             });
         }
 

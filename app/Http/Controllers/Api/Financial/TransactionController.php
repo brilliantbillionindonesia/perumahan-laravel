@@ -58,6 +58,7 @@ class TransactionController extends Controller
 
         $data = FinancialTransaction::where('housing_id', $request->input('housing_id'))
             ->whereYear('transaction_date', $year)
+            ->whereMonth('transaction_date', $month)
             ->when($request->input('search'), function ($query) use ($request) {
                 $query->where(function ($query) use ($request) {
                     $query->where('note', 'like', '%' . $request->input('search') . '%');
@@ -69,7 +70,6 @@ class TransactionController extends Controller
                     $query->where('type', $request->input('type'));
                 }
             })
-            ->whereMonth('transaction_date', $month)
             ->orderBy('created_at', 'desc')
             ->limit($perPage)
             ->offset(($page - 1) * $perPage)
@@ -281,6 +281,12 @@ class TransactionController extends Controller
                     $cashBalance->expense = 0;
                     $cashBalance->closing_balance = $openingBalance; // start = opening
                     $cashBalance->save();
+                    ActivityLogService::logModel(
+                        model: $cashBalance->getTable(),
+                        rowId: $cashBalance->id,
+                        json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                        type: 'create',
+                    );
                     // setelah save, closing_balance = openingBalance (nol perubahan)
                 }
 
@@ -310,6 +316,13 @@ class TransactionController extends Controller
                     $cashBalance->closing_balance = (float) $cashBalance->closing_balance + $amount;
                 }
                 $cashBalance->save();
+
+                ActivityLogService::logModel(
+                    model: $cashBalance->getTable(),
+                    rowId: $cashBalance->id,
+                    json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                    type: 'update',
+                );
 
                 // Buat transaksi
                 $transactionCode = generateTransactionCode($hid, $now); // fungsi milikmu
@@ -351,5 +364,57 @@ class TransactionController extends Controller
                 'message' => 'Terjadi kesalahan saat menyimpan transaksi',
             ], HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function byCategory(Request $request){
+        $validator = Validator::make($request->all(), [
+            "cash_balance_id" => ['required', 'exists:cash_balances,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $cashBalance = CashBalance::where('id', $request->input('cash_balance_id'))
+            ->where('housing_id', $request->input('housing_id'))
+            ->first();
+
+        if (!$cashBalance) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $year = $cashBalance->year;
+        $month = $cashBalance->month;
+
+        $data = DB::table('financial_transactions as ft')
+            ->join('financial_categories as fc', 'ft.financial_category_code', '=', 'fc.code')
+            ->select(
+                'ft.financial_category_code as code',
+                'fc.name',
+                'ft.type',
+                DB::raw('SUM(ft.amount) as total')
+            )
+            ->where('ft.housing_id', $request->input('housing_id'))
+            ->whereYear('ft.transaction_date', $year)
+            ->whereMonth('ft.transaction_date', $month)
+            ->groupBy('ft.financial_category_code', 'fc.name', 'ft.type')
+            ->orderByRaw('sum(ft.amount) desc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+
     }
 }

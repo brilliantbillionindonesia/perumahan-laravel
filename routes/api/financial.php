@@ -35,7 +35,6 @@ Route::prefix('financial')->group(function () {
             Route::put('update', [TransactionController::class, 'update']);
             Route::delete('delete', [TransactionController::class, 'delete']);
         });
-
     });
 
     Route::prefix('cash-balances')->group(function () {
@@ -45,6 +44,7 @@ Route::prefix('financial')->group(function () {
     });
     Route::prefix('transactions')->group(function () {
         Route::get('list', [TransactionController::class, 'list']);
+        Route::get('category', [TransactionController::class, 'byCategory']);
     });
 
     Route::prefix('payment-proofs')->group(function () {
