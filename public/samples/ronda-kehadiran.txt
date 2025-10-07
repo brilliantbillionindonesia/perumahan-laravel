@@ -1,0 +1,12 @@
+method : post
+req body : {
+    housing_id,
+    date,
+    citizen_id,
+    replaced_by : null, // uuid
+    note : null,
+}
+
+- query table ronda dgn housing, date, citizen
+- kalo gk ada yg cocok, ya gk bisa absen,
+- kalo cocok ubah is_presence jadi true / false,
