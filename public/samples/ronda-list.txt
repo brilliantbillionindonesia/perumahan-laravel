@@ -1,0 +1,79 @@
+request body
+
+housing_id : required (udah di handle oleh profile middleware)
+page : optional (default 1, min:1)
+per_page : optional (default 10, max : 30)
+search (citizen_name) : optional
+year : required
+month : required
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data",
+    "data": [
+        {
+            "date" : "2025-10-12",
+            "member" : {
+                {
+                    "citizen_id" : "uuid",
+                    "citizen_name" : "omar nasrudin",
+                    "house_id" : "uuid",
+                    "block" : "AF",
+                    "number" : 10,
+                                    "replaced_by" : null,
+                "note" : null,
+                }, {
+                    "citizen_id" : "uuid",
+                    "citizen_name" : "praboro",
+                    "house_id" : "uuid",
+                    "block" : "AG",
+                    "number" : 11,
+                                    "replaced_by" : null,
+                "note" : null,
+
+                }, {
+                    "citizen_id" : "uuid",
+                    "citizen_name" : "gabrin",
+                    "house_id" : "uuid",
+                    "block" : "AH",
+                    "number" : 12,
+                                    "replaced_by" : null,
+                "note" : null,
+
+                }
+            }
+        }, {
+            "date" : "2025-10-13",
+            "member" : {
+                {
+                    "citizen_id" : "uuid",
+                    "citizen_name" : "omar nasrudin",
+                    "house_id" : "uuid",
+                    "block" : "AF",
+                    "number" : 10,
+                                    "replaced_by" : null,
+                "note" : null,
+
+                }, {
+                     "citizen_id" : "uuid",
+                    "citizen_name" : "praboro",
+                    "house_id" : "uuid",
+                    "block" : "AG",
+                    "number" : 11,
+                                    "replaced_by" : null,
+                "note" : null,
+
+                }, {
+                    "citizen_id" : "uuid",
+                    "citizen_name" : "gabrin",
+                    "house_id" : "uuid",
+                    "block" : "AH",
+                    "number" : 12,
+                                    "replaced_by" : null,
+                "note" : null,
+                }
+            }
+        }
+    ]
+}

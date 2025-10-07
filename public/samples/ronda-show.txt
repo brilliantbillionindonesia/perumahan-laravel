@@ -1,0 +1,44 @@
+
+params body : {
+    "housing_id",
+    "date"
+}
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data",
+    "data": {
+        "date" : "2025-10-12",
+        "member" : {
+            {
+                "citizen_id" : "uuid",
+                "citizen_name" : "omar nasrudin",
+                "is_presence" : true,
+                "replaced_by" : null,
+                "note" : null,
+                "house_id" : "uuid",
+                "block" : "AF",
+                "number" : 10
+            }, {
+                "citizen_id" : "uuid",
+                "citizen_name" : "praboro",
+                "house_id" : "uuid",
+                "is_presence" : false,
+                "replaced_by" : null,
+                "note" : "tidak ada kabvarr",
+                "block" : "AG",
+                "number" : 11
+            }, {
+                "citizen_id" : "uuid",
+                "citizen_name" : "gabrin",
+                "is_presence" : true,
+                "replaced_by" : null,
+                "note" : null,
+                "house_id" : "uuid",
+                "block" : "AH",
+                "number" : 12
+            }
+        }
+    }
+}

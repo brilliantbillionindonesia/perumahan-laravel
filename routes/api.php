@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\HousingController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -33,16 +34,11 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
             Route::put('role', [UserController::class, 'changeRole']);
         });
     });
+
     require __DIR__.'/api/user.php';
     require __DIR__.'/api/citizens.php';
     require __DIR__.'/api/complaints.php';
     require __DIR__.'/api/family.php';
-
-
-
-    require __DIR__.'/api/financial.php';
-
-
     require __DIR__.'/api/financial.php';
 });
 
