@@ -6,6 +6,7 @@ use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Models\Housing;
 use App\Models\HousingUser;
+use App\Models\PermissionRole;
 use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
@@ -117,8 +118,6 @@ class AuthController extends Controller
             'message' => "Token masih aktif",
             'data' => $accessToken->tokenable
         ], HttpStatusCodes::HTTP_CREATED);
-
-
     }
 
     public function me(Request $request)
@@ -141,8 +140,9 @@ class AuthController extends Controller
         ->first();
 
         $otherHousing = HousingUser::where('user_id', $userId)->where('housing_id', '!=', $housingId)->get();
-
+        $permissionRole = PermissionRole::where('role_code', $rows->role_code)->pluck('permission_code')->toArray();
         $rows->other_housing = count($otherHousing);
+        $rows->permissions = $permissionRole;
 
         return response()->json([
             'success' => true,
