@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('complaint_id');
             $table->uuid('logged_by');
-            $table->date('logged_at');
+            $table->datetime('logged_at');
             $table->string('status_code');
             $table->text('note');
             $table->softDeletes();

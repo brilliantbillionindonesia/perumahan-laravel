@@ -95,6 +95,7 @@ class TransactionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'search' => ['nullable', 'string'],
+            'is_me' => ['nullable', 'boolean'],
             'page' => ['nullable', 'integer', 'min:1'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
         ]);
@@ -110,8 +111,8 @@ class TransactionController extends Controller
         $page = (int) ($request->input('page', 1));
         $perPage = (int) ($request->input('per_page', 5));
 
-        $housingUser = HousingUser::where('user_id', $request->user()->id)->where('housing_id', $request->current_housing->housing_id)->first();
-
+        $housingUser = HousingUser::where('housing_id', $request->housing_id)
+        ->where('user_id', auth()->user()->id)->first();
         if (!$housingUser) {
             return response()->json([
                 'success' => false,
@@ -120,24 +121,26 @@ class TransactionController extends Controller
             ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
-        $citizen = Citizen::where('id', $housingUser->citizen_id)->first();
+        if($request->input('is_me')) {
+            $citizen = Citizen::where('id', $housingUser->citizen_id)->first();
 
-        if (!$citizen) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
-                'message' => 'Data tidak ditemukan',
-            ], HttpStatusCodes::HTTP_NOT_FOUND);
-        }
+            if (!$citizen) {
+                return response()->json([
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                    'message' => 'Data tidak ditemukan',
+                ], HttpStatusCodes::HTTP_NOT_FOUND);
+            }
 
-        $house = House::where('family_card_id', $citizen->family_card_id)->first();
+            $house = House::where('family_card_id', $citizen->family_card_id)->first();
 
-        if (!$house) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
-                'message' => 'Data tidak ditemukan',
-            ], HttpStatusCodes::HTTP_NOT_FOUND);
+            if (!$house) {
+                return response()->json([
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                    'message' => 'Data tidak ditemukan',
+                ], HttpStatusCodes::HTTP_NOT_FOUND);
+            }
         }
 
         $search = $request->input('search');
@@ -145,8 +148,15 @@ class TransactionController extends Controller
         $payments = DB::table('payments as p')
             ->join('dues as d', 'p.due_id', '=', 'd.id')
             ->join('fees as f', 'd.fee_id', '=', 'f.id')
-            ->where('p.house_id', '=', $house->id)
-            // bungkus orWhere agar tidak “lepas” dari kondisi house_id
+            ->join('houses as h', 'p.house_id', '=', 'h.id')
+            ->join('citizens as c', 'h.head_citizen_id', '=', 'c.id');
+
+            if($request->input('is_me')) {
+                $payments = $payments->when($request->input('is_me'), function ($q) use($house) {
+                    $q->where('p.house_id', '=', $house->id);
+                });
+            }
+            $payments = $payments->where('p.housing_id', $request->input('housing_id'))
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($qq) use ($search) {
                     $qq->where('f.name', 'like', "%{$search}%")
@@ -156,6 +166,9 @@ class TransactionController extends Controller
             ->groupBy('p.transaction_code')
             ->selectRaw('
                 MAX(p.id)                           as payment_id,
+                MAX(c.fullname)                          as fullname,
+                MAX(h.block)                          as house_block,
+                MAX(h.number)                          as house_number,
                 p.transaction_code,
                 COUNT(*)                            as items_count,
                 SUM(p.amount)                       as amount,
@@ -169,6 +182,7 @@ class TransactionController extends Controller
             ->limit($perPage)
             ->offset(($page - 1) * $perPage)
             ->get();
+
 
         return response()->json([
             'success' => true,

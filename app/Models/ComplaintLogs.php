@@ -19,4 +19,9 @@ class ComplaintLogs extends Model
         return $this->belongsTo(User::class, 'logged_by');
     }
 
+    public function status()
+    {
+        return $this->belongsTo(ComplaintStatus::class, 'status_code', 'code');
+    }
+
 }

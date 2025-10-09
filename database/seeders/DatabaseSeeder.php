@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             FinancialCategorySeeder::class,
             FeeSeeder::class,
             DueSeeder::class,
+            ComplaintSeeder::class
         ]);
     }
 }

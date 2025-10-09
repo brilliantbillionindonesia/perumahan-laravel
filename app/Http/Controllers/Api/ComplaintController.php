@@ -11,16 +11,29 @@ use Illuminate\Support\Facades\Validator;
 use App\Constants\HttpStatusCodes;
 use App\Http\Services\ActivityLogService;
 use App\Models\ComplaintLogs;
-use App\Models\Housing;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
 
 class ComplaintController extends Controller
 {
     public function list(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'page' => ['nullable', 'integer', 'min:1'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'search' => ['nullable', 'string'],
+            'is_me' => ['nullable', 'boolean'],
+            'category_code' => ['nullable', 'string'],
+            'status_code' => ['nullable', 'string']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $housingId = $request->current_housing->housing_id;
 
         // Pagination setup
@@ -30,10 +43,15 @@ class ComplaintController extends Controller
         // Query dasar
         $query = Complaint::with(['category', 'status', 'user', 'updatedBy'])->where('housing_id', $housingId);
 
+        if ($request->get('is_me')) {
+            $query->where('user_id', $request->user()->id);
+        }
+
         // Filter search (title & description)
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")->orWhere('description', 'like', "%{$search}%");
+                $q->where('title', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -79,7 +97,7 @@ class ComplaintController extends Controller
                 'message' => 'Berhasil menampilkan data',
                 'data' => $data,
             ],
-            200,
+            HttpStatusCodes::HTTP_OK
         );
     }
 
@@ -90,7 +108,7 @@ class ComplaintController extends Controller
             'housing_id' => 'required|exists:housings,id',
             'id' => 'required|exists:complaints,id',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(
                 [
@@ -101,15 +119,15 @@ class ComplaintController extends Controller
                 HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
             );
         }
-    
+
         $data = $validator->validated();
-    
+
         // 🔍 Ambil data complaint beserta relasi
         $complaint = Complaint::with(['category', 'status', 'user', 'updatedBy'])
             ->where('housing_id', $data['housing_id'])
             ->where('id', $data['id'])
             ->first();
-    
+
         if (!$complaint) {
             return response()->json(
                 [
@@ -120,7 +138,7 @@ class ComplaintController extends Controller
                 HttpStatusCodes::HTTP_NOT_FOUND,
             );
         }
-    
+
         // ✅ Format response data
         $responseData = [
             'complaint_id' => $complaint->id,
@@ -137,7 +155,7 @@ class ComplaintController extends Controller
             'submitted_at' => $complaint->submitted_at,
             'updated_at' => $complaint->updated_at,
         ];
-    
+
         // ✅ Response sukses
         return response()->json(
             [
@@ -149,7 +167,7 @@ class ComplaintController extends Controller
             HttpStatusCodes::HTTP_OK,
         );
     }
-    
+
 
     public function store(Request $request)
     {
@@ -219,15 +237,6 @@ class ComplaintController extends Controller
             json: $complaint->toArray(), // ini tetap array untuk JSON
             type: 'create',
         );
-
-        // complaint log
-        ComplaintLogs::create([
-            'complaint_id' => $complaint->id,
-            'logged_by' => $request->user()->id,
-            'logged_at' => now(),
-            'status_code' => $status->code,
-            'note' => 'Pengaduan dibuat',
-        ]);
 
         $data = [
             'id' => $complaint->id,
@@ -397,8 +406,7 @@ class ComplaintController extends Controller
 
     public function destroy(Request $request)
     {
-        // ✅ Validasi awal (id wajib ada di body JSON)
-        $validator = Validator::make($request->json()->all(), [
+        $validator = Validator::make($request->all(), [
             'id' => 'required|exists:complaints,id',
         ]);
 
@@ -507,7 +515,7 @@ class ComplaintController extends Controller
     {
         // ✅ Validasi hanya note (optional) dan id (required)
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:complaints,id',
+            'complaint_id' => 'required|exists:complaints,id',
             'note' => 'nullable|string|max:255',
         ]);
 
@@ -524,8 +532,9 @@ class ComplaintController extends Controller
 
         $validated = $validator->validated();
 
-        // 🔍 Ambil data complaint
-        $complaint = Complaint::with(['status', 'category', 'user'])->findOrFail($validated['id']);
+        $complaint = Complaint::with(['status', 'category', 'user'])
+        ->where('housing_id', $request->housing_id)
+        ->findOrFail($validated['complaint_id']);
 
         // 🔒 Jika status sudah CLOSED, tidak bisa diubah lagi
         if ($complaint->status_code === 'closed') {
@@ -565,7 +574,7 @@ class ComplaintController extends Controller
             [
                 'success' => true,
                 'code' => HttpStatusCodes::HTTP_OK,
-                'message' => 'Status pengaduan berhasil ditutup oleh admin',
+                'message' => 'Pengaduan selesai',
                 'data' => [
                     'id' => $complaint->id,
                     'title' => $complaint->title,
@@ -585,9 +594,7 @@ class ComplaintController extends Controller
 
     public function history(Request $request)
     {
-        // ✅ Validasi input dari body JSON
-        $validator = Validator::make($request->json()->all(), [
-            'housing_id' => 'required|exists:housings,id',
+        $validator = Validator::make($request->all(), [
             'complaint_id' => 'required|exists:complaints,id',
         ]);
 
@@ -629,7 +636,7 @@ class ComplaintController extends Controller
             return [
                 'complaint_id' => $log->complaint_id,
                 'status_code' => $log->status_code,
-                'status_name' => $log->complaint?->status?->name,
+                'status_name' => $log->status?->name,
                 'note' => $log->note ?? '',
                 'logged_by' => $log->logged_by,
                 'logged_name' => $log->loggedBy?->name ?? '-',

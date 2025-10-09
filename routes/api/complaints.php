@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\ComplaintController;
 
-Route::prefix('complaint')->group(function () {
+Route::prefix('complaints')->group(function () {
     Route::get('/list', [ComplaintController::class, 'list']);
     Route::get('/show', [ComplaintController::class, 'show']);
     Route::post('/store', [ComplaintController::class, 'store']);
