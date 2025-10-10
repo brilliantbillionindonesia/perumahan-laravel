@@ -119,6 +119,36 @@ class PanicController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function active(Request $request){
+        $validator = Validator::make($request->all(), [
+            'panic_id' => ['required', 'exists:panic_events,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $panicEvent = PanicEvent::findOrFail($request->input('panic_id'));
+
+        if ($panicEvent->status != 'active') {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Panic event tidak aktif',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Panic event aktif',
+        ]);
+    }
+
     public function panicNotifiedToMe(Request $request){
         $data = PanicRecipient::where('user_id', auth()->user()->id)
         ->with('eventActive')->limit(1)->get();
