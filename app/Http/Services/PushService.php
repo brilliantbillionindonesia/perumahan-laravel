@@ -24,7 +24,37 @@ class PushService
         return $token['access_token'];
     }
 
-    public function sendSilentData(array $tokens, array $data): bool
+    // public function sendSilentData(array $tokens, array $data): bool
+    // {
+    //     $url = "https://fcm.googleapis.com/v1/projects/{$this->projectId}/messages:send";
+    //     $accessToken = $this->getAccessToken();
+
+    //     foreach ($tokens as $token) {
+    //         $payload = [
+    //             'message' => [
+    //                 'token' => $token,
+    //                 'data' => $data,
+    //                 'android' => ['priority' => 'high'],
+    //                 'apns' => [
+    //                     'headers' => ['apns-priority' => '10'],
+    //                     'payload' => ['aps' => ['content-available' => 1]],
+    //                 ],
+    //             ],
+    //         ];
+
+    //         $response = Http::withToken($accessToken)
+    //             ->post($url, $payload);
+
+    //         if (!$response->successful()) {
+    //             \Log::error('PushService error', ['response' => $response->body()]);
+    //             return false;
+    //         }
+    //     }
+
+    //     return true;
+    // }
+
+    public function sendPanic(array $tokens, array $data, string $title, string $body): bool
     {
         $url = "https://fcm.googleapis.com/v1/projects/{$this->projectId}/messages:send";
         $accessToken = $this->getAccessToken();
@@ -33,25 +63,41 @@ class PushService
             $payload = [
                 'message' => [
                     'token' => $token,
-                    'data' => $data,
-                    'android' => ['priority' => 'high'],
+                    // SYSTEM will show this even if app is killed:
+                    'notification' => [
+                        'title' => $title,                  // ex: "Permintaan PANIC!"
+                        'body' => $body,                   // ex: "Dari Admin Mustika • Tap untuk buka"
+                    ],
+                    // your custom data for routing:
+                    'data' => $data + ['click_action' => 'FLUTTER_NOTIFICATION_CLICK'],
+                    'android' => [
+                        'priority' => 'high',
+                        'notification' => [
+                            'channel_id' => 'panic_channel',
+                            'sound' => null,
+                            'icon' => 'ic_stat_panic',             // silent
+                            'visibility' => 'PUBLIC',
+                            'color' => '#C62828',
+                        ],
+                    ],
                     'apns' => [
                         'headers' => ['apns-priority' => '10'],
-                        'payload' => ['aps' => ['content-available' => 1]],
+                        'payload' => [
+                            'aps' => [
+                                'content-available' => 1,
+                                'sound' => ''        // silent
+                            ],
+                        ],
                     ],
                 ],
             ];
 
-            dump($payload);
-            $response = Http::withToken($accessToken)
-                ->post($url, $payload);
-
-            if (!$response->successful()) {
-                \Log::error('PushService error', ['response' => $response->body()]);
+            $resp = Http::withToken($accessToken)->post($url, $payload);
+            if (!$resp->successful()) {
+                \Log::error('PushService error', ['response' => $resp->body()]);
                 return false;
             }
         }
-
         return true;
     }
 }

@@ -19,6 +19,7 @@ class PanicController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'housing_id' => ['required', 'exists:housings,id'],
             'latitude' => ['nullable'],
             'longitude' => ['nullable'],
         ]);
@@ -49,6 +50,7 @@ class PanicController extends Controller
                 'citizen_id' => $housingUser->citizen_id,
                 'user_id' => $housingUser->user_id,
                 'house_id' => $housingUser->house_id,
+                'status' => 'active',
                 'latitude' => $request->input('latitude'),
                 'longitude' => $request->input('longitude'),
             ]);
@@ -81,4 +83,62 @@ class PanicController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function handle(Request $request){
+        $validator = Validator::make($request->all(), [
+            'panic_id' => ['required', 'exists:panic_events,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $panicEvent = PanicEvent::findOrFail($request->input('panic_id'));
+
+        if ($panicEvent->status != 'active') {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Panic event tidak aktif',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $panicEvent->update([
+            'status' => 'closed',
+            'handled_at' => now(),
+            'handled_by' => auth()->user()->id
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
+    public function panicNotifiedToMe(Request $request){
+        $data = PanicRecipient::where('user_id', auth()->user()->id)
+        ->with('eventActive')->limit(1)->get();
+
+        foreach ($data as $key => $value) {
+            $arr = [
+                'panic_id' => $value->eventActive->id,
+                'name' => $value->eventActive->citizen ? $value->eventActive->citizen->fullname : $value->eventActive->user->name,
+                'lat' => $value->eventActive->latitude,
+                'long' => $value->eventActive->longitude,
+                'status' => $value->status,
+                'created_at' => $value->eventActive->created_at
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
+            'data' => $arr
+        ], HttpStatusCodes::HTTP_OK);
+    }
 }

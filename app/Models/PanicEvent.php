@@ -20,4 +20,9 @@ class PanicEvent extends Model
     {
         return $this->belongsTo(Citizen::class, 'citizen_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

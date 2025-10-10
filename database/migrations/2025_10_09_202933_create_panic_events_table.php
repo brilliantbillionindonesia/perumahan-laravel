@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('latitude', 15, 6)->nullable();
             $table->decimal('longitude', 15, 6)->nullable();
             $table->text('note')->nullable();
+            $table->dateTime('handled_at')->nullable();
+            $table->uuid('handled_by')->nullable();
             $table->timestamps();
 
             $table->index('housing_id', 'idx_housing_panic_events');

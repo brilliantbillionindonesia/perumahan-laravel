@@ -19,6 +19,8 @@ return new class extends Migration
             $table->dateTime('notified_at')->nullable();
             $table->dateTime('delivered_at')->nullable();
             $table->dateTime('read_at')->nullable();
+            $table->dateTime('last_reminded_at')->nullable();
+            $table->smallInteger('reminder_count')->default(0);
             $table->timestamps();
 
             $table->index('panic_event_id', 'idx_panic_event_panic_recipients');

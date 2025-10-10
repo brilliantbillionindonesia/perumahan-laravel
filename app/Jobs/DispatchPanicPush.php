@@ -17,24 +17,38 @@ class DispatchPanicPush implements ShouldQueue
 
     public function handle(PushService $push)
     {
-        $panic = PanicEvent::with('recipients.user.devices')->findOrFail($this->panicId);
+        $panic = PanicEvent::with(['recipients.user.devices', 'citizen', 'user'])->findOrFail($this->panicId);
 
+        $namePanic = $panic->citizen ? $panic->citizen->fullname : $panic->user->name;
 
         foreach ($panic->recipients as $rec) {
             $tokens = $rec->user->devices->pluck('token')->filter()->all();
             if (empty($tokens)) continue;
 
-            // kirim silent/high-priority + data
-            $ok = $push->sendSilentData(
+            // $ok = $push->sendSilentData(
+            //     tokens: $tokens,
+            //     data: [
+            //         'type'      => 'panic',
+            //         'panic_id'  => $panic->id,
+            //         'name'      => $namePanic,
+            //         'lat'       => $panic->latitude,
+            //         'lng'       => $panic->longitude,
+            //         'created_at'=> $panic->created_at->toIso8601String(),
+            //     ]
+            // );
+
+            $ok = $push->sendPanic(
                 tokens: $tokens,
+                title: 'Permintaan PANIC!',
+                body:  'Dari ' . ($namePanic ?? 'Warga') . ' • Tap untuk buka',
                 data: [
                     'type'      => 'panic',
                     'panic_id'  => $panic->id,
-                    'name'      => $rec->user->name,
-                    'lat'       => $panic->latitude,
-                    'lng'       => $panic->longitude,
+                    'name'      => $namePanic,
+                    'lat'       => (string) $panic->latitude,
+                    'lng'       => (string) $panic->longitude,
                     'created_at'=> $panic->created_at->toIso8601String(),
-                ]
+                ],
             );
 
             if ($ok) {

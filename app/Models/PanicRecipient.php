@@ -20,4 +20,9 @@ class PanicRecipient extends Model
     {
         return $this->belongsTo(PanicEvent::class, 'panic_event_id');
     }
+
+    public function eventActive()
+    {
+        return $this->belongsTo(PanicEvent::class, 'panic_event_id')->where('status', 'active');
+    }
 }
