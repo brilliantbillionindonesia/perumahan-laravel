@@ -24,6 +24,12 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->uuid('created_by')->nullable();
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_payments');
+            $table->index('house_id', 'idx_house_payments');
+            $table->index('due_id', 'idx_due_payments');
+            $table->index('paid_by', 'idx_paid_by_payments');
+            $table->index('created_by', 'idx_created_by_payments');
         });
     }
 

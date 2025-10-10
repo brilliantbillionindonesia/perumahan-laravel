@@ -243,7 +243,6 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'housing_id' => ['required', 'uuid'], // ← kamu pakai, jadi wajibkan
             'financial_category_code' => ['required', 'exists:financial_categories,code'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'date_format:Y-m-d H:i:s'],

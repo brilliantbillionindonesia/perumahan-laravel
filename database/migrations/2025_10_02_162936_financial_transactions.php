@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->enum('type', ['expense', 'income']);
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_transactions');
+            $table->index('financial_category_code', 'idx_fin_cat_code_transactions');
+            $table->index('house_id', 'idx_house_transactions');
         });
     }
 

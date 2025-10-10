@@ -177,7 +177,7 @@ class FamilySeeder extends Seeder
                 ],
                 [
                     'family_card_number' => '2234567890113455',
-                    'address' => 'Jl. Melati Raya',
+                    'address' => 'Jl. Satria Piningit Raya',
                     'rt' => '02',
                     'rw' => '02',
                     'village_code' => '1101012001',
@@ -193,19 +193,19 @@ class FamilySeeder extends Seeder
                     'houses' => [
                         [
                             'housing_id' => $createdHousing->id,
-                            'house_name' => 'Rumah pak Melati',
+                            'house_name' => 'Rumah pak Satria Piningit',
                             'block' => 'A1',
                             'number' => 10,
                         ],
                         [
                             'housing_id' => $createdHousing2->id,
-                            'house_name' => 'Rumah pak Melati',
+                            'house_name' => 'Rumah pak Satria Piningit',
                             'block' => 'A2',
                             'number' => 20,
                         ],
                         [
                             'housing_id' => $createdHousing3->id,
-                            'house_name' => 'Rumah pak Melati',
+                            'house_name' => 'Rumah pak Satria Piningit',
                             'block' => 'A3',
                             'number' => 30,
                         ]
@@ -213,7 +213,7 @@ class FamilySeeder extends Seeder
                     'citizens' => [
                         [
                             'citizen_card_number' => '2234567890113456',
-                            'fullname' => 'Bapak Melati',
+                            'fullname' => 'Bapak Satria Piningit',
                             'gender' => GenderOption::LAKILAKI,
                             'birth_place' => 'Karawang',
                             'birth_date' => '1990-02-02',
@@ -225,15 +225,15 @@ class FamilySeeder extends Seeder
                             'citizenship' => CitizenshipOption::WNI,
                             'death_certificate_id' => null,
                             'user' => [
-                                'name' => 'Bapak Melati',
-                                'email' => 'bapak-melati@mail.com',
+                                'name' => 'Bapak Satria Piningit',
+                                'email' => 'satria-piningit@mail.com',
                                 'password' => 'password',
                             ],
                             'relationship_status' => RelationshipStatusOption::KEPALA_KELUARGA
                         ],
                         [
                             'citizen_card_number' => '2234567890113457',
-                            'fullname' => 'Ibu Melati',
+                            'fullname' => 'Ibu Satria Piningit',
                             'gender' => GenderOption::PEREMPUAN,
                             'birth_place' => 'Karawang',
                             'birth_date' => '1992-03-03',
@@ -251,7 +251,7 @@ class FamilySeeder extends Seeder
                 ],
                 [
                     'family_card_number' => '3234567890113455',
-                    'address' => 'Jl. Kenanga Indah',
+                    'address' => 'Jl. Sudirman Indah',
                     'rt' => '03',
                     'rw' => '03',
                     'village_code' => '1101012001',
@@ -267,19 +267,19 @@ class FamilySeeder extends Seeder
                     'houses' => [
                         [
                             'housing_id' => $createdHousing->id,
-                            'house_name' => 'Rumah pak Kenanga',
+                            'house_name' => 'Rumah pak Sudirman',
                             'block' => 'A1',
                             'number' => 1,
                         ],
                         [
                             'housing_id' => $createdHousing2->id,
-                            'house_name' => 'Rumah pak Kenanga',
+                            'house_name' => 'Rumah pak Sudirman',
                             'block' => 'A2',
                             'number' => 2,
                         ],
                         [
                             'housing_id' => $createdHousing3->id,
-                            'house_name' => 'Rumah pak Kenanga',
+                            'house_name' => 'Rumah pak Sudirman',
                             'block' => 'A3',
                             'number' => 3,
                         ]
@@ -287,7 +287,7 @@ class FamilySeeder extends Seeder
                     'citizens' => [
                         [
                             'citizen_card_number' => '3234567890113456',
-                            'fullname' => 'Pak Kenanga',
+                            'fullname' => 'Pak Sudirman',
                             'gender' => GenderOption::LAKILAKI,
                             'birth_place' => 'Bandung',
                             'birth_date' => '1985-05-05',
@@ -303,7 +303,7 @@ class FamilySeeder extends Seeder
                         ],
                         [
                             'citizen_card_number' => '3234567890113457',
-                            'fullname' => 'Bu Kenanga',
+                            'fullname' => 'Bu Sudirman',
                             'gender' => GenderOption::PEREMPUAN,
                             'birth_place' => 'Bandung',
                             'birth_date' => '1987-06-06',

@@ -48,4 +48,9 @@ class User extends Authenticatable
             'updated_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
+
+    public function devices()
+    {
+        return $this->hasMany(DeviceToken::class, 'user_id');
+    }
 }

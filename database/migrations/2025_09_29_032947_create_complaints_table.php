@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->uuid('housing_id');
             $table->uuid('user_id');
             $table->string('title');
@@ -24,6 +24,11 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_complaints');
+            $table->index('user_id', 'idx_user_complaints');
+            $table->index('category_code', 'idx_category_code_complaints');
+            $table->index('status_code', 'idx_status_code_complaints');
         });
     }
 

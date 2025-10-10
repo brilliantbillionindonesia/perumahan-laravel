@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('death_certificates', function (Blueprint $table) {
+        Schema::create('device_tokens', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('citizen_id');
-            $table->date('date_of_death');
-            $table->string('certificate_number');
-            $table->string('document');
-            $table->softDeletes();
+            $table->uuid('user_id');
+            $table->text('token');
+            $table->string('platform'); // ios, android, web -> create constant
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
-
-            $table->index('citizen_id', 'idx_citizen_dc');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('death_certificates');
+        Schema::dropIfExists('device_tokens');
     }
 };

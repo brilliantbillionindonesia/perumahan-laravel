@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 
 require __DIR__.'/api/auth.php';
 require __DIR__.'/api/housing.php';
+require __DIR__.'/api/device.php';
 
 Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
@@ -12,6 +13,7 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     require __DIR__.'/api/complaints.php';
     require __DIR__.'/api/family.php';
     require __DIR__.'/api/financial.php';
+    require __DIR__.'/api/panic.php';
 });
 
 require __DIR__.'/api/master.php';
