@@ -10,7 +10,7 @@ Route::prefix('complaints')->group(function () {
     Route::delete('/delete', [ComplaintController::class, 'destroy']);
     route::get('/history', [ComplaintController::class, 'history']);
 
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['permission:manage_complaints'])->group(function () {
         Route::post('action', [ComplaintController::class, 'action']);
     });
 });

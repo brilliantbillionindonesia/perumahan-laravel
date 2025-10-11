@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\Financial\FeeController;
 use App\Http\Controllers\Api\Financial\TransactionController;
 
 Route::prefix('financial')->group(function () {
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['permission:manage_transactions'])->group(function () {
         Route::prefix('dues')->group(function () {
             Route::get('list', [DueController::class, 'list']);
             Route::get('show', [DueController::class, 'show']);
