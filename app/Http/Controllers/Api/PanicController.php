@@ -69,6 +69,7 @@ class PanicController extends Controller
             ]);
 
             $management = HousingUser::where('housing_id', $request->input('housing_id'))
+            ->where('user_id', '!=', auth()->user()->id)
             ->where('role_code', '!=', 'citizen')->get();
 
             foreach ($management as $key => $value) {
