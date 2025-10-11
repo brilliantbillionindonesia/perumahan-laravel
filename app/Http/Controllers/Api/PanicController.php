@@ -164,24 +164,38 @@ class PanicController extends Controller
 
     public function panicNotifiedToMe(Request $request){
         $data = PanicRecipient::where('user_id', auth()->user()->id)
-        ->with('eventActive')->limit(1)->get();
+        ->with('eventActive')->first();
 
-        foreach ($data as $key => $value) {
-            $arr = [
-                'panic_id' => $value->eventActive->id,
-                'name' => $value->eventActive->citizen ? $value->eventActive->citizen->fullname : $value->eventActive->user->name,
-                'lat' => $value->eventActive->latitude,
-                'long' => $value->eventActive->longitude,
-                'status' => $value->status,
-                'created_at' => $value->eventActive->created_at
-            ];
+        if(!$data){
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data not found',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
+
+        if($data->eventActive == null){
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data not found',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $arr[] = [
+            'panic_id' => $data->eventActive->id,
+            'name' => $data->eventActive->citizen ? $data->eventActive->citizen->fullname : $data->eventActive->user->name,
+            'lat' => $data->eventActive->latitude,
+            'long' => $data->eventActive->longitude,
+            'status' => $data->status,
+            'created_at' => $data->eventActive->created_at->toIso8601String(),
+        ];
 
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => 'Success',
-            'data' => $arr
+            'data' => $arr ?? []
         ], HttpStatusCodes::HTTP_OK);
     }
 }
