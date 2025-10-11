@@ -8,6 +8,8 @@ use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Financial\DueRepository;
 use App\Http\Services\ActivityLogService;
+use App\Http\Services\PushService;
+use App\Jobs\DispatchPayDue;
 use App\Models\CashBalance;
 use App\Models\Citizen;
 use App\Models\Due;
@@ -191,7 +193,6 @@ class DueController extends Controller
                     type: 'create',
                 );
 
-
                 $cashBalance = CashBalance::where('housing_id', $value->housing_id)
                 ->where('year', $now->year)
                 ->where('month', $now->month)
@@ -234,6 +235,12 @@ class DueController extends Controller
                     );
                 }
 
+                // DispatchPayDue::dispatch(
+                //     houseId: $value->house_id,
+                //     transactionCode : $transactionCode
+                // )->onQueue('notifications');
+
+                (new DispatchPayDue(houseId: $value->house_id, transactionCode : $transactionCode))->handle(new PushService());
 
             });
         }

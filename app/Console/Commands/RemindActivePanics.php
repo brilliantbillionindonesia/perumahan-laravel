@@ -14,14 +14,11 @@ class RemindActivePanics extends Command
 
     public function handle(PushService $push)
     {
-        // ambil semua penerima yang panic-nya masih aktif + belum read,
-        // dan sudah lewat >= 60 detik dari reminder terakhir
         PanicRecipient::with('eventActive')
             ->where(function ($q) {
                 $q->whereNull('last_reminded_at')
                     ->orWhere('last_reminded_at', '<=', now()->subSeconds(60));
             })
-            // ->where('reminder_count', '<', 60)
             ->chunkById(200, function ($rows) use ($push) {
                 foreach ($rows as $rec) {
                     $panic = $rec->eventActive;

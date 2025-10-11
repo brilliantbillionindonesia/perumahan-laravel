@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Financial;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\ActivityLogService;
+use App\Jobs\DispatchTransactionStore;
 use App\Models\Citizen;
+use App\Models\FinancialCategory;
 use App\Models\FinancialTransaction;
 use App\Models\House;
 use App\Models\HousingUser;
@@ -258,6 +260,18 @@ class TransactionController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $financialCategory = FinancialCategory::where('code', $request->input('financial_category_code'))
+        ->where('type', $request->input('type'))
+        ->first();
+
+        if (!$financialCategory) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Kategori tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
         try {
             $transaction = null;
 
@@ -356,6 +370,12 @@ class TransactionController extends Controller
                     json: $transaction->toArray(),
                     type: 'create',
                 );
+
+                DispatchTransactionStore::dispatch(
+                    transactionId: $transaction->id,
+                    cashBalanceId: $cashBalance->id
+                )->onQueue('notifications');
+
             });
 
             return response()->json([
