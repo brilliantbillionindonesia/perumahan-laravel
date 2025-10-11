@@ -44,6 +44,19 @@ class PanicController extends Controller
             ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
+        $existPanic = PanicEvent::where('housing_id', $request->input('housing_id'))
+        ->where('status', 'active')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+
+        if ($existPanic) {
+            return response()->json([
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Panic sedang berlangsung',
+            ], HttpStatusCodes::HTTP_OK);
+        }
+
         DB::transaction(function () use ($request, $housingUser) {
             $panicEvent = PanicEvent::create([
                 'housing_id' => $request->input('housing_id'),
@@ -67,12 +80,11 @@ class PanicController extends Controller
                 ]);
             }
             // // Kirim ke queue (asinkron)
-            // DispatchPanicPush::dispatch(
-            //     panicId: $panicEvent->id
-            // )->onQueue('notifications');
+            DispatchPanicPush::dispatch(
+                panicId: $panicEvent->id
+            )->onQueue('notifications');
 
-            // new DispatchPanicPush($panicEvent->id);
-            (new DispatchPanicPush($panicEvent->id))->handle(app(\App\Http\Services\PushService::class));
+            // (new DispatchPanicPush($panicEvent->id))->handle(app(\App\Http\Services\PushService::class));
 
         });
 

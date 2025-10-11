@@ -25,18 +25,6 @@ class DispatchPanicPush implements ShouldQueue
             $tokens = $rec->user->devices->pluck('token')->filter()->all();
             if (empty($tokens)) continue;
 
-            // $ok = $push->sendSilentData(
-            //     tokens: $tokens,
-            //     data: [
-            //         'type'      => 'panic',
-            //         'panic_id'  => $panic->id,
-            //         'name'      => $namePanic,
-            //         'lat'       => $panic->latitude,
-            //         'lng'       => $panic->longitude,
-            //         'created_at'=> $panic->created_at->toIso8601String(),
-            //     ]
-            // );
-
             $ok = $push->sendPanic(
                 tokens: $tokens,
                 title: 'Permintaan PANIC!',

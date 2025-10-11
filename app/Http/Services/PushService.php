@@ -24,36 +24,6 @@ class PushService
         return $token['access_token'];
     }
 
-    // public function sendSilentData(array $tokens, array $data): bool
-    // {
-    //     $url = "https://fcm.googleapis.com/v1/projects/{$this->projectId}/messages:send";
-    //     $accessToken = $this->getAccessToken();
-
-    //     foreach ($tokens as $token) {
-    //         $payload = [
-    //             'message' => [
-    //                 'token' => $token,
-    //                 'data' => $data,
-    //                 'android' => ['priority' => 'high'],
-    //                 'apns' => [
-    //                     'headers' => ['apns-priority' => '10'],
-    //                     'payload' => ['aps' => ['content-available' => 1]],
-    //                 ],
-    //             ],
-    //         ];
-
-    //         $response = Http::withToken($accessToken)
-    //             ->post($url, $payload);
-
-    //         if (!$response->successful()) {
-    //             \Log::error('PushService error', ['response' => $response->body()]);
-    //             return false;
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
     public function sendPanic(array $tokens, array $data, string $title, string $body): bool
     {
         $url = "https://fcm.googleapis.com/v1/projects/{$this->projectId}/messages:send";

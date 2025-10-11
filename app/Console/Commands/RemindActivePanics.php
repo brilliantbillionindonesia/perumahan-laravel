@@ -25,12 +25,12 @@ class RemindActivePanics extends Command
             ->chunkById(200, function ($rows) use ($push) {
                 foreach ($rows as $rec) {
                     $panic = $rec->eventActive;
+                    if(!$panic) continue;
                     $tokens = $rec->user->devices->pluck('token')->filter()->values()->all();
                     if (empty($tokens)) {
                         $rec->update(['last_reminded_at' => now(), 'reminder_count' => $rec->reminder_count + 1]);
                         continue;
                     }
-
 
                     $data = [
                         'type' => 'panic',
