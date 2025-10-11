@@ -26,9 +26,9 @@ class DeviceController extends Controller
         }
 
         $device = DeviceToken::updateOrCreate([
-            'user_id' => auth()->user()->id,
-        ], [
             'token' => $request->input('token'),
+        ], [
+            'user_id' => auth()->user()->id,
             'platform' => $request->input('platform'),
             'is_active' => 1
         ]);
