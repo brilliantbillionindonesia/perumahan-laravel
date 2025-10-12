@@ -46,6 +46,7 @@ class DispatchTransactionStore implements ShouldQueue
                 'housing_id' => $transaction->housing_id,
                 'id'        => $transaction->id,
                 'cash_balance_id' => $this->cashBalanceId,
+                'transaction_id' => $transaction->id,
                 'created_at'=> $transaction->created_at->toIso8601String(),
             ],
         );

@@ -44,6 +44,7 @@ Route::prefix('financial')->group(function () {
     });
     Route::prefix('transactions')->group(function () {
         Route::get('list', [TransactionController::class, 'list']);
+        Route::get('show', [TransactionController::class, 'show']);
         Route::get('category', [TransactionController::class, 'byCategory']);
     });
 

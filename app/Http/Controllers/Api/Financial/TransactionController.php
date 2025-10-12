@@ -16,6 +16,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use App\Models\CashBalance;
 use App\Constants\HttpStatusCodes;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Validator;
 
@@ -68,7 +69,7 @@ class TransactionController extends Controller
             })
             ->when($request->input('type'), function ($query) use ($request) {
                 $type = $request->input('type') == 'all' ? null : $request->input('type');
-                if ($type != null ) {
+                if ($type != null) {
                     $query->where('type', $request->input('type'));
                 }
             })
@@ -114,7 +115,7 @@ class TransactionController extends Controller
         $perPage = (int) ($request->input('per_page', 5));
 
         $housingUser = HousingUser::where('housing_id', $request->housing_id)
-        ->where('user_id', auth()->user()->id)->first();
+            ->where('user_id', auth()->user()->id)->first();
         if (!$housingUser) {
             return response()->json([
                 'success' => false,
@@ -123,7 +124,7 @@ class TransactionController extends Controller
             ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
-        if($request->input('is_me')) {
+        if ($request->input('is_me')) {
             $citizen = Citizen::where('id', $housingUser->citizen_id)->first();
 
             if (!$citizen) {
@@ -153,12 +154,12 @@ class TransactionController extends Controller
             ->join('houses as h', 'p.house_id', '=', 'h.id')
             ->join('citizens as c', 'h.head_citizen_id', '=', 'c.id');
 
-            if($request->input('is_me')) {
-                $payments = $payments->when($request->input('is_me'), function ($q) use($house) {
-                    $q->where('p.house_id', '=', $house->id);
-                });
-            }
-            $payments = $payments->where('p.housing_id', $request->input('housing_id'))
+        if ($request->input('is_me')) {
+            $payments = $payments->when($request->input('is_me'), function ($q) use ($house) {
+                $q->where('p.house_id', '=', $house->id);
+            });
+        }
+        $payments = $payments->where('p.housing_id', $request->input('housing_id'))
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($qq) use ($search) {
                     $qq->where('f.name', 'like', "%{$search}%")
@@ -250,6 +251,7 @@ class TransactionController extends Controller
             'transaction_date' => ['required', 'date_format:Y-m-d H:i:s'],
             'note' => ['required', 'string'],
             'type' => ['required', 'string', Rule::in(['expense', 'income'])],
+            'evidence' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
         ]);
 
         if ($validator->fails()) {
@@ -261,8 +263,8 @@ class TransactionController extends Controller
         }
 
         $financialCategory = FinancialCategory::where('code', $request->input('financial_category_code'))
-        ->where('type', $request->input('type'))
-        ->first();
+            ->where('type', $request->input('type'))
+            ->first();
 
         if (!$financialCategory) {
             return response()->json([
@@ -362,6 +364,18 @@ class TransactionController extends Controller
                 $transaction->transaction_date = $request->input('transaction_date');
                 $transaction->note = $request->input('note');
                 $transaction->type = $type;
+
+                // ====== SIMPAN FILE BUKTI (JIKA ADA) ======
+                if ($request->hasFile('evidence')) {
+                    $file = $request->file('evidence');
+                    $ext = $file->getClientOriginalExtension();
+                    $dir = "evidences/transactions/{$now->year}/{$now->format('m')}";
+                    $filename = Str::uuid()->toString() . '.' . $ext;
+
+                    // Simpan ke disk 'public'
+                    $path = $file->storeAs($dir, $filename, 'public');
+                    $transaction->evidence = $path; // contoh: evidences/transactions/2025/10/uuid.jpg
+                }
                 $transaction->save();
 
                 ActivityLogService::logModel(
@@ -399,7 +413,8 @@ class TransactionController extends Controller
         }
     }
 
-    public function byCategory(Request $request){
+    public function byCategory(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             "cash_balance_id" => ['required', 'exists:cash_balances,id'],
         ]);
@@ -450,4 +465,50 @@ class TransactionController extends Controller
         ], HttpStatusCodes::HTTP_OK);
 
     }
+
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:financial_transactions,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => $validator->errors()->first(),
+                ],
+                HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+            );
+        }
+
+        $data = $validator->validated();
+
+        $transaction = FinancialTransaction::
+            with('category:code,name')
+            ->where('id', $data['id'])
+            ->first();
+
+        $arr = [
+            'evidence_url' => $transaction->evidence_url,
+            'financial_category_name' => $transaction->category->name
+        ];
+
+        $transaction = $transaction->toArray();
+
+        $transaction = array_merge($transaction, $arr);
+
+        return response()->json(
+            [
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Berhasil menampilkan data transaksi',
+                'data' => $transaction,
+            ],
+            HttpStatusCodes::HTTP_OK,
+        );
+    }
+
+
 }

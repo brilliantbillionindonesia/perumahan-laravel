@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('financial_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('transaction_code');
             $table->uuid('housing_id');
+            $table->uuid('event_id')->nullable();
+            $table->uuid('transaction_code');
             $table->string('financial_category_code');
             $table->uuid('house_id')->nullable();
             $table->decimal('amount', 20, 2);
             $table->dateTime('transaction_date');
             $table->string('note')->nullable();
+            $table->text('evidence')->nullable();
             $table->enum('type', ['expense', 'income']);
             $table->timestamps();
 
