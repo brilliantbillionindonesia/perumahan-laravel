@@ -511,7 +511,8 @@ class TransactionController extends Controller
         );
     }
 
-    public function generateBalance(){
+    public function generateBalance()
+    {
         $housings = Housing::all();
         $year = date('Y');
         $month = date('m');
@@ -523,10 +524,27 @@ class TransactionController extends Controller
                 ->first();
 
             if (!$cashBalance) {
+
+                // Ambil saldo penutup terakhir sebelum bulan ini
+                $lastBalance = CashBalance::where('housing_id', $housing->id)
+                    ->where(function ($q) use ($year, $month) {
+                        $q->where('year', '<', $year)
+                            ->orWhere(function ($q2) use ($year, $month) {
+                                $q2->where('year', $year)
+                                    ->where('month', '<', $month);
+                            });
+                    })
+                    ->orderBy('year', 'desc')
+                    ->orderBy('month', 'desc')
+                    ->first();
+
+                $openingBalance = optional($lastBalance)->closing_balance ?? 0;
+
                 $cashBalance = CashBalance::create([
                     'housing_id' => $housing->id,
                     'year' => $year,
                     'month' => $month,
+                    'opening_balance' => $openingBalance,
                 ]);
             }
         }
