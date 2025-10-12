@@ -38,6 +38,14 @@ class FinancialCategorySeeder extends Seeder
                 'code' => 'keamanan',
                 'name' => 'Keamanan',
                 'type' => 'expense',
+            ],[
+                'code' => 'lainnya',
+                'name' => 'Lainnya',
+                'type' => 'expense',
+            ], [
+                'code' => 'lainnya',
+                'name' => 'Lainnya',
+                'type' => 'income',
             ]
         ];
 
