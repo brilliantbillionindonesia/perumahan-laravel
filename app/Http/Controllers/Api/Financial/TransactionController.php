@@ -60,7 +60,9 @@ class TransactionController extends Controller
         $year = $cashBalance->year;
         $month = $cashBalance->month;
 
-        $data = FinancialTransaction::where('housing_id', $request->input('housing_id'))
+        $data = FinancialTransaction::where('financial_transactions.housing_id', $request->input('housing_id'))
+            ->select('financial_transactions.*', 'financial_categories.name as financial_category_name')
+            ->join('financial_categories', 'financial_transactions.financial_category_code', '=', 'financial_categories.code')
             ->whereYear('transaction_date', $year)
             ->whereMonth('transaction_date', $month)
             ->when($request->input('search'), function ($query) use ($request) {
