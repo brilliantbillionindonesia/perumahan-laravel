@@ -9,9 +9,6 @@ use App\Http\Controllers\Api\Financial\TransactionController;
 Route::prefix('financial')->group(function () {
     Route::middleware(['permission:manage_transactions'])->group(function () {
         Route::prefix('dues')->group(function () {
-            Route::get('list', [DueController::class, 'list']);
-            Route::get('show', [DueController::class, 'show']);
-            Route::get('detail', [DueController::class, 'detail']);
             Route::post('pay', [DueController::class, 'pay']);
         });
         Route::prefix('categories')->group(function () {
@@ -35,6 +32,22 @@ Route::prefix('financial')->group(function () {
             Route::put('update', [TransactionController::class, 'update']);
             Route::delete('delete', [TransactionController::class, 'delete']);
         });
+    });
+
+     Route::prefix('dues')->group(function () {
+        Route::get('list', [DueController::class, 'list']);
+        Route::get('show', [DueController::class, 'show']);
+        Route::get('detail', [DueController::class, 'detail']);
+    });
+
+    Route::prefix('categories')->group(function () {
+        Route::get('list', [CategoryController::class, 'list']);
+        Route::get('show', [CategoryController::class, 'show']);
+    });
+
+    Route::prefix('fees')->group(function () {
+        Route::get('list', [FeeController::class, 'list']);
+        Route::get('show', [FeeController::class, 'show']);
     });
 
     Route::prefix('cash-balances')->group(function () {
