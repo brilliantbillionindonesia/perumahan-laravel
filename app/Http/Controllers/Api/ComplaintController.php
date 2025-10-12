@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\DispatchComplaintAction;
+use App\Jobs\DispatchComplaintStore;
 use App\Models\Complaint;
 use App\Models\ComplaintCategory;
 use App\Models\ComplaintStatus;
@@ -11,16 +13,29 @@ use Illuminate\Support\Facades\Validator;
 use App\Constants\HttpStatusCodes;
 use App\Http\Services\ActivityLogService;
 use App\Models\ComplaintLogs;
-use App\Models\Housing;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
 
 class ComplaintController extends Controller
 {
     public function list(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'page' => ['nullable', 'integer', 'min:1'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'search' => ['nullable', 'string'],
+            'is_me' => ['nullable', 'boolean'],
+            'category_code' => ['nullable', 'string'],
+            'status_code' => ['nullable', 'string']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $housingId = $request->current_housing->housing_id;
 
         // Pagination setup
@@ -30,10 +45,15 @@ class ComplaintController extends Controller
         // Query dasar
         $query = Complaint::with(['category', 'status', 'user', 'updatedBy'])->where('housing_id', $housingId);
 
+        if ($request->get('is_me')) {
+            $query->where('user_id', $request->user()->id);
+        }
+
         // Filter search (title & description)
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")->orWhere('description', 'like', "%{$search}%");
+                $q->where('title', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -79,13 +99,12 @@ class ComplaintController extends Controller
                 'message' => 'Berhasil menampilkan data',
                 'data' => $data,
             ],
-            200,
+            HttpStatusCodes::HTTP_OK
         );
     }
 
     public function show(Request $request)
     {
-        // ✅ Validasi input
         $validator = Validator::make($request->all(), [
             'housing_id' => 'required|exists:housings,id',
             'id' => 'required|exists:complaints,id',
@@ -174,7 +193,6 @@ class ComplaintController extends Controller
 
         $category = ComplaintCategory::where('code', $data['category_code'])->firstOrFail();
 
-        // default status = new
         $status = ComplaintStatus::where('code', 'new')->firstOrFail();
         if (!$status) {
             return response()->json(
@@ -189,9 +207,33 @@ class ComplaintController extends Controller
 
         $data = $validator->validated();
         $category = ComplaintCategory::where('code', $data['category_code'])->firstOrFail();
-
-        // default status = new
         $status = ComplaintStatus::where('code', 'new')->firstOrFail();
+        DB::transaction(function () use ($data, $category, $status, $request, &$created) {
+            $complaint = Complaint::create([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'housing_id' => $data['housing_id'],
+                'category_code' => $category->code,
+                'status_code' => $status->code,
+                'user_id' => $request->user()->id,
+                'submitted_at' => now(),
+                'updated_by' => $request->user()->id,
+            ]);
+
+            ComplaintLogs::create([
+                'complaint_id' => $complaint->id,
+                'status_code' => $status->code, // ✅ isi status_code
+                'logged_by' => $request->user()->id,
+                'logged_at' => now(),
+                'note' => 'Pengaduan dibuat',
+            ]);
+
+            ActivityLogService::logModel(
+                model: $complaint->getTable(),
+                rowId: $complaint->id,
+                json: $complaint->toArray(), // ini tetap array untuk JSON
+                type: 'create',
+            );
 
         $complaint = Complaint::create([
             'title' => $data['title'],
@@ -212,42 +254,35 @@ class ComplaintController extends Controller
         //     'note' => 'Pengaduan dibuat',
         // ]);
 
-        ActivityLogService::logModel(
-            model: $complaint->getTable(),
-            rowId: $complaint->id,
-            json: $complaint->toArray(), // ini tetap array untuk JSON
-            type: 'create',
-        );
+            $created = [
+                'id' => $complaint->id,
+                'title' => $complaint->title,
+                'description' => $complaint->description,
+                'user_id' => $complaint->user_id,
+                'user_name' => $complaint->user?->name,
+                'housing_id' => $complaint->housing_id,
+                'category_code' => $category->code,
+                'category_name' => $category->name,
+                'status_code' => $status->code,
+                'status_name' => $status->name,
+                'submitted_at' => $complaint->submitted_at,
+            ];
 
-        // complaint log
-        ComplaintLogs::create([
-            'complaint_id' => $complaint->id,
-            'logged_by' => $request->user()->id,
-            'logged_at' => now(),
-            'status_code' => $status->code,
-            'note' => 'Pengaduan dibuat',
-        ]);
 
-        $data = [
-            'id' => $complaint->id,
-            'title' => $complaint->title,
-            'description' => $complaint->description,
-            'user_id' => $complaint->user_id,
-            'user_name' => $complaint->user?->name,
-            'housing_id' => $complaint->housing_id,
-            'category_code' => $category->code,
-            'category_name' => $category->name,
-            'status_code' => $status->code,
-            'status_name' => $status->name,
-            'submitted_at' => $complaint->submitted_at,
-        ];
+            DispatchComplaintStore::dispatch(
+                complaintId: $complaint->id
+            )->onQueue('notifications');
+
+            // (new DispatchComplaintStore($complaint->id))->handle(app(\App\Http\Services\PushService::class));
+        });
+
 
         return response()->json(
             [
                 'success' => true,
                 'code' => HttpStatusCodes::HTTP_CREATED,
                 'message' => 'Pengaduan berhasil ditambahkan',
-                'data' => $data,
+                'data' => $created,
             ],
             201,
         );
@@ -396,8 +431,7 @@ class ComplaintController extends Controller
 
     public function destroy(Request $request)
     {
-        // ✅ Validasi awal (id wajib ada di body JSON)
-        $validator = Validator::make($request->json()->all(), [
+        $validator = Validator::make($request->all(), [
             'id' => 'required|exists:complaints,id',
         ]);
 
@@ -506,7 +540,7 @@ class ComplaintController extends Controller
     {
         // ✅ Validasi hanya note (optional) dan id (required)
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:complaints,id',
+            'complaint_id' => 'required|exists:complaints,id',
             'note' => 'nullable|string|max:255',
         ]);
 
@@ -523,48 +557,56 @@ class ComplaintController extends Controller
 
         $validated = $validator->validated();
 
-        // 🔍 Ambil data complaint
-        $complaint = Complaint::with(['status', 'category', 'user'])->findOrFail($validated['id']);
+        DB::transaction(function () use ($request, $validated, &$complaint) {
 
-        // 🔒 Jika status sudah CLOSED, tidak bisa diubah lagi
-        if ($complaint->status_code === 'closed') {
-            return response()->json(
-                [
-                    'success' => false,
-                    'code' => HttpStatusCodes::HTTP_FORBIDDEN,
-                    'message' => 'Pengaduan sudah ditutup dan tidak dapat diubah lagi.',
-                ],
-                HttpStatusCodes::HTTP_FORBIDDEN,
-            );
-        }
+            $complaint = Complaint::with(['status', 'category', 'user'])
+            ->where('housing_id', $request->housing_id)
+            ->findOrFail($validated['complaint_id']);
 
-        // 🔄 Ubah status otomatis dari NEW menjadi CLOSED
-        $complaint->update([
-            'status_code' => 'closed',
-            'updated_by' => $request->user()->id,
-        ]);
+            // 🔒 Jika status sudah CLOSED, tidak bisa diubah lagi
+            if ($complaint->status_code === 'closed') {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'code' => HttpStatusCodes::HTTP_FORBIDDEN,
+                        'message' => 'Pengaduan sudah ditutup dan tidak dapat diubah lagi.',
+                    ],
+                    HttpStatusCodes::HTTP_FORBIDDEN,
+                );
+            }
 
-        // refresh relasi
-        $complaint->refresh()->load(['status', 'category', 'user']);
+            // 🔄 Ubah status otomatis dari NEW menjadi CLOSED
+            $complaint->update([
+                'status_code' => 'closed',
+                'updated_by' => $request->user()->id,
+            ]);
 
-        // 📝 Simpan ke complaint logs
-        ComplaintLogs::create([
-            'complaint_id' => $complaint->id,
-            'status_code' => 'closed',
-            'logged_by' => $request->user()->id,
-            'logged_at' => now(),
-            'note' => $validated['note'] ?? null,
-        ]);
+            // refresh relasi
+            $complaint->refresh()->load(['status', 'category', 'user']);
 
-        // 🧾 Simpan ke activity log
-        ActivityLogService::logModel(model: $complaint->getTable(), rowId: $complaint->id, json: $complaint->toArray(), type: 'update');
+            // 📝 Simpan ke complaint logs
+            ComplaintLogs::create([
+                'complaint_id' => $complaint->id,
+                'status_code' => 'closed',
+                'logged_by' => $request->user()->id,
+                'logged_at' => now(),
+                'note' => $validated['note'] ?? null,
+            ]);
+
+            // 🧾 Simpan ke activity log
+            ActivityLogService::logModel(model: $complaint->getTable(), rowId: $complaint->id, json: $complaint->toArray(), type: 'update');
+
+            DispatchComplaintAction::dispatch(
+                complaintId: $complaint->id
+            )->onQueue('notifications');
+        });
 
         // ✅ Response sukses
         return response()->json(
             [
                 'success' => true,
                 'code' => HttpStatusCodes::HTTP_OK,
-                'message' => 'Status pengaduan berhasil ditutup oleh admin',
+                'message' => 'Pengaduan selesai',
                 'data' => [
                     'id' => $complaint->id,
                     'title' => $complaint->title,
@@ -584,8 +626,13 @@ class ComplaintController extends Controller
 
     public function history(Request $request)
     {
+
         $validator = Validator::make($request->json()->all(), [
             'housing_id' => 'required|exists:housings,id',
+        ]);
+
+        $validator = Validator::make($request->all(), [
+
             'complaint_id' => 'required|exists:complaints,id',
         ]);
 
@@ -628,7 +675,7 @@ class ComplaintController extends Controller
             return [
                 'complaint_id' => $log->complaint_id,
                 'status_code' => $log->status_code,
-                'status_name' => $log->complaint?->status?->name,
+                'status_name' => $log->status?->name,
                 'note' => $log->note ?? '',
                 'logged_by' => $log->logged_by,
                 'logged_name' => $log->loggedBy?->name ?? '-',
@@ -646,4 +693,5 @@ class ComplaintController extends Controller
             HttpStatusCodes::HTTP_OK,
         );
     }
+
 }

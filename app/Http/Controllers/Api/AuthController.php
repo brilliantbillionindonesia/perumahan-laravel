@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
+use App\Models\Housing;
+use App\Models\HousingUser;
+use App\Models\PermissionRole;
 use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
@@ -67,7 +70,6 @@ class AuthController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
         // jika berhasil, buat token
         $token = $user->createToken('api-token')->plainTextToken;
 
@@ -88,10 +90,9 @@ class AuthController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
-
     public function checkToken(Request $request)
     {
-        $token = $request->bearerToken(); // ambil token dari header Authorization
+        $token = $request->bearerToken();
 
         if (!$token) {
             return response()->json([
@@ -117,8 +118,6 @@ class AuthController extends Controller
             'message' => "Token masih aktif",
             'data' => $accessToken->tokenable
         ], HttpStatusCodes::HTTP_CREATED);
-
-
     }
 
     public function me(Request $request)
@@ -139,6 +138,11 @@ class AuthController extends Controller
             DB::raw('role.name as role_name')
         )
         ->first();
+
+        $otherHousing = HousingUser::where('user_id', $userId)->where('housing_id', '!=', $housingId)->get();
+        $permissionRole = PermissionRole::where('role_code', $rows->role_code)->pluck('permission_code')->toArray();
+        $rows->other_housing = count($otherHousing);
+        $rows->permissions = $permissionRole;
 
         return response()->json([
             'success' => true,

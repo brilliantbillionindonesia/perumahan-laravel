@@ -27,7 +27,11 @@ class DatabaseSeeder extends Seeder
             FinancialCategorySeeder::class,
             FeeSeeder::class,
             DueSeeder::class,
+<<<<<<< HEAD
             // PatrolingSeeder::class,
+=======
+            ComplaintSeeder::class
+>>>>>>> d93961c11114748d72baed31e41b1bb325c5f0a0
         ]);
     }
 }

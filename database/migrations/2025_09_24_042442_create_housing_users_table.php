@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('role_code')->default('citizen');
             $table->integer('is_active')->default(1);
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_husers');
+            $table->index('citizen_id', 'idx_citizen_husers');
+            $table->index('user_id', 'idx_user_husers');
+            $table->index('role_code', 'idx_role_code_husers');
+
         });
     }
 

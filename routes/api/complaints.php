@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\ComplaintController;
 
-Route::prefix('complaint')->group(function () {
+Route::prefix('complaints')->group(function () {
     Route::get('/list', [ComplaintController::class, 'list']);
     Route::get('/show', [ComplaintController::class, 'show']);
     Route::post('/store', [ComplaintController::class, 'store']);
@@ -10,7 +10,7 @@ Route::prefix('complaint')->group(function () {
     Route::delete('/delete', [ComplaintController::class, 'destroy']);
     route::get('/history', [ComplaintController::class, 'history']);
 
-    Route::middleware(['role:admin'])->group(function () {
-            Route::post('action', [ComplaintController::class, 'action']);
-        });
+    Route::middleware(['permission:manage_complaints'])->group(function () {
+        Route::post('action', [ComplaintController::class, 'action']);
+    });
 });

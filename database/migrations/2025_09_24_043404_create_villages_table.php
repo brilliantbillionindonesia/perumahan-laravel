@@ -20,6 +20,11 @@ return new class extends Migration
             $table->string('code');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('province_code', 'idx_prv_code_villages');
+            $table->index('district_code', 'idx_dis_code_villages');
+            $table->index('subdistrict_code', 'idx_subdis_code_villages');
+
         });
     }
 

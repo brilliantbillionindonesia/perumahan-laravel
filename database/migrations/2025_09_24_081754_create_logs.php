@@ -20,6 +20,11 @@ return new class extends Migration
             $table->uuid('logged_by');
             $table->timestamp('logged_at');
             $table->timestamps();
+
+            $table->index('table', 'idx_table_logs');
+            $table->index('row_id', 'idx_row_id_logs');
+            $table->index('type', 'idx_type_logs');
+            $table->index('logged_by', 'idx_logged_by_logs');
         });
     }
 

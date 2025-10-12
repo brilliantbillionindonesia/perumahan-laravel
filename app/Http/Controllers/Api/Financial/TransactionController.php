@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\Financial;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\ActivityLogService;
+use App\Jobs\DispatchTransactionStore;
 use App\Models\Citizen;
+use App\Models\FinancialCategory;
 use App\Models\FinancialTransaction;
 use App\Models\House;
+use App\Models\Housing;
 use App\Models\HousingUser;
 use App\Models\Payment;
 use DB;
@@ -14,6 +17,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use App\Models\CashBalance;
 use App\Constants\HttpStatusCodes;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Validator;
 
@@ -56,8 +60,11 @@ class TransactionController extends Controller
         $year = $cashBalance->year;
         $month = $cashBalance->month;
 
-        $data = FinancialTransaction::where('housing_id', $request->input('housing_id'))
+        $data = FinancialTransaction::where('financial_transactions.housing_id', $request->input('housing_id'))
+            ->select('financial_transactions.*', 'financial_categories.name as financial_category_name')
+            ->join('financial_categories', 'financial_transactions.financial_category_code', '=', 'financial_categories.code')
             ->whereYear('transaction_date', $year)
+            ->whereMonth('transaction_date', $month)
             ->when($request->input('search'), function ($query) use ($request) {
                 $query->where(function ($query) use ($request) {
                     $query->where('note', 'like', '%' . $request->input('search') . '%');
@@ -65,11 +72,10 @@ class TransactionController extends Controller
             })
             ->when($request->input('type'), function ($query) use ($request) {
                 $type = $request->input('type') == 'all' ? null : $request->input('type');
-                if ($type != null ) {
+                if ($type != null) {
                     $query->where('type', $request->input('type'));
                 }
             })
-            ->whereMonth('transaction_date', $month)
             ->orderBy('created_at', 'desc')
             ->limit($perPage)
             ->offset(($page - 1) * $perPage)
@@ -95,6 +101,7 @@ class TransactionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'search' => ['nullable', 'string'],
+            'is_me' => ['nullable', 'boolean'],
             'page' => ['nullable', 'integer', 'min:1'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
         ]);
@@ -110,8 +117,8 @@ class TransactionController extends Controller
         $page = (int) ($request->input('page', 1));
         $perPage = (int) ($request->input('per_page', 5));
 
-        $housingUser = HousingUser::where('user_id', $request->user()->id)->where('housing_id', $request->current_housing->housing_id)->first();
-
+        $housingUser = HousingUser::where('housing_id', $request->housing_id)
+            ->where('user_id', auth()->user()->id)->first();
         if (!$housingUser) {
             return response()->json([
                 'success' => false,
@@ -120,24 +127,26 @@ class TransactionController extends Controller
             ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
-        $citizen = Citizen::where('id', $housingUser->citizen_id)->first();
+        if ($request->input('is_me')) {
+            $citizen = Citizen::where('id', $housingUser->citizen_id)->first();
 
-        if (!$citizen) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
-                'message' => 'Data tidak ditemukan',
-            ], HttpStatusCodes::HTTP_NOT_FOUND);
-        }
+            if (!$citizen) {
+                return response()->json([
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                    'message' => 'Data tidak ditemukan',
+                ], HttpStatusCodes::HTTP_NOT_FOUND);
+            }
 
-        $house = House::where('family_card_id', $citizen->family_card_id)->first();
+            $house = House::where('family_card_id', $citizen->family_card_id)->first();
 
-        if (!$house) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
-                'message' => 'Data tidak ditemukan',
-            ], HttpStatusCodes::HTTP_NOT_FOUND);
+            if (!$house) {
+                return response()->json([
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                    'message' => 'Data tidak ditemukan',
+                ], HttpStatusCodes::HTTP_NOT_FOUND);
+            }
         }
 
         $search = $request->input('search');
@@ -145,8 +154,15 @@ class TransactionController extends Controller
         $payments = DB::table('payments as p')
             ->join('dues as d', 'p.due_id', '=', 'd.id')
             ->join('fees as f', 'd.fee_id', '=', 'f.id')
-            ->where('p.house_id', '=', $house->id)
-            // bungkus orWhere agar tidak “lepas” dari kondisi house_id
+            ->join('houses as h', 'p.house_id', '=', 'h.id')
+            ->join('citizens as c', 'h.head_citizen_id', '=', 'c.id');
+
+        if ($request->input('is_me')) {
+            $payments = $payments->when($request->input('is_me'), function ($q) use ($house) {
+                $q->where('p.house_id', '=', $house->id);
+            });
+        }
+        $payments = $payments->where('p.housing_id', $request->input('housing_id'))
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($qq) use ($search) {
                     $qq->where('f.name', 'like', "%{$search}%")
@@ -156,6 +172,9 @@ class TransactionController extends Controller
             ->groupBy('p.transaction_code')
             ->selectRaw('
                 MAX(p.id)                           as payment_id,
+                MAX(c.fullname)                          as fullname,
+                MAX(h.block)                          as house_block,
+                MAX(h.number)                          as house_number,
                 p.transaction_code,
                 COUNT(*)                            as items_count,
                 SUM(p.amount)                       as amount,
@@ -169,6 +188,7 @@ class TransactionController extends Controller
             ->limit($perPage)
             ->offset(($page - 1) * $perPage)
             ->get();
+
 
         return response()->json([
             'success' => true,
@@ -229,12 +249,12 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'housing_id' => ['required', 'uuid'], // ← kamu pakai, jadi wajibkan
             'financial_category_code' => ['required', 'exists:financial_categories,code'],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'date_format:Y-m-d H:i:s'],
             'note' => ['required', 'string'],
             'type' => ['required', 'string', Rule::in(['expense', 'income'])],
+            'evidence' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
         ]);
 
         if ($validator->fails()) {
@@ -243,6 +263,18 @@ class TransactionController extends Controller
                 'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
                 'message' => $validator->errors()->first(),
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $financialCategory = FinancialCategory::where('code', $request->input('financial_category_code'))
+            ->where('type', $request->input('type'))
+            ->first();
+
+        if (!$financialCategory) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Kategori tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
         }
 
         try {
@@ -281,6 +313,12 @@ class TransactionController extends Controller
                     $cashBalance->expense = 0;
                     $cashBalance->closing_balance = $openingBalance; // start = opening
                     $cashBalance->save();
+                    ActivityLogService::logModel(
+                        model: $cashBalance->getTable(),
+                        rowId: $cashBalance->id,
+                        json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                        type: 'create',
+                    );
                     // setelah save, closing_balance = openingBalance (nol perubahan)
                 }
 
@@ -311,6 +349,13 @@ class TransactionController extends Controller
                 }
                 $cashBalance->save();
 
+                ActivityLogService::logModel(
+                    model: $cashBalance->getTable(),
+                    rowId: $cashBalance->id,
+                    json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                    type: 'update',
+                );
+
                 // Buat transaksi
                 $transactionCode = generateTransactionCode($hid, $now); // fungsi milikmu
 
@@ -322,6 +367,18 @@ class TransactionController extends Controller
                 $transaction->transaction_date = $request->input('transaction_date');
                 $transaction->note = $request->input('note');
                 $transaction->type = $type;
+
+                // ====== SIMPAN FILE BUKTI (JIKA ADA) ======
+                if ($request->hasFile('evidence')) {
+                    $file = $request->file('evidence');
+                    $ext = $file->getClientOriginalExtension();
+                    $dir = "evidences/transactions/{$now->year}/{$now->format('m')}";
+                    $filename = Str::uuid()->toString() . '.' . $ext;
+
+                    // Simpan ke disk 'public'
+                    $path = $file->storeAs($dir, $filename, 'public');
+                    $transaction->evidence = $path; // contoh: evidences/transactions/2025/10/uuid.jpg
+                }
                 $transaction->save();
 
                 ActivityLogService::logModel(
@@ -330,6 +387,12 @@ class TransactionController extends Controller
                     json: $transaction->toArray(),
                     type: 'create',
                 );
+
+                DispatchTransactionStore::dispatch(
+                    transactionId: $transaction->id,
+                    cashBalanceId: $cashBalance->id
+                )->onQueue('notifications');
+
             });
 
             return response()->json([
@@ -352,4 +415,148 @@ class TransactionController extends Controller
             ], HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function byCategory(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "cash_balance_id" => ['required', 'exists:cash_balances,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $cashBalance = CashBalance::where('id', $request->input('cash_balance_id'))
+            ->where('housing_id', $request->input('housing_id'))
+            ->first();
+
+        if (!$cashBalance) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $year = $cashBalance->year;
+        $month = $cashBalance->month;
+
+        $data = DB::table('financial_transactions as ft')
+            ->join('financial_categories as fc', 'ft.financial_category_code', '=', 'fc.code')
+            ->select(
+                'ft.financial_category_code as code',
+                'fc.name',
+                'ft.type',
+                DB::raw('SUM(ft.amount) as total')
+            )
+            ->where('ft.housing_id', $request->input('housing_id'))
+            ->whereYear('ft.transaction_date', $year)
+            ->whereMonth('ft.transaction_date', $month)
+            ->groupBy('ft.financial_category_code', 'fc.name', 'ft.type')
+            ->orderByRaw('sum(ft.amount) desc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Success',
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+
+    }
+
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:financial_transactions,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => $validator->errors()->first(),
+                ],
+                HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+            );
+        }
+
+        $data = $validator->validated();
+
+        $transaction = FinancialTransaction::
+            with('category:code,name')
+            ->where('id', $data['id'])
+            ->first();
+
+        $arr = [
+            'evidence_url' => $transaction->evidence_url,
+            'financial_category_name' => $transaction->category->name
+        ];
+
+        $transaction = $transaction->toArray();
+
+        $transaction = array_merge($transaction, $arr);
+
+        return response()->json(
+            [
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Berhasil menampilkan data transaksi',
+                'data' => $transaction,
+            ],
+            HttpStatusCodes::HTTP_OK,
+        );
+    }
+
+    public function generateBalance()
+    {
+        $housings = Housing::all();
+        $year = date('Y');
+        $month = date('m');
+
+        foreach ($housings as $housing) {
+            $cashBalance = CashBalance::where('housing_id', $housing->id)
+                ->where('year', $year)
+                ->where('month', $month)
+                ->first();
+
+            if (!$cashBalance) {
+
+                // Ambil saldo penutup terakhir sebelum bulan ini
+                $lastBalance = CashBalance::where('housing_id', $housing->id)
+                    ->where(function ($q) use ($year, $month) {
+                        $q->where('year', '<', $year)
+                            ->orWhere(function ($q2) use ($year, $month) {
+                                $q2->where('year', $year)
+                                    ->where('month', '<', $month);
+                            });
+                    })
+                    ->orderBy('year', 'desc')
+                    ->orderBy('month', 'desc')
+                    ->first();
+
+                $openingBalance = optional($lastBalance)->closing_balance ?? 0;
+
+                $cashBalance = CashBalance::create([
+                    'housing_id' => $housing->id,
+                    'year' => $year,
+                    'month' => $month,
+                    'opening_balance' => $openingBalance,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Data berhasil disimpan',
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
+
 }

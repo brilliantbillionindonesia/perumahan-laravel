@@ -21,6 +21,10 @@ return new class extends Migration
             $table->decimal('expense', 20, 2)->default(0);
             $table->decimal('closing_balance', 20, 2)->default(0);
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_balances');
+            $table->index('year', 'idx_year_balances');
+            $table->index('month', 'idx_month_balances');
         });
     }
 

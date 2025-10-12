@@ -22,6 +22,9 @@ return new class extends Migration
             $table->dateTime('billing_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_fees');
+            $table->index('financial_category_code', 'idx_fin_cat_code_fees');
         });
     }
 

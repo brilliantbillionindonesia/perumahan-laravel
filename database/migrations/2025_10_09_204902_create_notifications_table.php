@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('province_code');
-            $table->string('name');
-            $table->string('code');
-            $table->softDeletes();
+            $table->uuid('housing_id');
+            $table->string('type'); // fee, panic, dll -> create constant
+            $table->string('title');
+            $table->string('message');
+            $table->text('data_json')->nullable();
             $table->timestamps();
-
-            $table->index('province_code', 'idx_prv_code_villages');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('notifications');
     }
 };

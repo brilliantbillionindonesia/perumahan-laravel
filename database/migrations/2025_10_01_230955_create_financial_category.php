@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('type', ['expense', 'income'])->default('expense');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('housing_id', 'idx_housing_fcat');
         });
     }
 

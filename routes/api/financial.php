@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\Financial\FeeController;
 use App\Http\Controllers\Api\Financial\TransactionController;
 
 Route::prefix('financial')->group(function () {
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['permission:manage_transactions'])->group(function () {
         Route::prefix('dues')->group(function () {
             Route::get('list', [DueController::class, 'list']);
             Route::get('show', [DueController::class, 'show']);
@@ -35,7 +35,6 @@ Route::prefix('financial')->group(function () {
             Route::put('update', [TransactionController::class, 'update']);
             Route::delete('delete', [TransactionController::class, 'delete']);
         });
-
     });
 
     Route::prefix('cash-balances')->group(function () {
@@ -45,6 +44,8 @@ Route::prefix('financial')->group(function () {
     });
     Route::prefix('transactions')->group(function () {
         Route::get('list', [TransactionController::class, 'list']);
+        Route::get('show', [TransactionController::class, 'show']);
+        Route::get('category', [TransactionController::class, 'byCategory']);
     });
 
     Route::prefix('payment-proofs')->group(function () {
