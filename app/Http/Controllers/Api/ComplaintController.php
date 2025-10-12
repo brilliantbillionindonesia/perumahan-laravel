@@ -90,7 +90,7 @@ class ComplaintController extends Controller
             'housing_id' => 'required|exists:housings,id',
             'id' => 'required|exists:complaints,id',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(
                 [
@@ -101,15 +101,15 @@ class ComplaintController extends Controller
                 HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
             );
         }
-    
+
         $data = $validator->validated();
-    
+
         // 🔍 Ambil data complaint beserta relasi
         $complaint = Complaint::with(['category', 'status', 'user', 'updatedBy'])
             ->where('housing_id', $data['housing_id'])
             ->where('id', $data['id'])
             ->first();
-    
+
         if (!$complaint) {
             return response()->json(
                 [
@@ -120,7 +120,7 @@ class ComplaintController extends Controller
                 HttpStatusCodes::HTTP_NOT_FOUND,
             );
         }
-    
+
         // ✅ Format response data
         $responseData = [
             'complaint_id' => $complaint->id,
@@ -137,7 +137,7 @@ class ComplaintController extends Controller
             'submitted_at' => $complaint->submitted_at,
             'updated_at' => $complaint->updated_at,
         ];
-    
+
         // ✅ Response sukses
         return response()->json(
             [
@@ -149,7 +149,6 @@ class ComplaintController extends Controller
             HttpStatusCodes::HTTP_OK,
         );
     }
-    
 
     public function store(Request $request)
     {
@@ -205,13 +204,13 @@ class ComplaintController extends Controller
             'updated_by' => $request->user()->id,
         ]);
 
-        ComplaintLogs::create([
-            'complaint_id' => $complaint->id,
-            'status_code' => $status->code, // ✅ isi status_code
-            'logged_by' => $request->user()->id,
-            'logged_at' => now(),
-            'note' => 'Pengaduan dibuat',
-        ]);
+        // ComplaintLogs::create([
+        //     'complaint_id' => $complaint->id,
+        //     'status_code' => $status->code, // ✅ isi status_code
+        //     'logged_by' => $request->user()->id,
+        //     'logged_at' => now(),
+        //     'note' => 'Pengaduan dibuat',
+        // ]);
 
         ActivityLogService::logModel(
             model: $complaint->getTable(),
@@ -453,7 +452,7 @@ class ComplaintController extends Controller
                 [
                     'success' => false,
                     'code' => HttpStatusCodes::HTTP_BAD_REQUEST,
-                    'message' => 'Pengaduan dengan status "closed" tidak dapat dihapus',
+                    'message' => 'Pengaduan dengan status closed tidak dapat dihapus',
                 ],
                 HttpStatusCodes::HTTP_BAD_REQUEST,
             );
@@ -497,7 +496,7 @@ class ComplaintController extends Controller
             [
                 'success' => true,
                 'code' => HttpStatusCodes::HTTP_OK,
-                'message' => 'Complaint berhasil dihapus',
+                'message' => 'Pengaduan berhasil dihapus',
             ],
             HttpStatusCodes::HTTP_OK,
         );
@@ -585,7 +584,6 @@ class ComplaintController extends Controller
 
     public function history(Request $request)
     {
-        // ✅ Validasi input dari body JSON
         $validator = Validator::make($request->json()->all(), [
             'housing_id' => 'required|exists:housings,id',
             'complaint_id' => 'required|exists:complaints,id',
@@ -605,13 +603,15 @@ class ComplaintController extends Controller
 
         $validated = $validator->validated();
 
-        // ✅ Ambil semua history log berdasarkan complaint_id
+        // ✅ Ambil log tanpa duplikasi status_code (hanya log terbaru per status)
         $logs = ComplaintLogs::with(['loggedBy', 'complaint.status'])
             ->where('complaint_id', $validated['complaint_id'])
-            ->orderBy('logged_at', 'asc') // dari yang paling lama ke terbaru
-            ->get();
+            ->orderBy('logged_at', 'desc')
+            ->get()
+            ->unique('status_code') // hanya 1 per status_code
+            ->sortBy('logged_at') // urutkan kembali dari yang lama ke baru
+            ->values();
 
-        // Jika tidak ada data log
         if ($logs->isEmpty()) {
             return response()->json(
                 [
@@ -624,7 +624,6 @@ class ComplaintController extends Controller
             );
         }
 
-        // ✅ Format response data
         $data = $logs->map(function ($log) {
             return [
                 'complaint_id' => $log->complaint_id,
@@ -637,7 +636,6 @@ class ComplaintController extends Controller
             ];
         });
 
-        // ✅ Response sukses
         return response()->json(
             [
                 'success' => true,

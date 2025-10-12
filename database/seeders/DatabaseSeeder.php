@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Complaint;
 use App\Models\Housing;
 use App\Models\HousingUser;
+use App\Models\Patroling;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             FinancialCategorySeeder::class,
             FeeSeeder::class,
             DueSeeder::class,
+            // PatrolingSeeder::class,
         ]);
     }
 }
