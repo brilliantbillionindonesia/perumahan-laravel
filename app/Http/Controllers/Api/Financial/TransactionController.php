@@ -9,6 +9,7 @@ use App\Models\Citizen;
 use App\Models\FinancialCategory;
 use App\Models\FinancialTransaction;
 use App\Models\House;
+use App\Models\Housing;
 use App\Models\HousingUser;
 use App\Models\Payment;
 use DB;
@@ -508,6 +509,33 @@ class TransactionController extends Controller
             ],
             HttpStatusCodes::HTTP_OK,
         );
+    }
+
+    public function generateBalance(){
+        $housings = Housing::all();
+        $year = date('Y');
+        $month = date('m');
+
+        foreach ($housings as $housing) {
+            $cashBalance = CashBalance::where('housing_id', $housing->id)
+                ->where('year', $year)
+                ->where('month', $month)
+                ->first();
+
+            if (!$cashBalance) {
+                $cashBalance = CashBalance::create([
+                    'housing_id' => $housing->id,
+                    'year' => $year,
+                    'month' => $month,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Data berhasil disimpan',
+        ], HttpStatusCodes::HTTP_OK);
     }
 
 
