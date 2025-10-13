@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('citizens', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('family_card_id');
-            $table->string('citizen_card_number');
-            $table->string('fullname');
-            $table->string('gender');
-            $table->string('birth_place');
-            $table->date('birth_date');
-            $table->string('blood_type');
-            $table->string('religion');
-            $table->string('marital_status');
-            $table->string('work_type');
-            $table->string('education_type');
-            $table->string('citizenship');
+            $table->string('citizen_card_number')->nullable();
+            $table->string('fullname')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('blood_type')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('work_type')->nullable();
+            $table->string('education_type')->nullable();
+            $table->string('citizenship')->nullable();
             $table->uuid('death_certificate_id')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
