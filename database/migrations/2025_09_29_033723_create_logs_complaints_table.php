@@ -17,7 +17,11 @@ return new class extends Migration
             $table->uuid('logged_by');
             $table->datetime('logged_at');
             $table->string('status_code');
+
+            $table->text('note')->nullable()->change();
+
             $table->text('note')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
 

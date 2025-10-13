@@ -10,7 +10,6 @@ class DistrictSeeder extends Seeder
 {
     public function run()
     {
-
         $path = database_path('data/kabupaten');
         $files = File::files($path);
 
@@ -18,7 +17,7 @@ class DistrictSeeder extends Seeder
             $json = file_get_contents($file->getPathname());
             $data = json_decode($json, true);
 
-            // kalau JSON hanya 1 object, bungkus ke array
+            // Kalau JSON hanya 1 object, bungkus ke array
             if (isset($data['id'])) {
                 $data = [$data];
             }
@@ -28,11 +27,14 @@ class DistrictSeeder extends Seeder
                 $districtCode = substr($villageCode, 0, 4); // 4 digit pertama
                 $provinceCode = substr($villageCode, 0, 2); // 2 digit pertama
 
+                // Format nama: hanya huruf pertama kapital, sisanya kecil
+                $formattedName = ucwords(strtolower($item['name']));
+
                 // Simpan district (kabupaten/kota)
                 District::updateOrCreate(
                     ['code' => $districtCode],
                     [
-                        'name'          => $item['nama'],
+                        'name'          => $formattedName,
                         'province_code' => $provinceCode,
                     ]
                 );

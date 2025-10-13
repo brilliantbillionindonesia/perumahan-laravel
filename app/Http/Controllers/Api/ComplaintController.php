@@ -235,6 +235,25 @@ class ComplaintController extends Controller
                 type: 'create',
             );
 
+        $complaint = Complaint::create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'housing_id' => $data['housing_id'],
+            'category_code' => $category->code,
+            'status_code' => $status->code,
+            'user_id' => $request->user()->id,
+            'submitted_at' => now(),
+            'updated_by' => $request->user()->id,
+        ]);
+
+        // ComplaintLogs::create([
+        //     'complaint_id' => $complaint->id,
+        //     'status_code' => $status->code, // ✅ isi status_code
+        //     'logged_by' => $request->user()->id,
+        //     'logged_at' => now(),
+        //     'note' => 'Pengaduan dibuat',
+        // ]);
+
             $created = [
                 'id' => $complaint->id,
                 'title' => $complaint->title,
@@ -248,6 +267,7 @@ class ComplaintController extends Controller
                 'status_name' => $status->name,
                 'submitted_at' => $complaint->submitted_at,
             ];
+
 
             DispatchComplaintStore::dispatch(
                 complaintId: $complaint->id
@@ -466,7 +486,7 @@ class ComplaintController extends Controller
                 [
                     'success' => false,
                     'code' => HttpStatusCodes::HTTP_BAD_REQUEST,
-                    'message' => 'Pengaduan dengan status "closed" tidak dapat dihapus',
+                    'message' => 'Pengaduan dengan status closed tidak dapat dihapus',
                 ],
                 HttpStatusCodes::HTTP_BAD_REQUEST,
             );
@@ -510,7 +530,7 @@ class ComplaintController extends Controller
             [
                 'success' => true,
                 'code' => HttpStatusCodes::HTTP_OK,
-                'message' => 'Complaint berhasil dihapus',
+                'message' => 'Pengaduan berhasil dihapus',
             ],
             HttpStatusCodes::HTTP_OK,
         );
@@ -606,7 +626,13 @@ class ComplaintController extends Controller
 
     public function history(Request $request)
     {
+
+        $validator = Validator::make($request->json()->all(), [
+            'housing_id' => 'required|exists:housings,id',
+        ]);
+
         $validator = Validator::make($request->all(), [
+
             'complaint_id' => 'required|exists:complaints,id',
         ]);
 
@@ -624,13 +650,15 @@ class ComplaintController extends Controller
 
         $validated = $validator->validated();
 
-        // ✅ Ambil semua history log berdasarkan complaint_id
+        // ✅ Ambil log tanpa duplikasi status_code (hanya log terbaru per status)
         $logs = ComplaintLogs::with(['loggedBy', 'complaint.status'])
             ->where('complaint_id', $validated['complaint_id'])
-            ->orderBy('logged_at', 'asc') // dari yang paling lama ke terbaru
-            ->get();
+            ->orderBy('logged_at', 'desc')
+            ->get()
+            ->unique('status_code') // hanya 1 per status_code
+            ->sortBy('logged_at') // urutkan kembali dari yang lama ke baru
+            ->values();
 
-        // Jika tidak ada data log
         if ($logs->isEmpty()) {
             return response()->json(
                 [
@@ -643,7 +671,6 @@ class ComplaintController extends Controller
             );
         }
 
-        // ✅ Format response data
         $data = $logs->map(function ($log) {
             return [
                 'complaint_id' => $log->complaint_id,
@@ -656,7 +683,6 @@ class ComplaintController extends Controller
             ];
         });
 
-        // ✅ Response sukses
         return response()->json(
             [
                 'success' => true,
@@ -667,4 +693,5 @@ class ComplaintController extends Controller
             HttpStatusCodes::HTTP_OK,
         );
     }
+
 }

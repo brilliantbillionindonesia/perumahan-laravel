@@ -17,24 +17,27 @@ class SubdistrictSeeder extends Seeder
             $json = file_get_contents($file->getPathname());
             $data = json_decode($json, true);
 
-            // kalau JSON hanya 1 object, bungkus ke array
+            // Kalau JSON hanya 1 object, bungkus ke array
             if (isset($data['id'])) {
                 $data = [$data];
             }
 
-            // ambil kode kabupaten dari nama file
+            // Ambil kode kabupaten dari nama file
             $districtCode = pathinfo($file->getFilename(), PATHINFO_FILENAME);
 
             foreach ($data as $item) {
                 // Ambil 2 digit pertama dari district_code → province_code
                 $provinceCode = substr($districtCode, 0, 2);
-            
+
+                // Format nama: hanya huruf pertama kapital, sisanya huruf kecil
+                $formattedName = ucwords(strtolower($item['name']));
+
                 Subdistrict::updateOrCreate(
                     ['code' => $item['id']], // JSON "id" → DB "code"
                     [
-                        'name'          => $item['nama'],        // JSON "nama" → DB "name"
-                        'district_code' => $districtCode,        // nama file → district_code
-                        'province_code' => $provinceCode,        // ambil otomatis dari district_code
+                        'name'          => $formattedName,  // Format huruf diperbaiki
+                        'district_code' => $districtCode,    // Nama file → district_code
+                        'province_code' => $provinceCode,    // Ambil otomatis dari district_code
                     ]
                 );
             }

@@ -22,19 +22,19 @@ class VillageSeeder extends Seeder
                 $data = [$data];
             }
 
-            // ambil kode kabupaten dari nama file
-            $districtCode = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-
             foreach ($data as $item) {
                 $villageCode     = $item['id'];
                 $subdistrictCode = substr($villageCode, 0, 6); // 6 digit pertama
                 $districtCode    = substr($villageCode, 0, 4); // 4 digit pertama
                 $provinceCode    = substr($villageCode, 0, 2); // 2 digit pertama
-            
+
+                // Format nama: huruf pertama kapital, sisanya kecil
+                $formattedName = ucwords(strtolower($item['name']));
+
                 Village::updateOrCreate(
-                    ['code' => $villageCode], // berdasarkan code yang unik
+                    ['code' => $villageCode],
                     [
-                        'name'             => $item['nama'],
+                        'name'             => $formattedName,
                         'province_code'    => $provinceCode,
                         'district_code'    => $districtCode,
                         'subdistrict_code' => $subdistrictCode,
