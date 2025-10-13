@@ -55,6 +55,11 @@ class RolePermissionSeeder extends Seeder
             'name' => 'Mengatur Pengaduan',
         ]);
 
+        $managePatrol = Permission::create([
+            'code' => 'manage_patrols',
+            'name' => 'Mengatur Ronda',
+        ]);
+
         $viewReports = Permission::create([
             'code' => 'view_reports',
             'name' => 'Melihat Laporan',
@@ -74,6 +79,7 @@ class RolePermissionSeeder extends Seeder
             $manageUsers->code,
             $manageTransaction->code,
             $manageComplaint->code,
+            $managePatrol->code,
             $viewReports->code,
             $viewFinancialReport->code,
             $viewTransactions->code
@@ -83,6 +89,7 @@ class RolePermissionSeeder extends Seeder
             $manageUsers->code,
             $manageTransaction->code,
             $manageComplaint->code,
+            $managePatrol->code,
             $viewReports->code,
             $viewFinancialReport->code,
             $viewTransactions->code
@@ -90,6 +97,7 @@ class RolePermissionSeeder extends Seeder
 
         $secretary->permissions()->attach([
             $manageComplaint->code,
+            $managePatrol->code,
             $viewReports->code,
             $viewFinancialReport->code,
             $viewTransactions->code
