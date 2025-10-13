@@ -28,13 +28,15 @@ class ProvinceSeeder extends Seeder
             $provinceCode = $item['id'] ?? null;
             $provinceName = $item['nama'] ?? null;
 
+            $formattedName = ucwords(strtolower($provinceName));
+
             if (!$provinceCode || !$provinceName) {
                 continue; // skip jika datanya tidak lengkap
             }
 
             Province::updateOrCreate(
                 ['code' => $provinceCode], // berdasarkan kode unik provinsi
-                ['name' => $provinceName]
+                ['name' => $formattedName]
             );
         }
 

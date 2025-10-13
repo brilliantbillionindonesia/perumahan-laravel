@@ -48,6 +48,7 @@ class CitizenRepository
         ->leftJoin('family_members as fm', 'fm.citizen_id', '=', 'c.id')
         ->leftJoin('users as u', 'u.id', '=', 'hu.user_id')
         ->where('hu.housing_id', $housingId)
+         ->where('hu.is_active', 1)
         ->orderBy('c.fullname', 'asc');
 
         return $data;

@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Http\Controllers\Api\PatrolingController;
 use App\Models\House;
 use App\Models\Housing;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -26,39 +28,14 @@ class PatrolingSeeder extends Seeder
 
         foreach ($housings as $housing) {
             $housingId = $housing->id;
-            $houses = House::where('housing_id', $housingId)->get();
-
-            foreach ($houses as $house) {
-                $houseId = $house->id;
-                $citizenId = $house->head_citizen_id;
-
-                // Buat rondaFreq data dengan tanggal acak
-                for ($i = 0; $i < $rondaFreq; $i++) {
-                    // buat tanggal acak antara start & end
-                    $randomTimestamp = rand($startDate->timestamp, $endDate->timestamp);
-                    $randomDate = Carbon::createFromTimestamp($randomTimestamp)->format('Y-m-d');
-
-                    $dataPatrols[] = [
-                        'housing_id'   => $housingId,
-                        'citizen_id'   => $citizenId,
-                        'house_id'     => $houseId,
-                        'patrol_date'  => $randomDate,
-                        'presence'     => 'hadir',
-                        'note'         => null,
-                        'replaced_by'  => null,
-                        'deleted_at'   => null,
-                        'created_at'   => now(),
-                        'updated_at'   => now(),
-                    ];
-                }
-            }
-        }
-
-        if (!empty($dataPatrols)) {
-            DB::table('patrollings')->insert($dataPatrols);
-            $this->command->info(' Berhasil menambahkan ' . count($dataPatrols) . ' data patroli dengan tanggal acak.');
-        } else {
-            $this->command->warn(' Tidak ada data housing/house untuk dibuatkan patroli.');
+            $patrolController = new PatrolingController();
+            $request = new Request([
+                'housing_id' => $housingId,
+                'start_date' => $startDate->format('Y-m-d'),
+                'end_date' => $endDate->format('Y-m-d'),
+                'frequency' => $rondaFreq
+            ]);
+            $patrolController->store($request);
         }
     }
 }

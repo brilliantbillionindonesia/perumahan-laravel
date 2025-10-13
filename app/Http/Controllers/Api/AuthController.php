@@ -139,7 +139,10 @@ class AuthController extends Controller
         )
         ->first();
 
-        $otherHousing = HousingUser::where('user_id', $userId)->where('housing_id', '!=', $housingId)->get();
+        $otherHousing = HousingUser::where('user_id', $userId)
+        ->where('housing_id', '!=', $housingId)
+        ->where('is_active', 1)
+        ->get();
         $permissionRole = PermissionRole::where('role_code', $rows->role_code)->pluck('permission_code')->toArray();
         $rows->other_housing = count($otherHousing);
         $rows->permissions = $permissionRole;

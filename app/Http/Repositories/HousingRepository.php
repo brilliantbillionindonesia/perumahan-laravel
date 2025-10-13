@@ -36,6 +36,7 @@ class HousingRepository
         ->join('housing_users as hu', 'hu.user_id', '=', 'u.id')
         ->join('roles as role', 'role.code', '=', 'hu.role_code')
         ->where('hu.housing_id', $housingId)
+        ->where('hu.is_active', 1)
         ->select(
             'hu.id',
             'u.name',

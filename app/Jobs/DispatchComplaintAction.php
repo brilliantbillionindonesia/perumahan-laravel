@@ -28,7 +28,9 @@ class DispatchComplaintAction implements ShouldQueue
         $complaint = Complaint::where('id', $this->complaintId)->first();
         $userToken = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $complaint->housing_id)
         ->join('device_tokens', 'device_tokens.user_id', '=', 'housing_users.user_id')
-        ->where('housing_users.user_id', '=', $complaint->user_id)->get();
+        ->where('housing_users.user_id', '=', $complaint->user_id)
+        ->where('housing_users.is_active', 1)
+        ->get();
 
         $name = $complaint->updatedBy ? $complaint->updatedBy->name : 'Pengurus';
 

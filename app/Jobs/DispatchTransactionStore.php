@@ -28,6 +28,7 @@ class DispatchTransactionStore implements ShouldQueue
         $transaction = FinancialTransaction::where('id', $this->transactionId)->first();
         $management = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $transaction->housing_id)
         ->join('device_tokens', 'device_tokens.user_id', '=', 'housing_users.user_id')
+        ->where('housing_users.is_active', 1)
         ->where('role_code', '!=', 'citizen')->get();
 
         if($management->isEmpty()){

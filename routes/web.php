@@ -20,5 +20,4 @@ Route::middleware(['web_token'])->group(function () {
     Route::get('/citizen', function () {
         dd('citizennnnnn');
     });
-
 });

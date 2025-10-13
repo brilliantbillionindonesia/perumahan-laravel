@@ -34,6 +34,7 @@ class PanicController extends Controller
 
         $housingUser = HousingUser::where('housing_id', $request->input('housing_id'))
         ->where('user_id', auth()->user()->id)
+        ->where('is_active', 1)
         ->first();
 
         if (!$housingUser) {
@@ -70,6 +71,7 @@ class PanicController extends Controller
 
             $management = HousingUser::where('housing_id', $request->input('housing_id'))
             ->where('user_id', '!=', auth()->user()->id)
+            ->where('is_active', 1)
             ->where('role_code', '!=', 'citizen')->get();
 
             foreach ($management as $key => $value) {

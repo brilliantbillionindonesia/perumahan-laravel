@@ -30,7 +30,7 @@ class SubdistrictSeeder extends Seeder
                 $provinceCode = substr($districtCode, 0, 2);
 
                 // Format nama: hanya huruf pertama kapital, sisanya huruf kecil
-                $formattedName = ucwords(strtolower($item['name']));
+                $formattedName = ucwords(strtolower($item['nama']));
 
                 Subdistrict::updateOrCreate(
                     ['code' => $item['id']], // JSON "id" → DB "code"

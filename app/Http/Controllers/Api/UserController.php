@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function changeRole(Request $request){
         $validator = Validator::make($request->all(), [
-            'user_id'   => ['required', 'exists:housing_users,id'],
+            'housing_user_id'   => ['required', 'exists:housing_users,id'],
             'role_code' => ['required', Rule::exists('roles', 'code')],
         ]);
 
@@ -30,8 +30,19 @@ class UserController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $user = HousingUser::where('id', $request->input('user_id'))
+        $user = HousingUser::where('id', $request->input('housing_user_id'))
+        ->where('is_active', 1)
         ->where('housing_id', $request->current_housing->housing_id);
+
+        $user = $user->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'code'    => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'User tidak ditemukan',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $data = [
             'role_code' => $request->input('role_code'),
@@ -39,7 +50,6 @@ class UserController extends Controller
 
         $user->update($data);
 
-        $user = $user->first();
 
         ActivityLogService::logModel(
             model: HousingUser::getModel()->getTable(),

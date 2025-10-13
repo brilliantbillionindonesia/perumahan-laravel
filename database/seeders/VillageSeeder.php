@@ -22,6 +22,7 @@ class VillageSeeder extends Seeder
                 $data = [$data];
             }
 
+            $dataIns = [];
             foreach ($data as $item) {
                 $villageCode     = $item['id'];
                 $subdistrictCode = substr($villageCode, 0, 6); // 6 digit pertama
@@ -29,18 +30,19 @@ class VillageSeeder extends Seeder
                 $provinceCode    = substr($villageCode, 0, 2); // 2 digit pertama
 
                 // Format nama: huruf pertama kapital, sisanya kecil
-                $formattedName = ucwords(strtolower($item['name']));
+                $formattedName = ucwords(strtolower($item['nama']));
 
-                Village::updateOrCreate(
-                    ['code' => $villageCode],
-                    [
+                $dataIns[] = [
                         'name'             => $formattedName,
                         'province_code'    => $provinceCode,
                         'district_code'    => $districtCode,
                         'subdistrict_code' => $subdistrictCode,
-                    ]
-                );
+                        'code' => $villageCode,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                ];
             }
+            Village::insert($dataIns);
         }
     }
 }
