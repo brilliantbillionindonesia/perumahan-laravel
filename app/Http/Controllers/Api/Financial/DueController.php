@@ -16,7 +16,10 @@ use App\Models\Due;
 use App\Models\Fee;
 use App\Models\FinancialTransaction;
 use App\Models\House;
+use App\Models\Housing;
+use App\Models\HousingSetting;
 use App\Models\Payment;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -133,8 +136,8 @@ class DueController extends Controller
         }
 
         $data = Due::whereIn('id', $request->input('due_id'))
-        ->whereIn('status', DueStatusOption::NOTPAID)
-        ->get();
+            ->whereIn('status', DueStatusOption::NOTPAID)
+            ->get();
         foreach ($data as $key => $value) {
             $index = $key + 1;
             DB::transaction(function () use ($value, $request, $index) {
@@ -183,7 +186,7 @@ class DueController extends Controller
                 $financialTransaction->amount = $value->amount;
                 $financialTransaction->transaction_date = $now;
                 $financialTransaction->type = "income";
-                $financialTransaction->note = "Pembayaran " . $fee->name ." ".$house->block." - ".$house->number;
+                $financialTransaction->note = "Pembayaran " . $fee->name . " " . $house->block . " - " . $house->number;
                 $financialTransaction->save();
 
                 ActivityLogService::logModel(
@@ -194,11 +197,11 @@ class DueController extends Controller
                 );
 
                 $cashBalance = CashBalance::where('housing_id', $value->housing_id)
-                ->where('year', $now->year)
-                ->where('month', $now->month)
-                ->first();
+                    ->where('year', $now->year)
+                    ->where('month', $now->month)
+                    ->first();
 
-                if($cashBalance) {
+                if ($cashBalance) {
                     $cashBalance->income += $value->amount;
                     $cashBalance->closing_balance += $value->amount;
                     $cashBalance->save();
@@ -240,7 +243,7 @@ class DueController extends Controller
                 //     transactionCode : $transactionCode
                 // )->onQueue('notifications');
 
-                (new DispatchPayDue(houseId: $value->house_id, transactionCode : $transactionCode))->handle(new PushService());
+                (new DispatchPayDue(houseId: $value->house_id, transactionCode: $transactionCode))->handle(new PushService());
 
             });
         }
@@ -250,5 +253,84 @@ class DueController extends Controller
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => "Pembayaran berhasil"
         ], HttpStatusCodes::HTTP_OK);
+    }
+
+    public function generate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'due_date_payment' => ['nullable', 'integer', 'min:1', 'max:31', 'required_without:date'],
+            'date' => ['nullable', 'date', 'required_without:due_date_payment'], // ex: 2025-10-15
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $dueDatePayment = $request->filled('due_date_payment') ? $request->input('due_date_payment') : null;
+
+        $targetDate = $request->filled('date')
+            ? Carbon::parse($request->input('date'))->startOfDay()
+            : Carbon::today()->format('Y-m-'.$dueDatePayment);
+
+        $day = $request->filled('due_date_payment')
+            ? (int) $request->input('due_date_payment')
+            : $targetDate->day;
+
+        $fees = Fee::query()
+            ->where(function ($q) use ($day) {
+                $q->where('frequency', 'recurring')
+                    ->where('due_day', $day);
+            })
+            ->orWhere(function ($q) use ($targetDate) {
+                $q->where('frequency', 'once')
+                    ->whereDate('billing_date', $targetDate);
+            })
+            ->get();
+
+
+        foreach ($fees as $fee) {
+            $housingId = $fee->housing_id;
+
+            $houses = House::where('housing_id', $housingId)
+                ->whereNotNull('head_citizen_id')
+                ->whereNotNull('family_card_id')
+                ->get();
+
+            foreach ($houses as $house) {
+                $checkHouseDue = Due::where('house_id', $house->id)
+                    ->where('periode', $this->getBillingPeriod($day))
+                    ->where('fee_id', $fee->id)
+                    ->first();
+
+                if ($checkHouseDue) {
+                    continue;
+                }
+
+                $due = new Due();
+                $due->housing_id = $housingId;
+                $due->house_id = $house->id;
+                $due->fee_id = $fee->id;
+                $due->amount = $fee->amount;
+                $due->status = 'unpaid';
+                $due->periode = $this->getBillingPeriod($day);
+                $due->save();
+            }
+        }
+
+
+    }
+
+    function getBillingPeriod($day)
+    {
+        $billingDate = now();
+        if ($day > 20) {
+            $billingDate = $billingDate->addMonth();
+        }
+
+        return $billingDate->format('Y-m-' . $day);
     }
 }

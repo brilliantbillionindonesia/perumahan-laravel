@@ -40,5 +40,12 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->onOneServer()
                 ->runInBackground();
 
+            // every day at 00:05 app:generate-fee
+            $schedule->command('app:generate-fee')
+            ->dailyAt('00:05')
+            ->timezone('Asia/Jakarta')
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->runInBackground();
         })
     ->create();
