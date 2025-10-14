@@ -96,6 +96,7 @@ class DueRepository
             ->when($status, function ($q) use ($statusArr) {
                 $q->whereIn('status', $statusArr);
             })
+            ->orderBy('d.created_at', 'desc')
             ->select(
                 'd.id as due_id',
                 'd.amount',
