@@ -27,7 +27,7 @@ class DispatchPanicPush implements ShouldQueue
 
             $ok = $push->sendPanic(
                 tokens: $tokens,
-                title: 'Permintaan PANIC!',
+                title: 'Butuh Pertolongan !!!',
                 body:  'Dari ' . ($namePanic ?? 'Warga') . ' • Tap untuk buka',
                 data: [
                     'type'      => 'panic',
