@@ -17,7 +17,6 @@ Route::prefix('user')->group(function () {
     Route::post('generate-password', [UserController::class, 'generatePassword']);
 });
 
-
 Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
     require __DIR__.'/api/user.php';
