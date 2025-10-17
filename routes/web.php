@@ -6,12 +6,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('test/email', function () {
-//     return view('emails.users.welcome', [
-//         'user' => \App\Models\User::first(),
-//         'password' => 'password',
-//     ]);
-// });
+Route::get('test/email', function () {
+    return view('emails.users.generated-password', [
+        'user' => \App\Models\User::first(),
+        'password' => 'password',
+    ]);
+});
 
 Route::middleware(['web_token'])->group(function () {
     Route::get('/dashboard', function () {

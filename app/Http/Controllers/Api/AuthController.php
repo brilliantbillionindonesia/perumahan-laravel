@@ -60,7 +60,9 @@ class AuthController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)
+        ->first();
+
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([

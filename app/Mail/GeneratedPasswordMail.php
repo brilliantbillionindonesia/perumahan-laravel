@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeUserMail extends Mailable
+class GeneratedPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,8 +16,8 @@ class WelcomeUserMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Welcome to our app')
-            ->markdown(view: 'emails.users.welcome')
+        return $this->subject('Password Baru')
+            ->markdown(view: 'emails.users.generated-password')
             ->with([
                 'user' => $this->user,
                 'password' => $this->password,
