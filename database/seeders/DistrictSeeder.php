@@ -28,7 +28,7 @@ class DistrictSeeder extends Seeder
                 $provinceCode = substr($villageCode, 0, 2); // 2 digit pertama
 
                 // Format nama: hanya huruf pertama kapital, sisanya kecil
-                $formattedName = ucwords(strtolower($item['name']));
+                $formattedName = ucwords(strtolower($item['nama']));
 
                 // Simpan district (kabupaten/kota)
                 District::updateOrCreate(

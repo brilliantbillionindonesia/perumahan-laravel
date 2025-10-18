@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string('district_code');
             $table->string('province_code');
             $table->string('postal_code');
-            $table->tinyInteger('ronda_frequency')->default(0)->comment('Jumlah ronda wajib per warga tiap bulan (0 = tidak ada ronda)');
             $table->timestamps();
         });
     }

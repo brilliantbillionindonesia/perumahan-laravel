@@ -29,7 +29,7 @@ class VillageSeeder extends Seeder
                 $provinceCode    = substr($villageCode, 0, 2); // 2 digit pertama
 
                 // Format nama: huruf pertama kapital, sisanya kecil
-                $formattedName = ucwords(strtolower($item['name']));
+                $formattedName = ucwords(strtolower($item['nama']));
 
                 Village::updateOrCreate(
                     ['code' => $villageCode],

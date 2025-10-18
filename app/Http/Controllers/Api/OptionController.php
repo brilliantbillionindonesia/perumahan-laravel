@@ -17,6 +17,7 @@ use App\Models\ComplaintStatus;
 
 class OptionController extends Controller
 {
+
     protected $options = [
         'blood-type' => BloodTypeOption::class,
         'gender' => GenderOption::class,

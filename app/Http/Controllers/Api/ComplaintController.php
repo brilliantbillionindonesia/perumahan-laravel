@@ -235,25 +235,6 @@ class ComplaintController extends Controller
                 type: 'create',
             );
 
-        $complaint = Complaint::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'housing_id' => $data['housing_id'],
-            'category_code' => $category->code,
-            'status_code' => $status->code,
-            'user_id' => $request->user()->id,
-            'submitted_at' => now(),
-            'updated_by' => $request->user()->id,
-        ]);
-
-        // ComplaintLogs::create([
-        //     'complaint_id' => $complaint->id,
-        //     'status_code' => $status->code, // ✅ isi status_code
-        //     'logged_by' => $request->user()->id,
-        //     'logged_at' => now(),
-        //     'note' => 'Pengaduan dibuat',
-        // ]);
-
             $created = [
                 'id' => $complaint->id,
                 'title' => $complaint->title,

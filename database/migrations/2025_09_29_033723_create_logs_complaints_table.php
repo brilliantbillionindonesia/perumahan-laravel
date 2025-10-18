@@ -17,17 +17,14 @@ return new class extends Migration
             $table->uuid('logged_by');
             $table->datetime('logged_at');
             $table->string('status_code');
-
-            $table->text('note')->nullable()->change();
-
             $table->text('note')->nullable();
-
             $table->softDeletes();
             $table->timestamps();
 
-            $table->index('complaint_id', 'idx_complaint_logs');
-            $table->index('logged_by', 'idx_logged_by_logs');
-            $table->index('status_code', 'idx_status_code_logs');
+            // ✅ Gunakan nama index unik per tabel
+            $table->index('complaint_id', 'idx_complaint_id_complaint_logs');
+            $table->index('logged_by', 'idx_logged_by_complaint_logs');
+            $table->index('status_code', 'idx_status_code_complaint_logs');
         });
     }
 
