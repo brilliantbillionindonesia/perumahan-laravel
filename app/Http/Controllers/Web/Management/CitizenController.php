@@ -83,7 +83,7 @@ class CitizenController extends Controller
                 $citizen->citizen_card_number = $value[2] != "" ? trim($value[2]) : null;
                 $citizen->fullname = $fullname;
                 $citizen->gender = GenderOption::getTypeOption($value[14]);
-                $citizen->birth_place = $value[12] != "" ? ucwords($value[12]) : null;
+                $citizen->birth_place = $value[12] != "" ? ucwords(strtolower($value[12])) : null;
                 $citizen->birth_date = $this->normalizeExcelDate($value[8]);
                 $citizen->blood_type = BloodTypeOption::NA;
                 $citizen->religion = ReligionOption::getTypeOption($value[15]);
