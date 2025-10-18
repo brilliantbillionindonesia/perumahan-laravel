@@ -17,10 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            ProvinceSeeder::class,
             DistrictSeeder::class,
-            // SubdistrictSeeder::class,
-            // VillageSeeder::class,
+            ProvinceSeeder::class,
             RolePermissionSeeder::class,
             FamilySeeder::class,
             ComplaintStatusSeeder::class,
@@ -29,7 +27,7 @@ class DatabaseSeeder extends Seeder
             FinancialCategorySeeder::class,
             FeeSeeder::class,
             DueSeeder::class,
-            PatrolingSeeder::class,
+            // PatrolingSeeder::class,
             ComplaintSeeder::class
         ]);
     }

@@ -50,7 +50,7 @@ class MasterController extends Controller
             'columns' => ['nullable', 'array'],
             'columns.*' => ['string'],
             'page' => ['nullable', 'integer', 'min:1'],
-            'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:40'],
             'order_by' => ['nullable', 'string'],
             'order_dir' => ['nullable', Rule::in(['asc', 'desc', 'ASC', 'DESC'])],
             'with_trashed' => ['nullable', 'boolean'],

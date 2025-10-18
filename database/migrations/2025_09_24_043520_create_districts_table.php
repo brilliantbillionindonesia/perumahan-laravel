@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('code');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->index('province_code', 'idx_prv_code_villages');
+            $table->index('province_code', 'idx_prv_code_districts');
         });
     }
 
