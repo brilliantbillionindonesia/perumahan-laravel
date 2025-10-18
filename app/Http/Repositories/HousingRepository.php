@@ -34,10 +34,15 @@ class HousingRepository
     public static function queryHousingUser($housingId){
         return  DB::table('users as u')
         ->join('housing_users as hu', 'hu.user_id', '=', 'u.id')
+        ->leftJoin('citizens as c', 'c.id', '=', 'hu.citizen_id')
         ->join('roles as role', 'role.code', '=', 'hu.role_code')
         ->where('hu.housing_id', $housingId)
+        ->where('hu.is_active', 1)
         ->select(
             'hu.id',
+            'hu.citizen_id',
+            'c.fullname',
+            'c.citizen_card_number',
             'u.name',
             'u.email',
             'hu.role_code',

@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
             'profile' => \App\Http\Middleware\ProfileMiddleware::class,
+            'web_token' => \App\Http\Middleware\WebTokenMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
@@ -44,5 +45,12 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->onOneServer()
                 ->runInBackground();
 
+            // every day at 00:05 app:generate-fee
+            $schedule->command('app:generate-fee')
+            ->dailyAt('00:05')
+            ->timezone('Asia/Jakarta')
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->runInBackground();
         })
     ->create();

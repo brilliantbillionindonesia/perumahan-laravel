@@ -90,6 +90,7 @@ class FamilyController extends Controller
     public function myList(Request $request){
         $housingUser = HousingUser::where('housing_id', $request->current_housing->housing_id)
         ->where('user_id', $request->user()->id)
+        ->where('is_active', 1)
         ->first();
 
         if (!$housingUser) {
@@ -145,6 +146,7 @@ class FamilyController extends Controller
     public function myCard(Request $request){
         $housingUser = HousingUser::where('housing_id', $request->current_housing->housing_id)
         ->where('user_id', $request->user()->id)
+        ->where('is_active', 1)
         ->first();
 
         if (!$housingUser) {

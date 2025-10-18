@@ -30,6 +30,7 @@ class DispatchPayDue implements ShouldQueue
         $citizenIds = Citizen::where('family_card_id', $house->family_card_id)->pluck('id')->toArray();
         $housingUsers = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $house->housing_id)
             ->join('device_tokens', 'device_tokens.user_id', '=', 'housing_users.user_id')
+            ->where('housing_users.is_active', 1)
             ->whereIn('citizen_id', $citizenIds)->get();
 
         if ($housingUsers->isEmpty()) {

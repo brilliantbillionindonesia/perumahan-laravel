@@ -28,6 +28,7 @@ class MasterController extends Controller
         'provinces',
         'complaint_categories',
         'complaint_statuses',
+        'housing_settings'
     ];
 
     public function cacheColumns($table){

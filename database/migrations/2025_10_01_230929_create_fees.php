@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('amount',20, 2);
             $table->enum('frequency', ['once', 'recurring'])->default('once');
-            $table->integer('due_day')->nullable();
+            $table->integer('due_day')->nullable()->default(25);
             $table->dateTime('billing_date')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -48,9 +48,9 @@ class FamilySeeder extends Seeder
                 'rw' => '01',
                 'village_code' => '1101012001',
                 'subdistrict_code' => '110101',
-                'district_code' => '1101',
-                'province_code' => '11',
-                'postal_code' => '41352',
+                'district_code' => '3215',
+                'province_code' => '32',
+                'postal_code' => '41371',
             ]);
 
             $createdHousing2 = Housing::firstOrCreate([
@@ -60,9 +60,9 @@ class FamilySeeder extends Seeder
                 'rw' => '02',
                 'village_code' => '1101012001',
                 'subdistrict_code' => '110101',
-                'district_code' => '1101',
-                'province_code' => '11',
-                'postal_code' => '41352',
+                'district_code' => '3215',
+                'province_code' => '32',
+                'postal_code' => '41371',
             ]);
 
             $createdHousing3 = Housing::firstOrCreate([
@@ -72,9 +72,9 @@ class FamilySeeder extends Seeder
                 'rw' => '03',
                 'village_code' => '1101012001',
                 'subdistrict_code' => '110101',
-                'district_code' => '1101',
-                'province_code' => '11',
-                'postal_code' => '41352',
+                'district_code' => '3215',
+                'province_code' => '32',
+                'postal_code' => '41371',
             ]);
 
             // Relasi user awal -> housing (contoh)
@@ -115,9 +115,9 @@ class FamilySeeder extends Seeder
                     'rw' => '01',
                     'village_code' => '1101012001',
                     'subdistrict_code' => '110101',
-                    'district_code' => '1101',
-                    'province_code' => '11',
-                    'postal_code' => '41352',
+                    'district_code' => '3215',
+                    'province_code' => '32',
+                    'postal_code' => '41371',
                     'housing_id' => [
                         $createdHousing->id,
                         $createdHousing3->id,
@@ -182,9 +182,9 @@ class FamilySeeder extends Seeder
                     'rw' => '02',
                     'village_code' => '1101012001',
                     'subdistrict_code' => '110101',
-                    'district_code' => '1101',
-                    'province_code' => '11',
-                    'postal_code' => '41352',
+                    'district_code' => '3215',
+                    'province_code' => '32',
+                    'postal_code' => '41371',
                     'housing_id' => [
                         $createdHousing->id,
                         $createdHousing2->id,
@@ -256,9 +256,9 @@ class FamilySeeder extends Seeder
                     'rw' => '03',
                     'village_code' => '1101012001',
                     'subdistrict_code' => '110101',
-                    'district_code' => '1101',
-                    'province_code' => '11',
-                    'postal_code' => '41352',
+                    'district_code' => '3215',
+                    'province_code' => '32',
+                    'postal_code' => '41371',
                     'housing_id' => [
                         $createdHousing->id,
                         $createdHousing2->id,

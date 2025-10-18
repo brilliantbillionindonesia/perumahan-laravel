@@ -607,11 +607,6 @@ class ComplaintController extends Controller
 
     public function history(Request $request)
     {
-
-        $validator = Validator::make($request->json()->all(), [
-            'housing_id' => 'required|exists:housings,id',
-        ]);
-
         $validator = Validator::make($request->all(), [
 
             'complaint_id' => 'required|exists:complaints,id',

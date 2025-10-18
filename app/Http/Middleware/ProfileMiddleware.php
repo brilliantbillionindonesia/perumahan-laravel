@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Repositories\HousingRepository;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,19 @@ class ProfileMiddleware
                 'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
                 'message' => $validator->errors()->first(),
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user = User::where('id', $request->user()->id)->first();
+
+        if($user->is_generated_password) {
+            return response()->json([
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Silahkan ganti password terlebih dahulu',
+                'data' => [
+                    'is_generated_password' => $user->is_generated_password
+                ]
+            ], HttpStatusCodes::HTTP_OK);
         }
 
         $data = HousingRepository::queryHousing($request->user()->id)

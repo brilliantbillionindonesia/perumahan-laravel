@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('family_cards', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('family_card_number');
-            $table->string('address');
-            $table->string('rt');
-            $table->string('rw');
-            $table->string('village_code');
-            $table->string('subdistrict_code');
-            $table->string('district_code');
-            $table->string('province_code');
-            $table->string('postal_code');
+            $table->string('family_card_number')->nullable();
+            $table->string('address')->nullable();
+            $table->string('rt')->nullable();
+            $table->string('rw')->nullable();
+            $table->string('village_code')->nullable();
+            $table->string('subdistrict_code')->nullable();
+            $table->string('district_code')->nullable();
+            $table->string('province_code')->nullable();
+            $table->string('postal_code')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });

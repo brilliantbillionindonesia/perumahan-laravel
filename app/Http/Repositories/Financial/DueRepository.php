@@ -47,8 +47,13 @@ class DueRepository
             ->join('houses as h', 'h.id', '=', 'r.house_id')
             ->join('citizens as c', 'c.id', '=', 'h.head_citizen_id')
             ->where('r.rn', 1)
-            ->groupBy('r.house_id', 'h.house_name', 'h.block', 'h.number', 'r.periode')
-            ->orderBy('r.periode')
+            ->groupBy(
+                'r.house_id',
+                'h.house_name',
+                'h.block',
+                'h.number',
+                DB::raw("DATE_FORMAT(r.periode, '%Y-%m')")
+            )->orderBy(DB::raw("DATE_FORMAT(r.periode, '%Y-%m')"))
             ->orderBy('h.block')
             ->orderBy('h.number')
             ->selectRaw("
@@ -57,7 +62,7 @@ class DueRepository
                 h.block,
                 h.number,
                 CONCAT(h.block, '/', h.number) as block_number,
-                r.periode,
+                DATE_FORMAT(r.periode, '%Y-%m') as periode,
                 MAX(c.fullname)  as head_fullname,
                 COUNT(r.id)      as total_dues,
                 SUM(r.amount)    as total_amount,
@@ -91,6 +96,7 @@ class DueRepository
             ->when($status, function ($q) use ($statusArr) {
                 $q->whereIn('status', $statusArr);
             })
+            ->orderBy('d.created_at', 'desc')
             ->select(
                 'd.id as due_id',
                 'd.amount',

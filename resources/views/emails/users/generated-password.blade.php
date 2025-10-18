@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -111,7 +109,7 @@
     <!-- start preheader -->
     <div class="preheader"
         style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        Selamat datang {{ $user->name }}. Akun {{ config('app.name') }} Anda Berhasil Dibuat.
+        Kata Sandi Anda Berhasil diubah. Silakan masuk dengan email dan kata sandi baru Anda.
     </div>
     <!-- end preheader -->
 
@@ -160,7 +158,7 @@
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
                             <h1
                                 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">
-                                Selamat Datang , {{ $user->name }}</h1>
+                                Hallo , {{ $user->name }}</h1>
                         </td>
                     </tr>
                 </table>
@@ -187,7 +185,7 @@
                     <tr>
                         <td align="left" bgcolor="#f9efef"
                             style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                            <p style="margin: 0;">Akun {{ config('app.name') }} Anda Berhasil Dibuat. Silakan masuk
+                            <p style="margin: 0;">Password akun {{ config('app.name') }} Anda berhasil diubah. Silakan masuk
                                 dengan email dan kata sandi sementara Anda.</p>
                         </td>
                     </tr>
@@ -262,21 +260,11 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">Anda mendapatkan email ini karena Anda mendaftar di
+                            <p style="margin: 0;">Anda mendapatkan email ini karena Anda terdaftar di
                                 {{ config('app.name') }}.</p>
                         </td>
                     </tr>
                     <!-- end permission -->
-
-                    <!-- start unsubscribe -->
-                    <tr>
-                        <td align="center" bgcolor="#e9ecef"
-                            style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">Jika Anda tidak mendaftar di {{ config('app.name') }}, silahkan
-                                abaikan atau laporkan ke kami.</p>
-                        </td>
-                    </tr>
-                    <!-- end unsubscribe -->
 
                 </table>
                 <!--[if (gte mso 9)|(IE)]>

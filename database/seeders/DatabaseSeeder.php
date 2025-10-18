@@ -17,10 +17,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+<<<<<<< HEAD
             SubdistrictSeeder::class,
             DistrictSeeder::class,
             ProvinceSeeder::class,
             VillageSeeder::class,
+=======
+            ProvinceSeeder::class,
+            DistrictSeeder::class,
+            // SubdistrictSeeder::class,
+            // VillageSeeder::class,
+>>>>>>> b6d1a5abb3b161fe3255907d8e7b4ee696b9e407
             RolePermissionSeeder::class,
             FamilySeeder::class,
             ComplaintStatusSeeder::class,
@@ -29,10 +36,15 @@ class DatabaseSeeder extends Seeder
             FinancialCategorySeeder::class,
             FeeSeeder::class,
             DueSeeder::class,
+<<<<<<< HEAD
 
             // PatrolingSeeder::class,
             ComplaintSeeder::class
 
+=======
+            PatrolingSeeder::class,
+            ComplaintSeeder::class
+>>>>>>> b6d1a5abb3b161fe3255907d8e7b4ee696b9e407
         ]);
     }
 }

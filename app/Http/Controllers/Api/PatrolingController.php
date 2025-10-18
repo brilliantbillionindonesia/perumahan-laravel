@@ -589,7 +589,7 @@ class PatrolingController extends Controller
 
         // 3️⃣ Ambil user yang login
         $user = $request->user();
-        $housingUser = DB::table('housing_users')->where('user_id', $user->id)->first();
+        $housingUser = DB::table('housing_users')->where('user_id', $user->id)->where('is_active', 1)->first();
 
         if (!$housingUser) {
             return response()->json(

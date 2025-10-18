@@ -118,7 +118,9 @@ class TransactionController extends Controller
         $perPage = (int) ($request->input('per_page', 5));
 
         $housingUser = HousingUser::where('housing_id', $request->housing_id)
-            ->where('user_id', auth()->user()->id)->first();
+        ->where('is_active', 1)
+        ->where('user_id', auth()->user()->id)->first();
+
         if (!$housingUser) {
             return response()->json([
                 'success' => false,
