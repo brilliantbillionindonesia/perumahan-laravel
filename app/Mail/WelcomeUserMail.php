@@ -14,7 +14,7 @@ class WelcomeUserMail extends Mailable
 
     public function __construct(public User $user, public string $password) {}
 
-    public function build()
+    public function build(): WelcomeUserMail
     {
         return $this->subject('Welcome to our app')
             ->markdown(view: 'emails.users.welcome')

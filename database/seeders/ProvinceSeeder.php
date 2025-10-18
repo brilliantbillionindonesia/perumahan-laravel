@@ -34,6 +34,9 @@ class ProvinceSeeder extends Seeder
                 continue; // skip jika datanya tidak lengkap
             }
 
+            // Format nama: hanya huruf pertama kapital, sisanya huruf kecil
+            $formattedName = ucwords(strtolower($item['nama']));
+
             Province::updateOrCreate(
                 ['code' => $provinceCode], // berdasarkan kode unik provinsi
                 ['name' => $formattedName]

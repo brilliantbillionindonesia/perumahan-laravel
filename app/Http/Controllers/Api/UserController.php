@@ -116,12 +116,40 @@ class UserController extends Controller
 
     }
 
+    public function show(Request $request){
+        $validator = Validator::make($request->all(), [
+            "housing_user_id" => ['required', 'exists:housing_users,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $data = HousingRepository::queryHousingUser($request->input('housing_id'));
+        $data->where('hu.id', $request->input('housing_user_id'));
+        $data = $data->first();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'citizen_id' => ['nullable', 'exists:citizens,id'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'unique:users,email'],
+            'email' => ['required'],
+        ], [
+            'email.unique' => 'Email sudah terdaftar',
+            'email.required' => 'Email wajib diisi',
         ]);
 
         if ($validator->fails()) {
@@ -134,20 +162,33 @@ class UserController extends Controller
 
         $generatedPassword = Str::random(8);
 
-        $user = User::create([
+        $user = User::updateOrCreate([
+            'email' => $request->input('email')
+        ],[
             'name' => ucwords($request->input('name')),
             'email' => $request->input('email'),
             'password' => bcrypt($generatedPassword),
             'is_generated_password' => true
         ]);
 
-        HousingUser::create([
-            'user_id' => $user->id,
-            'housing_id' => $request->input('housing_id'),
-            'citizen_id' => $request->input('citizen_id'),
-            'role_code' => 'citizen',
-            'is_active' => true,
-        ]);
+        if($request->input('citizen_id')){
+            HousingUser::updateOrCreate([
+                'housing_id' => $request->input('housing_id'),
+                'citizen_id' => $request->input('citizen_id'),
+            ],
+            [
+                'user_id' => $user->id,
+                'role_code' => 'citizen',
+                'is_active' => true,
+            ]);
+        } else {
+            HousingUser::create([
+                'housing_id' => $request->input('housing_id'),
+                'user_id' => $user->id,
+                'role_code' => 'citizen',
+                'is_active' => true,
+            ]);
+        }
 
         SendWelcomeEmailJob::dispatch($user->id, $generatedPassword)->onQueue('notifications');
 

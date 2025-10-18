@@ -50,7 +50,7 @@ class MasterController extends Controller
             'columns' => ['nullable', 'array'],
             'columns.*' => ['string'],
             'page' => ['nullable', 'integer', 'min:1'],
-            'per_page' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:40'],
             'order_by' => ['nullable', 'string'],
             'order_dir' => ['nullable', Rule::in(['asc', 'desc', 'ASC', 'DESC'])],
             'with_trashed' => ['nullable', 'boolean'],
@@ -77,7 +77,6 @@ class MasterController extends Controller
         $orderBy = $request->input('order_by');
         $orderDir = $request->input('order_dir', 'asc');
         $withTrashed = (bool) ($request->input('with_trashed', false));
-
 
         // Validate columns (if provided)
         $cachedColumns = $this->cacheColumns($table);

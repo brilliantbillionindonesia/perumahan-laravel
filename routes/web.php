@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Web\Management\CitizenController;
+use App\Http\Controllers\Web\Management\HousingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.dashboard');
 });
 
 Route::get('test/email', function () {
@@ -17,7 +19,9 @@ Route::middleware(['web_token'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
-    Route::get('/citizen', function () {
-        dd('citizennnnnn');
-    });
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [HousingController::class, 'dashboard'])->name('admin.dashboard');
+    Route::resource('/housings', HousingController::class);
 });

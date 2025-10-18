@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bool('is_generated_password')->nullable()->default(false);
+            $table->boolean('is_generated_password')->nullable()->default(false);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
