@@ -29,12 +29,6 @@ class CitizenController extends Controller
 {
     public function import(Request $request)
     {
-
-        Citizen::truncate();
-        FamilyCard::truncate();
-        FamilyMember::truncate();
-        House::truncate();
-        HousingUser::truncate();
         // Validasi input dari form
         $validator = Validator::make($request->all(), [
             'housing_id' => 'required|exists:housings,id',
