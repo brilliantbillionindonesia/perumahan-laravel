@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProvinceSeeder::class,
             DistrictSeeder::class,
-            SubdistrictSeeder::class,
-            VillageSeeder::class,
+            // SubdistrictSeeder::class,
+            // VillageSeeder::class,
             RolePermissionSeeder::class,
             FamilySeeder::class,
             ComplaintStatusSeeder::class,

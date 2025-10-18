@@ -51,6 +51,8 @@ class CitizenRepository
          ->where('hu.is_active', 1)
         ->orderBy('c.fullname', 'asc');
 
+        // dd($data->toSql());
+
         return $data;
     }
 }
