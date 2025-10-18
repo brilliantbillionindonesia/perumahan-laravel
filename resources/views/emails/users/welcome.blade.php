@@ -126,7 +126,7 @@
         <tr>
         <td align="center" valign="top" width="600">
         <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                {{-- <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="center" valign="top" style="padding: 36px 24px;">
                             <a href="https://serumpunpadi.com" target="_blank" style="display: inline-block;">
@@ -136,7 +136,7 @@
                             </a>
                         </td>
                     </tr>
-                </table>
+                </table> --}}
                 <!--[if (gte mso 9)|(IE)]>
         </td>
         </tr>
