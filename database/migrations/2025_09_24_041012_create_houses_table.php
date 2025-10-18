@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('house_name');
             $table->string('block');
             $table->integer('number');
-            $table->uuid('family_card_id');
-            $table->uuid('head_citizen_id');
+            $table->uuid('family_card_id')->nullable();
+            $table->uuid('head_citizen_id')->nullable();
             $table->timestamps();
 
             // untuk join ke dues

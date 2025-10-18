@@ -24,7 +24,4 @@ Route::middleware(['web_token'])->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [HousingController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('/housings', HousingController::class);
-    Route::prefix('citizen')->group(function(){
-        Route::post('import', [CitizenController::class, 'import'])->name('citizen.import');
-    });
 });

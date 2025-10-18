@@ -78,7 +78,6 @@ class MasterController extends Controller
         $orderDir = $request->input('order_dir', 'asc');
         $withTrashed = (bool) ($request->input('with_trashed', false));
 
-
         // Validate columns (if provided)
         $cachedColumns = $this->cacheColumns($table);
         if ($columns) {
