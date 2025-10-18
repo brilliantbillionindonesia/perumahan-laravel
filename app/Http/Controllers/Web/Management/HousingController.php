@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Management;
 
 use App\Http\Controllers\Controller;
 
@@ -12,7 +12,7 @@ use App\Models\Subdistrict;
 use App\Models\District;
 use App\Models\Province;
 
-class ManageHousingController extends Controller
+class HousingController extends Controller
 {
     public function dashboard()
     {
@@ -20,7 +20,8 @@ class ManageHousingController extends Controller
         $totalHousings = Housing::count();
 
         // Gunakan SQLite-safe query (tanpa fungsi YEAR)
-        $userGrowth = User::selectRaw("strftime('%Y', created_at) as year, COUNT(*) as count")->groupBy('year')->orderBy('year')->get()->toArray();
+        $userGrowth = User::selectRaw("YEAR(created_at) as year, COUNT(*) as count")
+        ->groupBy('year')->orderBy('year')->get()->toArray();
 
         return view('admin.dashboard', compact('totalUsers', 'totalHousings', 'userGrowth'));
     }
