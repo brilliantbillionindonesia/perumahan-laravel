@@ -13,8 +13,11 @@ class MaritalStatusOption
     public static function getTypeOption($marital_status){
         $marital_status = strtolower($marital_status);
         switch ($marital_status) {
+            case 'belum kawin':
             case 'belum menikah':
                 return self::BELUMKAWIN;
+            case 'kawin':
+            case 'kawin tercatat':
             case 'menikah':
                 return self::KAWIN;
             case 'cerai hidup':

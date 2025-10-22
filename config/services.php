@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'scanner' => [
+        'url' => env('APP_SCANNER_URL', 'http://localhost:1008'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

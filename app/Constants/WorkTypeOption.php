@@ -47,6 +47,7 @@ class WorkTypeOption
             case 'sopir':
                 return self::SOPIR;
             case 'ibu rumah tangga':
+            case 'mengurus rumah tangga':
                 return self::IBU_RUMAH_TANGGA;
             case 'pensiunan':
                 return self::PENSIUNAN;

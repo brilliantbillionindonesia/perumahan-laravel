@@ -10,19 +10,7 @@ class FamilyCard extends Model
     use HasUuids;
 
     protected $table = 'family_cards';
-    protected $fillable = [
-        'number',
-        'address',
-        'rt',
-        'rw',
-        'village_code',
-        'subdistrict_code',
-        'district_code',
-        'province_code',
-        'postal_code',
-        'created_at',
-        'updated_at'
-    ];
+    protected $guarded = [];
 
     public function village(){
         return $this->belongsTo(Village::class, 'village_code', 'code');
