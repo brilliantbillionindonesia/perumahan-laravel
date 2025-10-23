@@ -8,15 +8,7 @@ class Patroling extends Model
 {
     protected $table = 'patrollings';
 
-    protected $fillable = [
-        'housing_id',
-        'citizen_id',
-        'house_id',
-        'patrol_date',
-        'presence',
-        'note',
-        'replaced_by',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'patrol_date' => 'date:Y-m-d',
