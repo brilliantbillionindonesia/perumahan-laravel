@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
             ComplaintStatusSeeder::class,
             ComplaintCategorySeeder::class,
             FinancialCategorySeeder::class,
-            // FamilySeeder::class,
-            // LargeFamilySeeder::class,
-            // FeeSeeder::class,
-            // DueSeeder::class,
-            // PatrolingSeeder::class,
-            // ComplaintSeeder::class
+            FamilySeeder::class,
+            LargeFamilySeeder::class,
+            FeeSeeder::class,
+            DueSeeder::class,
+            PatrolingSeeder::class,
+            ComplaintSeeder::class,
             UserSeeder::class
         ]);
     }

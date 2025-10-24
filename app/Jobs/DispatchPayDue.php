@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Services\NotificationService;
 use App\Http\Services\PushService;
 use App\Models\Citizen;
 use App\Models\House;
@@ -38,12 +39,19 @@ class DispatchPayDue implements ShouldQueue
         }
 
         $tokens = $housingUsers->pluck('token')->filter()->all();
-
+        $channel = 'notification_channel';
+        $title = 'Informasi Pembayaran Iuran';
+        $data = [
+            'type' => 'due_payment',
+            'housing_id' => $house->housing_id,
+            'id' => $house->id,
+            'transaction_code' => $this->transactionCode,
+        ];
         $push->sendNotification(
             tokens: $tokens,
-            title: 'Informasi Pembayaran Iuran',
+            title: $title,
             body: 'Informasi pembayaran iuran sudah tersedia • Tap untuk buka',
-            channel: 'notification_channel',
+            channel: $channel,
             data: [
                 'type' => 'due_payment',
                 'housing_id' => $house->housing_id,
@@ -51,5 +59,17 @@ class DispatchPayDue implements ShouldQueue
                 'transaction_code' => $this->transactionCode,
             ],
         );
+
+        $notificationService = new NotificationService();
+        $notificationService->sendNotification(
+            $house->housing_id,
+            'public',
+            $title,
+            "Informasi pembayaran iuran",
+            $channel,
+            $data,
+            $housingUsers
+        );
+
     }
 }

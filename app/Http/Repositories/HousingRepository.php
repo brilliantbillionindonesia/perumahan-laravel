@@ -16,6 +16,8 @@ class HousingRepository
             ->leftJoin('provinces as prv', 'prv.code', '=', 'h.province_code')
             ->select(
                 'hu.housing_id',
+                'hu.id as housing_user_id',
+                'hu.citizen_id',
                 'hu.user_id',
                 'role.name as role_name',
                 'hu.role_code',

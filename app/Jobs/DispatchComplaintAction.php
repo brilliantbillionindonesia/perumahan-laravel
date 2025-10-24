@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Services\NotificationService;
 use App\Http\Services\PushService;
 use App\Models\Complaint;
 use App\Models\HousingUser;
@@ -36,22 +37,38 @@ class DispatchComplaintAction implements ShouldQueue
 
         $tokens = $userToken->pluck('token')->filter()->all();
 
+        $type = "complaint";
+        $title = "Pembaharuan Status Aduan";
+        $channel = "notification_channel";
+        $data =  [
+            'type'          => $type,
+            'housing_id'    => $complaint->housing_id,
+            'id'            => $complaint->id,
+            'title'         => substr($complaint->title, 0, 20),
+            'description'   => substr($complaint->description, 0, 50),
+            'name'          => $name,
+            'created_at'    => $complaint->updated_at->toIso8601String(),
+        ];
+
+
         $push->sendNotification(
             tokens: $tokens,
-            title: 'Pembaharuan Status Aduan',
+            title:  $title,
             body:  'Pembaharuan status aduan • Tap untuk buka',
-            channel : 'notification_channel',
-            data: [
-                'type'      => 'complaint',
-                'housing_id' => $complaint->housing_id,
-                'id'        => $complaint->id,
-                'title'     => substr($complaint->title, 0, 20),
-                'description' => substr($complaint->description, 0, 50),
-                'name'      => $name,
-                'created_at'=> $complaint->updated_at->toIso8601String(),
-            ],
+            channel : $channel,
+            data: $data
         );
 
+        $notificationService = new NotificationService();
+        $notificationService->sendNotification(
+            $complaint->housing_id,
+            'private',
+            $title,
+            "Pembaharuan status aduan",
+            $channel,
+            $data,
+            $userToken
+        );
 
     }
 }

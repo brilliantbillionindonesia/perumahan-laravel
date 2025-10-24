@@ -19,6 +19,7 @@ class ProfileMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+
         $validator = Validator::make($request->all(), [
             'housing_id' => ['required', 'exists:housings,id'],
         ]);

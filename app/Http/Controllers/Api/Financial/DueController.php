@@ -120,6 +120,40 @@ class DueController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function me(Request $request){
+
+        $citizen = Citizen::where('id', $request->current_housing->citizen_id)->first();
+        if(!$citizen){
+            return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => [
+                'house_id' => null,
+                'total_unpaid' => 0,
+                'amount' => 0,
+            ]
+        ], HttpStatusCodes::HTTP_OK);        }
+
+        $house = House::where('family_card_id', $citizen->family_card_id)->first();
+
+        $request = $request->merge([
+            'house_id' => $house->id,
+            'status' => 'unpaid'
+        ]);
+
+        $data = DueRepository::showDetailQuery($request)->get()->toArray();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => [
+                'house_id' => $house->id,
+                'total_unpaid' => count($data),
+                'amount' => array_sum(array_column($data, 'amount'))
+            ]
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
     public function pay(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -140,7 +174,7 @@ class DueController extends Controller
             ->get();
         foreach ($data as $key => $value) {
             $index = $key + 1;
-            DB::transaction(function () use ($value, $request, $index) {
+            DB::transaction(function () use ($value, $request, $index, &$transactionCode) {
                 $now = now();
 
                 $transactionCode = generateTransactionCode($value->housing_id, $now);
@@ -238,15 +272,13 @@ class DueController extends Controller
                     );
                 }
 
-                // DispatchPayDue::dispatch(
-                //     houseId: $value->house_id,
-                //     transactionCode : $transactionCode
-                // )->onQueue('notifications');
-
-                (new DispatchPayDue(houseId: $value->house_id, transactionCode: $transactionCode))->handle(new PushService());
-
             });
         }
+
+        DispatchPayDue::dispatch(
+            houseId: $value->house_id,
+            transactionCode : $transactionCode
+        )->onQueue('notifications');
 
         return response()->json([
             'success' => true,
@@ -333,4 +365,5 @@ class DueController extends Controller
 
         return $billingDate->format('Y-m-' . $day);
     }
+
 }
