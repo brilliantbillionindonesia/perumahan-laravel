@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum', 'profile'])->group(function () {
     require __DIR__.'/api/patroling.php';
     require __DIR__.'/api/scanner.php';
     require __DIR__.'/api/notification.php';
+    require __DIR__.'/api/guest.php';
 });
 
 require __DIR__.'/api/master.php';
