@@ -1,0 +1,4629 @@
+[
+    {
+        "family_card": {
+            "id": "0df3a2c8-8f79-49e1-945f-3cce5d6d3e25",
+            "family_card_number": "3279020309010004",
+            "address": "Lingk.lemburbalong RT001/RW005, Kec. Pataruman, Kota Banjar, Jawa Barat",
+            "rt": "001",
+            "rw": "005",
+            "village_code": "3279042007",
+            "subdistrict_code": "327904",
+            "district_code": "3279",
+            "province_code": "32",
+            "postal_code": "46324",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "e3f041b7-4f4b-44c0-9273-4dcfe3b0b5c8",
+            "family_card_id": "0df3a2c8-8f79-49e1-945f-3cce5d6d3e25",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-29",
+            "block": "A09",
+            "number": "29",
+            "head_citizen_id": "6f0d5570-31a3-41ab-9469-5a6fbd8df613",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "6f0d5570-31a3-41ab-9469-5a6fbd8df613",
+                "family_card_id": "0df3a2c8-8f79-49e1-945f-3cce5d6d3e25",
+                "citizen_card_number": "3279020309010004",
+                "fullname": "RIDHA FIRDAUS",
+                "gender": "Laki-Laki",
+                "birth_place": "Ciamis",
+                "birth_date": "2001-09-03",
+                "blood_type": "-",
+                "marital_status": "kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "2cc0f8cd-16a0-4d44-b15c-80caa03efeb7",
+                "family_card_id": "0df3a2c8-8f79-49e1-945f-3cce5d6d3e25",
+                "citizen_card_number": "3207304709000001",
+                "fullname": "ASSILMI KAMAILA MUTIARA NURFADILA",
+                "gender": "Perempuan",
+                "birth_place": "Ciamis",
+                "birth_date": "2000-09-03",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ae4b39b3-c47b-47f5-b8d4-5e326a498172",
+            "family_card_number": "3215211003250002",
+            "address": "PERUM MUSTIKA VILLAGE BLOK A6 NO 15, RT 027/RW007, DESA LEMAHMULYA, KEC. MAJALAYA, KARAWANG, JAWA BARAT",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "13465f07-798f-4c72-88ea-89c41af6fcfa",
+            "family_card_id": "ae4b39b3-c47b-47f5-b8d4-5e326a498172",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-15",
+            "block": "A06",
+            "number": "15",
+            "head_citizen_id": "d89e4f1a-cdd7-4629-b0d7-c6e859a65b3f",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "d89e4f1a-cdd7-4629-b0d7-c6e859a65b3f",
+                "family_card_id": "ae4b39b3-c47b-47f5-b8d4-5e326a498172",
+                "citizen_card_number": "3216060210960021",
+                "fullname": "RICKO PUTRATAMA WIJAYA",
+                "gender": "Laki-Laki",
+                "birth_place": "JAKARTA",
+                "birth_date": "1996-10-02",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "4b799a3f-24df-473f-825f-5e1a3d3bbdc3",
+                "family_card_id": "ae4b39b3-c47b-47f5-b8d4-5e326a498172",
+                "citizen_card_number": "3203185610960007",
+                "fullname": "AI ANA MARYANA",
+                "gender": "Perempuan",
+                "birth_place": "CIANJUR",
+                "birth_date": "1996-10-16",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "b0213b48-3229-44ec-9f37-8d532df26036",
+            "family_card_number": "3215051003220009",
+            "address": "PERUM MUSTIKA VILLAGE BLOK B8 NO 10 RT027/RW007 KEL. LEMAHMULYA, KEC. MAJALAYA, KAB. KARAWANG PROV. JAWA BARAT",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "d928512f-9312-42a4-9a19-0678d6e172bb",
+            "family_card_id": "b0213b48-3229-44ec-9f37-8d532df26036",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B08-10",
+            "block": "B08",
+            "number": "10",
+            "head_citizen_id": "29e4c36a-8a1d-482c-95c8-9d580931cf28",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "29e4c36a-8a1d-482c-95c8-9d580931cf28",
+                "family_card_id": "b0213b48-3229-44ec-9f37-8d532df26036",
+                "citizen_card_number": "3215130212880004",
+                "fullname": "DENI BUDIMAN",
+                "gender": "Laki-Laki",
+                "birth_place": "JAKARTA",
+                "birth_date": "1988-12-02",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "fc18b7b6-cd1c-4f60-b8c9-cd9db76d4a22",
+                "family_card_id": "b0213b48-3229-44ec-9f37-8d532df26036",
+                "citizen_card_number": "3215055209880002",
+                "fullname": "DWI INDARTI SITORUS",
+                "gender": "Perempuan",
+                "birth_place": "PANDEGLANG",
+                "birth_date": "1988-09-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "17bb5c64-0b2f-4d02-94d3-8c3dc26c9d11",
+            "family_card_number": "3326081704250002",
+            "address": "Dukuh Gutoko RT002/RW005 Desa Kebonagung Kec. Kajen Kab. Pekalongan",
+            "rt": "002",
+            "rw": "005",
+            "village_code": "3326080021",
+            "subdistrict_code": "332608",
+            "district_code": "3326",
+            "province_code": "33",
+            "postal_code": "51164",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "f4f49348-2f4d-47e3-8bfa-44613e260c4d",
+            "family_card_id": "17bb5c64-0b2f-4d02-94d3-8c3dc26c9d11",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-021",
+            "block": "A09",
+            "number": "021",
+            "head_citizen_id": "173ec3ae-03a4-4bcd-9d09-2a75f33acdf5",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "173ec3ae-03a4-4bcd-9d09-2a75f33acdf5",
+                "family_card_id": "17bb5c64-0b2f-4d02-94d3-8c3dc26c9d11",
+                "citizen_card_number": "3326012405950002",
+                "fullname": "TANTO ADI MULYONO",
+                "gender": "Laki-Laki",
+                "birth_place": "PEKALONGAN",
+                "birth_date": "1995-05-24",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "54ab2efb-57a4-4874-bb74-41c16b48b7a7",
+                "family_card_id": "17bb5c64-0b2f-4d02-94d3-8c3dc26c9d11",
+                "citizen_card_number": "3326084805980043",
+                "fullname": "MIFTAHUL ILMI",
+                "gender": "Perempuan",
+                "birth_place": "PEKALONGAN",
+                "birth_date": "1998-07-05",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "8cb5ea06-8c54-4921-b3c1-6b376556d12c",
+            "family_card_number": "3175020505111036",
+            "address": "Jl. Tuparev No 33 kecamatan Pulo Gadung  Kelurahan Kayuputih Jakarta Timur",
+            "rt": "03",
+            "rw": "09",
+            "village_code": "3175021007",
+            "subdistrict_code": "317502",
+            "district_code": "3175",
+            "province_code": "31",
+            "postal_code": "13260",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "1ef9cf9c-04b3-43df-84b6-4d5bcd5029c1",
+            "family_card_id": "8cb5ea06-8c54-4921-b3c1-6b376556d12c",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-012",
+            "block": "A09",
+            "number": "012",
+            "head_citizen_id": "8bcb204a-8bb3-4a11-a235-2be3cf48b4b1",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "8bcb204a-8bb3-4a11-a235-2be3cf48b4b1",
+                "family_card_id": "8cb5ea06-8c54-4921-b3c1-6b376556d12c",
+                "citizen_card_number": "3175020501891003",
+                "fullname": "Haratua Olan Sianipar",
+                "gender": "Laki-Laki",
+                "birth_place": "Jambi",
+                "birth_date": "1989-05-01",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "c34bcd18-0a19-4cd8-8d2f-1b3e8bcbf568",
+                "family_card_id": "8cb5ea06-8c54-4921-b3c1-6b376556d12c",
+                "citizen_card_number": "3175025010881005",
+                "fullname": "Novia Junita Simanungkalit",
+                "gender": "Perempuan",
+                "birth_place": "Pematang Cengkring",
+                "birth_date": "1998-10-11",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Diploma III (D3)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "4ce40f5d-4ee6-4c64-9b5b-9f843915405d",
+                "family_card_id": "8cb5ea06-8c54-4921-b3c1-6b376556d12c",
+                "citizen_card_number": "3215141212230001",
+                "fullname": "Haniel Haol Sianipar",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2024-12-12",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "3e176c6c-02e8-40d5-b512-1ebf7470e169",
+            "family_card_number": "3215210901240005",
+            "address": "MUSTIKA VILLAGE KARAWANG BLOK B10 NO 6 DESA LEMAHMULYA KECAMATAN MAJALAYA",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "6d98d2fe-e80e-4264-a33a-1e5edebf0ffa",
+            "family_card_id": "3e176c6c-02e8-40d5-b512-1ebf7470e169",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B10-06",
+            "block": "B10",
+            "number": "06",
+            "head_citizen_id": "da6e927f-a093-45ef-b34d-79c161b38e9c",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "da6e927f-a093-45ef-b34d-79c161b38e9c",
+                "family_card_id": "3e176c6c-02e8-40d5-b512-1ebf7470e169",
+                "citizen_card_number": "3214012102970001",
+                "fullname": "Muhammad Syahril Aditama",
+                "gender": "Laki-Laki",
+                "birth_place": "Purwakarta",
+                "birth_date": "1997-02-21",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "d7c36262-09e2-4b61-995b-a892868fd506",
+                "family_card_id": "3e176c6c-02e8-40d5-b512-1ebf7470e169",
+                "citizen_card_number": "3329175007970002",
+                "fullname": "Nadhifah Ayu Indikafikta",
+                "gender": "Perempuan",
+                "birth_place": "Brebes",
+                "birth_date": "1997-06-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "0c0a5f20-0c5e-44d8-9945-773fa98b42f1",
+                "family_card_id": "3e176c6c-02e8-40d5-b512-1ebf7470e169",
+                "citizen_card_number": "3215214905240001",
+                "fullname": "Maezurra Sabhira Anamika Aditama",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2024-05-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+            "family_card_number": "Oke",
+            "address": "DUSUN MADUREO,RT.02,RW.09,DESA KALISARI,KEC.SALAMAN,KAB.MAGELANG,PROV.JAWA TENGAH",
+            "rt": "02",
+            "rw": "09",
+            "village_code": "3308012008",
+            "subdistrict_code": "330801",
+            "district_code": "3308",
+            "province_code": "33",
+            "postal_code": "",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "522adff4-f777-4e23-8040-e014e655d83a",
+            "family_card_id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-14",
+            "block": "A09",
+            "number": "14",
+            "head_citizen_id": "20901b5b-cf03-4523-88c4-a8a5890a2693",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "20901b5b-cf03-4523-88c4-a8a5890a2693",
+                "family_card_id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+                "citizen_card_number": "3308111704920002",
+                "fullname": "Dedi Prastiawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Magelang",
+                "birth_date": "1992-04-17",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "d0183ba2-3552-4ea5-a3df-2434480d4e33",
+                "family_card_id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+                "citizen_card_number": "3404176806940002",
+                "fullname": "Nina Pratiwi",
+                "gender": "Perempuan",
+                "birth_place": "Sleman",
+                "birth_date": "1994-06-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "268ab8b6-983c-4d5c-a03f-2e84fa5dc454",
+                "family_card_id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+                "citizen_card_number": "3308111007210002",
+                "fullname": "Hanan Rafaeyza",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-06-10",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "c0820dbe-e2bd-4524-b166-9df1687df11c",
+                "family_card_id": "aa5512ce-e44e-47b9-b5cd-d5979fd37ffd",
+                "citizen_card_number": "12345",
+                "fullname": "Elshanum Humaira",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": null,
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+            "family_card_number": "3215031301200018",
+            "address": "PERUM MUSTIKA VILLAGE KARAWANG BLOK A 10/08",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "e5c301f7-3c2b-44ac-928c-9c2183d20be2",
+            "family_card_id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A10-08",
+            "block": "A10",
+            "number": "08",
+            "head_citizen_id": "65b79b77-81d0-4ccc-9f9a-221cfb2e2213",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "65b79b77-81d0-4ccc-9f9a-221cfb2e2213",
+                "family_card_id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+                "citizen_card_number": "3215101809910001",
+                "fullname": "Arna Supriyatna",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1991-09-18",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "8fd12398-a482-4638-8cfb-c7b14c30bdfa",
+                "family_card_id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+                "citizen_card_number": "3215034401940004",
+                "fullname": "Asyifa Nisrina Intan Hartomo",
+                "gender": "Perempuan",
+                "birth_place": "Depok",
+                "birth_date": "1994-01-04",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Diploma I",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "bf06b9ee-0aba-4d54-97ef-9ab8a9dc06ac",
+                "family_card_id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+                "citizen_card_number": "3215036110200002",
+                "fullname": "Anilam Shfrina",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2020-10-21",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "1797ab56-78fc-43a3-80aa-057cb2d6650e",
+                "family_card_id": "29141c8a-9a7c-4066-9fea-8e2df7891a43",
+                "citizen_card_number": "3215031202240001",
+                "fullname": "Arslan Nawasena",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2024-02-12",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+            "family_card_number": "3215010000000000",
+            "address": "Perum Mustika Village Blok A8 no 47, Lemahmulya, Majalaya, Karawang",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "3cd9f3f3-9c9c-44ef-86e7-1ac2573899c5",
+            "family_card_id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-47",
+            "block": "A08",
+            "number": "47",
+            "head_citizen_id": "34150347-0ef1-443b-954c-f46342294cc5",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "34150347-0ef1-443b-954c-f46342294cc5",
+                "family_card_id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+                "citizen_card_number": "3215011704700002",
+                "fullname": "Daud Ruhyat",
+                "gender": "Laki-Laki",
+                "birth_place": "Subang",
+                "birth_date": "1970-01-17",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "38171226-68c6-4dab-9f63-b8f1125e366a",
+                "family_card_id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+                "citizen_card_number": "3215015211730001",
+                "fullname": "Sri Purwaningsih",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1973-11-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "4c8bebee-31f9-45bd-b915-af87402c6736",
+                "family_card_id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+                "citizen_card_number": "3215016206000001",
+                "fullname": "Cinta Tegar Pramitha",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2000-11-12",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "c349ff7b-dfff-45e2-8e96-f52b78bfc862",
+                "family_card_id": "c73167bc-00c8-43d0-944c-604f8bb5de7e",
+                "citizen_card_number": "3215016405030001",
+                "fullname": "Ananda Kayla",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2003-05-24",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+            "family_card_number": "3172020202120009",
+            "address": "Jln.SUNGAI BAMBU 6A NOMOR 3,RT 008 RW 004, SUNGAI BAMBU, TANJUNG PRIUK, JAKARTA UTARA",
+            "rt": "008",
+            "rw": "004",
+            "village_code": "3172021004",
+            "subdistrict_code": "317202",
+            "district_code": "3172",
+            "province_code": "31",
+            "postal_code": "14330",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "f2c22bd7-ad81-4e28-b31f-16e184dd62a4",
+            "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-027",
+            "block": "A08",
+            "number": "027",
+            "head_citizen_id": "cca9cbe9-6899-4f21-a920-b7a658d92d4c",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "cca9cbe9-6899-4f21-a920-b7a658d92d4c",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172020907870015",
+                "fullname": "Winarno",
+                "gender": "Laki-Laki",
+                "birth_place": "Boyolali",
+                "birth_date": "1987-07-09",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "02dee029-b1c4-432d-89a8-f30f1fedf042",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172025010881005",
+                "fullname": "Rofiqoh",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1988-10-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "3673fb2a-dd91-4bfe-8a18-e0a8f4d43f26",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "1234",
+                "fullname": "Khoiron Akbar",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2009-12-07",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "ef00c6aa-4c06-484d-af96-0230db6ae45e",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172021301141007",
+                "fullname": "Syahdan Arrafiq",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2014-01-13",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "296f8349-b2e3-4531-9e47-ccd17a781720",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172021203100010",
+                "fullname": "Hafizan Raffa Khairy",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2020-03-12",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "92676cfc-df5e-4638-aaaa-a1b822c7b577",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172020907210008",
+                "fullname": "Akhtar Alsyazani",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2021-07-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "5dcf9939-4bcb-4048-93c4-610be3acc45b",
+                "family_card_id": "e4d5e211-79b7-4924-8690-52ea8a0a4e68",
+                "citizen_card_number": "3172020907210007",
+                "fullname": "Akhdan Alsheiraz",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-07-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "bf09b62c-446d-407c-a218-8624441ea47e",
+            "family_card_number": "3275033001240001",
+            "address": "PERUMAHAN ALINDA KENCANA 2 BLOK E2/11 KEL. KALIABANG TENGAH, KEC. BEKASI UTARA",
+            "rt": null,
+            "rw": null,
+            "village_code": "3275031001",
+            "subdistrict_code": "327503",
+            "district_code": "3275",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "dd49c1ff-d32a-4fc9-9351-16b91a478280",
+            "family_card_id": "bf09b62c-446d-407c-a218-8624441ea47e",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-45",
+            "block": "A08",
+            "number": "45",
+            "head_citizen_id": "fc763268-0126-4378-afc4-7f28ab91bd18",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "fc763268-0126-4378-afc4-7f28ab91bd18",
+                "family_card_id": "bf09b62c-446d-407c-a218-8624441ea47e",
+                "citizen_card_number": "3275032509990016",
+                "fullname": "Aditya Danang Wicaksono",
+                "gender": "Laki-Laki",
+                "birth_place": "Bekasi",
+                "birth_date": "1999-09-25",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "22a2c139-bc36-4c40-a131-e6ff06c001f7",
+                "family_card_id": "bf09b62c-446d-407c-a218-8624441ea47e",
+                "citizen_card_number": "3275024611980013",
+                "fullname": "Amelia Cahya Karim",
+                "gender": "Perempuan",
+                "birth_place": "Bekasi",
+                "birth_date": "1998-11-06",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "0be0c51a-8451-48b2-8f0b-13598ef596f7",
+                "family_card_id": "bf09b62c-446d-407c-a218-8624441ea47e",
+                "citizen_card_number": "3275035010240007",
+                "fullname": "Arsyila Dameetha Kamelya",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2024-10-10",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "21502682-b9f8-41eb-9d50-b68059c557f8",
+            "family_card_number": "3215211712100001",
+            "address": "PERUM MUSTIKA VILLAGE KARAWANG BLOK A9 no 7/8 RT017 RW 007 DESA LEMAH MULYA KECAMATAN MAJALAYA KAB KARAWANG JABAR",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "b701ebb0-348a-4c2d-ad30-462478acc2d6",
+            "family_card_id": "21502682-b9f8-41eb-9d50-b68059c557f8",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-0708",
+            "block": "A09",
+            "number": "0708",
+            "head_citizen_id": "ae6ab75f-259b-4e65-8147-613117e25e91",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ae6ab75f-259b-4e65-8147-613117e25e91",
+                "family_card_id": "21502682-b9f8-41eb-9d50-b68059c557f8",
+                "citizen_card_number": "3215211311850002",
+                "fullname": "Achmad Fajar",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1985-11-13",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "28d68872-6181-4fea-a2e9-a9375fd00d49",
+                "family_card_id": "21502682-b9f8-41eb-9d50-b68059c557f8",
+                "citizen_card_number": "3205405412860001",
+                "fullname": "Riani Astila Dewi",
+                "gender": "Perempuan",
+                "birth_place": "Garut",
+                "birth_date": "1986-12-14",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "4d852614-98ca-4d0b-9593-5c554066cf97",
+            "family_card_number": "3277030612060841",
+            "address": "JL. PESANTREN RT 06 RW 15, KEL.CIBABAT, KEC. CIMAHI UTARA, KOTA CIMAHI (40513)",
+            "rt": "06",
+            "rw": "15",
+            "village_code": "3277031002",
+            "subdistrict_code": "327703",
+            "district_code": "3277",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "48da7671-18ae-42e1-92aa-61c27feba29f",
+            "family_card_id": "4d852614-98ca-4d0b-9593-5c554066cf97",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-54",
+            "block": "A09",
+            "number": "54",
+            "head_citizen_id": "9d60a6ba-850b-48ee-ad5b-adbe9b9e8de0",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "9d60a6ba-850b-48ee-ad5b-adbe9b9e8de0",
+                "family_card_id": "4d852614-98ca-4d0b-9593-5c554066cf97",
+                "citizen_card_number": "3277031909980001",
+                "fullname": "Muhammad Haikal Sazili",
+                "gender": "Laki-Laki",
+                "birth_place": "Cimahi",
+                "birth_date": "1998-09-19",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "22763b33-11dd-4882-9f1d-461686cc9b22",
+            "family_card_number": "3376021202081088",
+            "address": "JL KALIBUNTU BARAT RT 04 RW 02 NO 17 KECAMATAN TEGAL TIMUR KELURAHAN PANGGUNG KOTA TEGAL",
+            "rt": "04",
+            "rw": "02",
+            "village_code": "3376020003",
+            "subdistrict_code": "337602",
+            "district_code": "3376",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "3e63f1c7-0058-4d75-b90a-db65f54339e0",
+            "family_card_id": "22763b33-11dd-4882-9f1d-461686cc9b22",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-011",
+            "block": "B09",
+            "number": "011",
+            "head_citizen_id": "c4f1745c-db5c-4c9a-825b-49a1a1bf1405",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c4f1745c-db5c-4c9a-825b-49a1a1bf1405",
+                "family_card_id": "22763b33-11dd-4882-9f1d-461686cc9b22",
+                "citizen_card_number": "3376022009010001",
+                "fullname": "Mohammad Rifqi Ibrahim M",
+                "gender": "Laki-Laki",
+                "birth_place": "Kota Tegal",
+                "birth_date": "2001-09-20",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "7aa3efc7-2a90-4e75-988a-dfdb9848d698",
+            "family_card_number": "3205051806150014",
+            "address": "Kp. Kebonsalak RT/RW 004/002 Des/Kel. Sindangasih Kec. Karangtengah Kab. Cianjur Prov. Jawabarat Kode pos. 43281",
+            "rt": "004",
+            "rw": "002",
+            "village_code": "3203072011",
+            "subdistrict_code": "320307",
+            "district_code": "3203",
+            "province_code": "32",
+            "postal_code": "43281",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "b2aa2833-05f6-4d87-9778-5a91fccc1eba",
+            "family_card_id": "7aa3efc7-2a90-4e75-988a-dfdb9848d698",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-039",
+            "block": "A08",
+            "number": "039",
+            "head_citizen_id": "e35b5699-a648-444a-98af-e7cf3d5e2f34",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "e35b5699-a648-444a-98af-e7cf3d5e2f34",
+                "family_card_id": "7aa3efc7-2a90-4e75-988a-dfdb9848d698",
+                "citizen_card_number": "3205051101870004",
+                "fullname": "Mochammad Faisyal",
+                "gender": "Laki-Laki",
+                "birth_place": "Garut",
+                "birth_date": "1987-01-11",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "f5d53ce0-2073-4e66-befd-36b66d4ab6bb",
+                "family_card_id": "7aa3efc7-2a90-4e75-988a-dfdb9848d698",
+                "citizen_card_number": "3203075205900007",
+                "fullname": "Lesti Farida",
+                "gender": "Perempuan",
+                "birth_place": "Cianjur",
+                "birth_date": "1990-05-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Diploma III (D3)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "a36bf6bd-af85-41ce-b5c2-cee0cf61aac6",
+                "family_card_id": "7aa3efc7-2a90-4e75-988a-dfdb9848d698",
+                "citizen_card_number": "3203071404250004",
+                "fullname": "Muhammad Atharrazka Shaquille",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2025-04-14",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "9a5fe29e-91fa-491b-8193-58cfb5c3d223",
+            "family_card_number": "3172040302141009",
+            "address": "Jl.Kelapa Dua No.23 RT.07 RW.03 Kel/Kec.Cilincing Jakut 14120",
+            "rt": "07",
+            "rw": "03",
+            "village_code": "3172041001",
+            "subdistrict_code": "317204",
+            "district_code": "3172",
+            "province_code": "31",
+            "postal_code": "14210",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "16f5fd42-34bc-421f-950d-9a81f49e11e4",
+            "family_card_id": "9a5fe29e-91fa-491b-8193-58cfb5c3d223",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-9",
+            "block": "A08",
+            "number": "9",
+            "head_citizen_id": "4615727a-9933-4ee4-84e2-ca4d46668822",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "4615727a-9933-4ee4-84e2-ca4d46668822",
+                "family_card_id": "9a5fe29e-91fa-491b-8193-58cfb5c3d223",
+                "citizen_card_number": "3172042511840018",
+                "fullname": "Kusmiyanto",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1984-11-25",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "7847e5b1-8731-49c8-92d6-aca10c2a0ef5",
+                "family_card_id": "9a5fe29e-91fa-491b-8193-58cfb5c3d223",
+                "citizen_card_number": "3172046812941005",
+                "fullname": "Iyam",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1994-12-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SD",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "0803ae26-7c20-4ee2-bd34-12f890e0e685",
+            "family_card_number": "3215201503190003",
+            "address": "PERUM MUSTIKA VILLAGE BLOK A.8/15, RT/RW 017/007, KEL/DESA LEMAHMULLYA, KEC MAJALAYA.",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "79a75bac-37aa-4ef6-b45f-9f3a99ce8a9f",
+            "family_card_id": "0803ae26-7c20-4ee2-bd34-12f890e0e685",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-16",
+            "block": "A08",
+            "number": "16",
+            "head_citizen_id": "ea8a559f-45dd-42e0-b51a-cf51f0663ca8",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ea8a559f-45dd-42e0-b51a-cf51f0663ca8",
+                "family_card_id": "0803ae26-7c20-4ee2-bd34-12f890e0e685",
+                "citizen_card_number": "3212060402780002",
+                "fullname": "Nanang Kosim",
+                "gender": "Laki-Laki",
+                "birth_place": "Indramayu",
+                "birth_date": "1978-02-04",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SD",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "b2453f0d-6069-4edb-aa8d-a107ed2a97ff",
+                "family_card_id": "0803ae26-7c20-4ee2-bd34-12f890e0e685",
+                "citizen_card_number": "3215185410730002",
+                "fullname": "Emah Widya Lestari",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1973-10-14",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SD",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "66fc236f-f29c-42f7-a186-37e8b9508a20",
+                "family_card_id": "0803ae26-7c20-4ee2-bd34-12f890e0e685",
+                "citizen_card_number": "3212060907070001",
+                "fullname": "Pebriyan",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2007-07-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "8fdca483-b108-46c6-996d-c021abbb2d94",
+            "family_card_number": "3215250506240007",
+            "address": "PERUMAHAN MUSTIKA VILLAGE KARAWANG RT 27 RW 07 DESA LEMAHMULYA KECAMATAN MAJALAYA KABUPATEN KARAWANG",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "78080bc3-22bc-4725-811e-2b6c2f3cf46a",
+            "family_card_id": "8fdca483-b108-46c6-996d-c021abbb2d94",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-03",
+            "block": "A08",
+            "number": "03",
+            "head_citizen_id": "6aca1392-959f-4965-941e-a9782d664c65",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "6aca1392-959f-4965-941e-a9782d664c65",
+                "family_card_id": "8fdca483-b108-46c6-996d-c021abbb2d94",
+                "citizen_card_number": "3215250604980002",
+                "fullname": "Afrizal Hadi Purnomo",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1998-04-06",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Diploma III (D3)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "6faa36bf-869a-4744-9ac6-479e7e8148d4",
+                "family_card_id": "8fdca483-b108-46c6-996d-c021abbb2d94",
+                "citizen_card_number": "3604086508980002",
+                "fullname": "Suci Auliah Tanjung",
+                "gender": "Perempuan",
+                "birth_place": "Bekasi",
+                "birth_date": "1998-08-25",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "5233d4d9-8c77-4311-a996-268f19f5070a",
+                "family_card_id": "8fdca483-b108-46c6-996d-c021abbb2d94",
+                "citizen_card_number": "3215211901250001",
+                "fullname": "Muhammad Emmeril Kalief Alfarizky",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2025-01-19",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+            "family_card_number": "3210131905060010",
+            "address": "Desa Liang Julang rt 001 rw 001 Gg Merpati No 012 Kec Kadipaten Kabupaten Majalengka , kode pos 45452",
+            "rt": "001",
+            "rw": "001",
+            "village_code": "3210132005",
+            "subdistrict_code": "321013",
+            "district_code": "3210",
+            "province_code": "32",
+            "postal_code": "45452",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "16f107d1-f0d0-4b74-99f8-0166c8053089",
+            "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-04",
+            "block": "A09",
+            "number": "04",
+            "head_citizen_id": "4642c397-055f-47d9-a328-f6b1350331cb",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "4642c397-055f-47d9-a328-f6b1350331cb",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "3210131503710001",
+                "fullname": "Marhusa Sihombing",
+                "gender": "Laki-Laki",
+                "birth_place": "Medan",
+                "birth_date": "1971-03-15",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "7635d6cc-5acb-4dc5-b516-8c6037785367",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "3210136210670021",
+                "fullname": "Sondang Pasaribu",
+                "gender": "Perempuan",
+                "birth_place": "Medan",
+                "birth_date": "1967-10-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "ae70debd-1305-4580-a33e-44fe50b5f986",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "3210135103950001",
+                "fullname": "Marselina T A S",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "1995-03-11",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "b63f44b6-098f-41e4-9065-4762b863ba7e",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "321013507960021",
+                "fullname": "Mario P J S",
+                "gender": "Perempuan",
+                "birth_place": "",
+                "birth_date": "1996-07-15",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "774488ac-2657-42d8-b0df-24035d962133",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "3210132704010001",
+                "fullname": "Marihot S M S",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2001-04-27",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "d0e35a4b-d431-4814-8102-651f5f1f21c8",
+                "family_card_id": "8445e3e5-533c-4182-9401-1dbff208bea2",
+                "citizen_card_number": "3210135208020021",
+                "fullname": "Marsella S D S",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2002-08-12",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ce53f2e6-00c3-4053-81ce-4edcded24c1d",
+            "family_card_number": "3213053103064777",
+            "address": "KP SILUMAN II, RT/RW 022/007, DESA SILUMAN, KEC PABUARAN, KAB SUBANG JAWA BARAT",
+            "rt": "022",
+            "rw": "007",
+            "village_code": "3213052002",
+            "subdistrict_code": "321305",
+            "district_code": "3213",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "cecec0be-4bcf-4992-bbe3-ecd34614fdc2",
+            "family_card_id": "ce53f2e6-00c3-4053-81ce-4edcded24c1d",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-20",
+            "block": "A06",
+            "number": "20",
+            "head_citizen_id": "1995cf0a-2530-4884-8905-29ca729eacb0",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "1995cf0a-2530-4884-8905-29ca729eacb0",
+                "family_card_id": "ce53f2e6-00c3-4053-81ce-4edcded24c1d",
+                "citizen_card_number": "3213055112040003",
+                "fullname": "Revatania Putri Khoirunnisa",
+                "gender": "Laki-Laki",
+                "birth_place": "Subang",
+                "birth_date": "2004-12-11",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "97726f5c-2026-4055-ba31-45d1ce28179b",
+            "family_card_number": "3277012207240005",
+            "address": "Jl Melong Blok Hegarmanah no 30 A",
+            "rt": null,
+            "rw": null,
+            "village_code": null,
+            "subdistrict_code": null,
+            "district_code": null,
+            "province_code": null,
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "9dbd163f-00d7-4a7f-aae2-40d79215853c",
+            "family_card_id": "97726f5c-2026-4055-ba31-45d1ce28179b",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-55",
+            "block": "A09",
+            "number": "55",
+            "head_citizen_id": "40e8680c-2ded-4123-9daa-a87a8ee6e254",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "40e8680c-2ded-4123-9daa-a87a8ee6e254",
+                "family_card_id": "97726f5c-2026-4055-ba31-45d1ce28179b",
+                "citizen_card_number": "3277012204960002",
+                "fullname": "Rizal Aprian",
+                "gender": "Laki-Laki",
+                "birth_place": "Bandung",
+                "birth_date": "1996-04-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "8b833f5c-6d4d-4a8e-847b-42490eb76bf5",
+                "family_card_id": "97726f5c-2026-4055-ba31-45d1ce28179b",
+                "citizen_card_number": "3301154704010001",
+                "fullname": "Ayu Apriliani",
+                "gender": "Perempuan",
+                "birth_place": "Ciamis",
+                "birth_date": "2001-04-07",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "b211510f-cb32-40ea-b6fb-3d8bbcf49e92",
+                "family_card_id": "97726f5c-2026-4055-ba31-45d1ce28179b",
+                "citizen_card_number": "1234",
+                "fullname": "Ghaisan Muhammad Zuhayr",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2025-05-29",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "b1c9f36c-7a17-498b-9dc1-c9f0157ad237",
+            "family_card_number": "3302021107080004",
+            "address": "KLAPAGADING RT 002 RW 004, DESA KLAPAGADING, KECAMATAN WANGON, KABUPATEN BANYUMAS, JAWA TENGAH",
+            "rt": "002",
+            "rw": "004",
+            "village_code": "3302022004",
+            "subdistrict_code": "330202",
+            "district_code": "3302",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "4d903ea6-005b-4c99-9f56-6ad6a9f44233",
+            "family_card_id": "b1c9f36c-7a17-498b-9dc1-c9f0157ad237",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-51",
+            "block": "A08",
+            "number": "51",
+            "head_citizen_id": "15092f6d-876b-40ec-be07-b28f24016a22",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "15092f6d-876b-40ec-be07-b28f24016a22",
+                "family_card_id": "b1c9f36c-7a17-498b-9dc1-c9f0157ad237",
+                "citizen_card_number": "3302022507000003",
+                "fullname": "Ihza Mahendra",
+                "gender": "Laki-Laki",
+                "birth_place": "Banyumas",
+                "birth_date": "2000-07-25",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Diploma II",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "e3dd511b-3db6-49b4-9454-8e8caf2d6327",
+            "family_card_number": "3310050904220004",
+            "address": "PERUM MUSTIKA VILLAGE BLOK A8 NO: 30 RT/017 RW/007",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "7366d2d1-99c4-45cb-ba82-6f87395df61f",
+            "family_card_id": "e3dd511b-3db6-49b4-9454-8e8caf2d6327",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-30",
+            "block": "A08",
+            "number": "30",
+            "head_citizen_id": "caca8c7c-dd16-4cb2-80f1-eaa4b428df89",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "caca8c7c-dd16-4cb2-80f1-eaa4b428df89",
+                "family_card_id": "e3dd511b-3db6-49b4-9454-8e8caf2d6327",
+                "citizen_card_number": "3310051002950002",
+                "fullname": "Romadhon Eko Priyanta",
+                "gender": "Laki-Laki",
+                "birth_place": "Klaten",
+                "birth_date": "1995-02-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "50ee4198-2258-420b-82c7-bf78175224ad",
+                "family_card_id": "e3dd511b-3db6-49b4-9454-8e8caf2d6327",
+                "citizen_card_number": "3310195809970001",
+                "fullname": "Reni Handayani",
+                "gender": "Perempuan",
+                "birth_place": "Klaten, Jawa Tengah",
+                "birth_date": "1995-09-18",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "dd6de05a-5bd8-494b-a133-d09e9cc8a140",
+                "family_card_id": "e3dd511b-3db6-49b4-9454-8e8caf2d6327",
+                "citizen_card_number": "3310050403230002",
+                "fullname": "Raffi Zayn Alfriyanta",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2023-03-04",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "47a9fe0d-3623-43a4-9df6-312ba168181f",
+            "family_card_number": "3302171611200009",
+            "address": "PERUM MUSTIKA VILLAGE KARAWANG",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "4a871686-32d9-4a04-ad84-bfe9e8e64ab0",
+            "family_card_id": "47a9fe0d-3623-43a4-9df6-312ba168181f",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-30",
+            "block": "A09",
+            "number": "30",
+            "head_citizen_id": "c4d77fdb-8e9e-4732-b86c-92e862e69bb8",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c4d77fdb-8e9e-4732-b86c-92e862e69bb8",
+                "family_card_id": "47a9fe0d-3623-43a4-9df6-312ba168181f",
+                "citizen_card_number": "3302172307970002",
+                "fullname": "Toro Arifudin",
+                "gender": "Laki-Laki",
+                "birth_place": "Banyumas",
+                "birth_date": "1997-07-23",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "ca940bee-9735-4171-979d-e471c83aa9f4",
+                "family_card_id": "47a9fe0d-3623-43a4-9df6-312ba168181f",
+                "citizen_card_number": "3674067108030010",
+                "fullname": "Ella Nur Laila Sari",
+                "gender": "Perempuan",
+                "birth_place": "Purworejo",
+                "birth_date": "97-08-31",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "01a3568e-fcf6-42b2-97e2-44b2edab8912",
+                "family_card_id": "47a9fe0d-3623-43a4-9df6-312ba168181f",
+                "citizen_card_number": "3302174507210002",
+                "fullname": "Alula Rania Ayunindya",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2021-07-05",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "1da3cbfb-8fca-4400-9fdd-772671145bd9",
+            "family_card_number": "3215210709220004",
+            "address": "Mustika village karawang blok A09/15 kel. Lemahmulya, kec. Majalaya, kab. Karawang",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "320f28b0-b5af-4112-9fd3-df7dec60dba0",
+            "family_card_id": "1da3cbfb-8fca-4400-9fdd-772671145bd9",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-015",
+            "block": "A09",
+            "number": "015",
+            "head_citizen_id": "05d13a12-a7fa-4767-99d3-f6eb3e177eda",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "05d13a12-a7fa-4767-99d3-f6eb3e177eda",
+                "family_card_id": "1da3cbfb-8fca-4400-9fdd-772671145bd9",
+                "citizen_card_number": "3275032410920021",
+                "fullname": "Fachrul Oktavian",
+                "gender": "Laki-Laki",
+                "birth_place": "Bekasi",
+                "birth_date": "1992-10-24",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "3f31e0fb-6da2-4c3e-a7a5-d06ee2340213",
+                "family_card_id": "1da3cbfb-8fca-4400-9fdd-772671145bd9",
+                "citizen_card_number": "1371115804960003",
+                "fullname": "Intan Suri Maharani",
+                "gender": "Perempuan",
+                "birth_place": "Padang",
+                "birth_date": "1996-04-18",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "aaaedab1-d76c-473a-9e1a-547aec98ba3a",
+                "family_card_id": "1da3cbfb-8fca-4400-9fdd-772671145bd9",
+                "citizen_card_number": "3215211110220001",
+                "fullname": "Muhammad Faiq Aifach",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "2022-10-11",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "0a8389ec-8725-4df3-b9b0-59ee49a36f7c",
+            "family_card_number": "3212130808220003",
+            "address": "Jalan Malang Semirang/Blok Karang Baru Timur/ RT 04 RW 01/ Desa Lobener Lor/ Kecamatan Jatibarang/ kabupten Indramayu/ Jawa barat",
+            "rt": "04",
+            "rw": "01",
+            "village_code": "3212130015",
+            "subdistrict_code": "321213",
+            "district_code": "3212",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "f5edd648-b70b-4cf6-a18a-ee948321943b",
+            "family_card_id": "0a8389ec-8725-4df3-b9b0-59ee49a36f7c",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-17",
+            "block": "A09",
+            "number": "17",
+            "head_citizen_id": "c33b23b1-c6b7-4708-b0f7-c71890a3b54b",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c33b23b1-c6b7-4708-b0f7-c71890a3b54b",
+                "family_card_id": "0a8389ec-8725-4df3-b9b0-59ee49a36f7c",
+                "citizen_card_number": "3212131409950001",
+                "fullname": "Ivan Septiana Taufik",
+                "gender": "Laki-Laki",
+                "birth_place": "Indramayu",
+                "birth_date": "1995-09-14",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "9529d5a2-a3b8-48fa-a8f9-1513fe1daf22",
+                "family_card_id": "0a8389ec-8725-4df3-b9b0-59ee49a36f7c",
+                "citizen_card_number": "3212136406950005",
+                "fullname": "Dea Sabrina",
+                "gender": "Perempuan",
+                "birth_place": "Indramayu",
+                "birth_date": "1995-06-24",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "43643bc1-71e5-4afb-b226-1535dfa84a3d",
+                "family_card_id": "0a8389ec-8725-4df3-b9b0-59ee49a36f7c",
+                "citizen_card_number": "3212134301230002",
+                "fullname": "Idea Kilau Aluta Shima",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2023-01-03",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "715462fb-ec42-4c1c-8232-216e60fc085a",
+            "family_card_number": "3215190211220005",
+            "address": "DUSUN KRAJAN III RT.019/RW.005 DESA LEMAHABANG KEC. LEMAHABANG KAB. KARAWANG PROV. JAWA BARAT",
+            "rt": "019",
+            "rw": "005",
+            "village_code": "3326060003",
+            "subdistrict_code": "332606",
+            "district_code": "3326",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "c8f2aee5-0ade-49e4-8a6b-1b1a8bb5e989",
+            "family_card_id": "715462fb-ec42-4c1c-8232-216e60fc085a",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-47",
+            "block": "A09",
+            "number": "47",
+            "head_citizen_id": "263616df-7b3d-4510-a061-e7b519ed4d08",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "263616df-7b3d-4510-a061-e7b519ed4d08",
+                "family_card_id": "715462fb-ec42-4c1c-8232-216e60fc085a",
+                "citizen_card_number": "3215192702980002",
+                "fullname": "Nanda Triantono",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1998-02-27",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "9499c6a4-e604-438c-aacd-600284f8ab74",
+                "family_card_id": "715462fb-ec42-4c1c-8232-216e60fc085a",
+                "citizen_card_number": "3201366205980001",
+                "fullname": "Asiah Aeni",
+                "gender": "Perempuan",
+                "birth_place": "Bogor",
+                "birth_date": "1998-05-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SD",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "be2751bb-5cba-4fba-9be1-c01358b15f2a",
+                "family_card_id": "715462fb-ec42-4c1c-8232-216e60fc085a",
+                "citizen_card_number": "3215196102230003",
+                "fullname": "Nurul Almahira Putri",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2023-02-21",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "94ecc58f-6ae0-4b12-bf64-0e41c4f87011",
+            "family_card_number": "3214012112110017",
+            "address": "Kaum kaler rt 002/001 kelurahan cipaisan kabupaten Purwakarta jawabarat",
+            "rt": "002",
+            "rw": "001",
+            "village_code": "3214011005",
+            "subdistrict_code": "321401",
+            "district_code": "3214",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "d305e8ea-bbe7-4878-b277-ef1da778863c",
+            "family_card_id": "94ecc58f-6ae0-4b12-bf64-0e41c4f87011",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B05-0506",
+            "block": "B05",
+            "number": "0506",
+            "head_citizen_id": "13c0d592-9e4d-43d3-8fec-4f8eee7c2590",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "13c0d592-9e4d-43d3-8fec-4f8eee7c2590",
+                "family_card_id": "94ecc58f-6ae0-4b12-bf64-0e41c4f87011",
+                "citizen_card_number": "3214012509880002",
+                "fullname": "Lukman Hakim",
+                "gender": "Laki-Laki",
+                "birth_place": "Purwakarta",
+                "birth_date": "1988-09-25",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Diploma III (D3)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "9e6dcf83-06b4-4966-a2b9-f3ac6389e1ad",
+                "family_card_id": "94ecc58f-6ae0-4b12-bf64-0e41c4f87011",
+                "citizen_card_number": "3214056303890001",
+                "fullname": "Euis Sulastri",
+                "gender": "Perempuan",
+                "birth_place": "Purwakarta",
+                "birth_date": "1989-03-23",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "1c48f025-b1ed-4384-aefa-2d6f06b9d62e",
+                "family_card_id": "94ecc58f-6ae0-4b12-bf64-0e41c4f87011",
+                "citizen_card_number": "3214014908120002",
+                "fullname": "Hasna Zahirah Hakim",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2012-08-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMP",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "4c2bba7b-b19f-4ed1-a154-16145c54a0cb",
+            "family_card_number": "3215211405250003",
+            "address": "PERUM MUSTIKA VILLAGE BLOK B.10 NO.9 RT027/RW007, LEMAHMULYA, MAJALAYA, KARAWANG, JAWA BARAT",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "e85d2350-e264-4ac4-9260-1b3fa6c94b80",
+            "family_card_id": "4c2bba7b-b19f-4ed1-a154-16145c54a0cb",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B10-09",
+            "block": "B10",
+            "number": "09",
+            "head_citizen_id": "c73233c8-34fd-43ee-ad8e-ce1e78cd4f70",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c73233c8-34fd-43ee-ad8e-ce1e78cd4f70",
+                "family_card_id": "4c2bba7b-b19f-4ed1-a154-16145c54a0cb",
+                "citizen_card_number": "3312243004980001",
+                "fullname": "Agung Prasetyo Kurniawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Wonogiri",
+                "birth_date": "1998-04-30",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "ff0021de-85c8-4067-bfc6-9adfc18a5ea5",
+                "family_card_id": "4c2bba7b-b19f-4ed1-a154-16145c54a0cb",
+                "citizen_card_number": "3312026212990003",
+                "fullname": "Mislaillatul Khollifah Rahma",
+                "gender": "Perempuan",
+                "birth_place": "Wonogiri",
+                "birth_date": "1999-12-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "d2ddb8c3-a012-4dbe-87ba-bb941267aac3",
+            "family_card_number": "3213262803220003",
+            "address": "MUSTIKA VILLAGE KARAWANG, BLOK 18, NO 59 RT017/RW 007, DS. LEMAHMULYA, KEC. MAJALAYA, KAB. KARAWANG, JAWA BARAT, 41371",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "a660c2f4-e993-4a64-8798-18368c2c724a",
+            "family_card_id": "d2ddb8c3-a012-4dbe-87ba-bb941267aac3",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-59",
+            "block": "A08",
+            "number": "59",
+            "head_citizen_id": "b099808c-fc91-4cd4-a5e7-94219c85b48d",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "b099808c-fc91-4cd4-a5e7-94219c85b48d",
+                "family_card_id": "d2ddb8c3-a012-4dbe-87ba-bb941267aac3",
+                "citizen_card_number": "3213052809940001",
+                "fullname": "Asep Nunu Nugraha",
+                "gender": "Laki-Laki",
+                "birth_place": "Subang",
+                "birth_date": "1994-09-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "ab36264d-9f10-4f24-86c9-dbb449f56301",
+                "family_card_id": "d2ddb8c3-a012-4dbe-87ba-bb941267aac3",
+                "citizen_card_number": "3213264312960002",
+                "fullname": "Devia Nurul Assyfa",
+                "gender": "Perempuan",
+                "birth_place": "Subang",
+                "birth_date": "1996-12-03",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "c019bb95-a529-4274-b71e-428c737e2950",
+                "family_card_id": "d2ddb8c3-a012-4dbe-87ba-bb941267aac3",
+                "citizen_card_number": "3213265609220001",
+                "fullname": "Nashya Nura Sabilla",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2022-09-16",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+            "family_card_number": "3305230209200003",
+            "address": "WONOSARI, 001/002, PUJODADI, BONOROWO, KEBUMEN, JAWA TENGAH",
+            "rt": "001",
+            "rw": "002",
+            "village_code": "3305232003",
+            "subdistrict_code": "330523",
+            "district_code": "3305",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "ed51f1b1-8372-4436-9d30-775a29f82b9d",
+            "family_card_id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-44",
+            "block": "A09",
+            "number": "44",
+            "head_citizen_id": "0ab06aa5-cc4b-4944-bc89-2a7e8a198c74",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "0ab06aa5-cc4b-4944-bc89-2a7e8a198c74",
+                "family_card_id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+                "citizen_card_number": "3305233012900001",
+                "fullname": "Aris Priyanto",
+                "gender": "Laki-Laki",
+                "birth_place": "Kebumen",
+                "birth_date": "1990-12-30",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "089be7ba-1448-42d4-96f6-3d04653bbd81",
+                "family_card_id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+                "citizen_card_number": "3305234907960001",
+                "fullname": "Nur Laela",
+                "gender": "Perempuan",
+                "birth_place": "Kebumen",
+                "birth_date": "1996-07-09",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "b0115c19-a38f-4262-998d-412aa668d332",
+                "family_card_id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+                "citizen_card_number": "3305236808200001",
+                "fullname": "Aisyah Sabila",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2020-08-28",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "b58c2e4c-34b4-4e60-931f-eed81ca79937",
+                "family_card_id": "c4bb521f-af49-4303-9539-3a8e6212e321",
+                "citizen_card_number": "3305235506230002",
+                "fullname": "Aqilla Syakira",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2023-06-15",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "3ccc6aed-0fbb-4079-90c3-824ef99ccd0d",
+            "family_card_number": "3329110807190004",
+            "address": "JL.PEMUDA NO.02, RT 02 RW 02, DESA JAGAPURA, KECAMATAN KERSANA, KABUPATEN BREBES, PROPINSI JAWA TENGAH",
+            "rt": "02",
+            "rw": "02",
+            "village_code": "3329112004",
+            "subdistrict_code": "332911",
+            "district_code": "3329",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "aee58551-d5ca-4ec7-8593-562a402fd522",
+            "family_card_id": "3ccc6aed-0fbb-4079-90c3-824ef99ccd0d",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B10-10",
+            "block": "B10",
+            "number": "10",
+            "head_citizen_id": "c9024fbf-f7aa-4491-8bec-680950f9b876",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c9024fbf-f7aa-4491-8bec-680950f9b876",
+                "family_card_id": "3ccc6aed-0fbb-4079-90c3-824ef99ccd0d",
+                "citizen_card_number": "3329110303920001",
+                "fullname": "Ahmad Nursalim",
+                "gender": "Laki-Laki",
+                "birth_place": "Brebes",
+                "birth_date": "1992-03-03",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "20cde1b8-86d2-43ef-9c3b-40c6b81cd94d",
+                "family_card_id": "3ccc6aed-0fbb-4079-90c3-824ef99ccd0d",
+                "citizen_card_number": "3329115210900001",
+                "fullname": "Daipah",
+                "gender": "Perempuan",
+                "birth_place": "Brebes",
+                "birth_date": "1990-10-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "3074cd66-5df9-4876-9c48-16a1c5216b17",
+                "family_card_id": "3ccc6aed-0fbb-4079-90c3-824ef99ccd0d",
+                "citizen_card_number": "3329115111190001",
+                "fullname": "Inka Adisty Shalimar",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2019-11-11",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "18b37a92-c498-4b4c-ad64-78efd5ad7d22",
+            "family_card_number": "3215051704250010",
+            "address": "DUSUN CIWADAS RT. 016/004 DS. KLARI KEC. KLARIKARAWANG",
+            "rt": "016",
+            "rw": "004",
+            "village_code": "3215052007",
+            "subdistrict_code": "321505",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "28f1ca0d-aace-4ce8-9f7f-a1173a0c9122",
+            "family_card_id": "18b37a92-c498-4b4c-ad64-78efd5ad7d22",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-18",
+            "block": "B09",
+            "number": "18",
+            "head_citizen_id": "17078ef3-1985-4c9f-835f-a84cac4367c9",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "17078ef3-1985-4c9f-835f-a84cac4367c9",
+                "family_card_id": "18b37a92-c498-4b4c-ad64-78efd5ad7d22",
+                "citizen_card_number": "3215051510930007",
+                "fullname": "Yona Rizky Saputra",
+                "gender": "Laki-Laki",
+                "birth_place": "Purwakarta",
+                "birth_date": "1993-10-15",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "e229e123-ed96-4eb4-b7ca-f65f1fc7ab4c",
+                "family_card_id": "18b37a92-c498-4b4c-ad64-78efd5ad7d22",
+                "citizen_card_number": "3274036607990005",
+                "fullname": "Tan Tjoet Khollidiyah Annisa Dhien",
+                "gender": "Perempuan",
+                "birth_place": "Cirebon",
+                "birth_date": "1999-06-26",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+            "family_card_number": "3215013011070172",
+            "address": "Babakan sananga Desa Adiarsa Barat Rt/002Rw/019",
+            "rt": "002",
+            "rw": "019",
+            "village_code": "3215011003",
+            "subdistrict_code": "321501",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "79180258-392e-4e42-ae6d-df2745aff273",
+            "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-32",
+            "block": "A09",
+            "number": "32",
+            "head_citizen_id": "2d530b54-7ae7-429d-a71d-b7e029a07c6b",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "2d530b54-7ae7-429d-a71d-b7e029a07c6b",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3115012803750003",
+                "fullname": "Sahat Martua Pane",
+                "gender": "Laki-Laki",
+                "birth_place": "Lumban",
+                "birth_date": "1975-03-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "8c4435fb-3eb4-4ef1-9442-b34b673fbb16",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3215015207750004",
+                "fullname": "Risma Panjaitan",
+                "gender": "Perempuan",
+                "birth_place": "Porsea",
+                "birth_date": "1975-07-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "feba19f0-c176-4551-b31e-f09f58340520",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3215016901000003",
+                "fullname": "Melinda Panjaitan",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": null,
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": null
+            },
+            {
+                "id": "f3e848ae-2b43-418f-a574-68df2284d3be",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3215014306030009",
+                "fullname": "Yohana Sitorus Pane",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2003-06-03",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "8b176eca-c1be-4053-9031-99321e35189f",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3215010906040005",
+                "fullname": "Haikal Sitorus Pane",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2004-06-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "31dab1b8-6238-4bc0-8f3b-14f9f6de4dba",
+                "family_card_id": "4e260cfb-2902-4b88-88c5-a4cd807f16ac",
+                "citizen_card_number": "3215011408080002",
+                "fullname": "Agustino Sitorus Pane",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2008-08-14",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "1e115c30-7063-491b-a10c-73beec79967b",
+            "family_card_number": "3175020203220022",
+            "address": "PERUM MUSTIKA VILLAGE KARAWANG BLOK A8 NO.56/57 RT.027 RW.007 KEL. LEMAHMULYA KEC. MAJALAYA KAB. KARAWANG, JAWA BARAT",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "24e9a253-b446-4b1f-9cfa-6e12bd598c3f",
+            "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-5657",
+            "block": "A08",
+            "number": "5657",
+            "head_citizen_id": "ba592f92-3aaa-4da7-ad84-8a862a7ef1d4",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ba592f92-3aaa-4da7-ad84-8a862a7ef1d4",
+                "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+                "citizen_card_number": "3175062812860010",
+                "fullname": "Agus Suprapto",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1986-12-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "857ce64b-fa71-49a7-9094-1ffe2e52bd83",
+                "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+                "citizen_card_number": "3175026608860005",
+                "fullname": "Evi Sumarlin",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1986-08-26",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "ef54d473-48b7-4920-bf08-349e5712a5e2",
+                "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+                "citizen_card_number": "3175063103121023",
+                "fullname": "Firlan Idzar S Wolfe",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2012-03-31",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMP",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "9a023660-98d2-4e7a-b6b0-1a0953e35ff1",
+                "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+                "citizen_card_number": "3175023101160002",
+                "fullname": "Habibi Khalfani Ahmad",
+                "gender": "Perempuan",
+                "birth_place": "",
+                "birth_date": "2016-01-31",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "475bf8cd-2d9e-4417-b140-10ab450586e9",
+                "family_card_id": "1e115c30-7063-491b-a10c-73beec79967b",
+                "citizen_card_number": "3175023009220001",
+                "fullname": "Alif Arsya Muhammad",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2022-09-30",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "0304e885-973b-438a-addb-8177ec6b8ef4",
+            "family_card_number": "3215212008240005",
+            "address": "PERUM MUSTIKA VILLAGE BLOK A9 NO 40, LEMAHMULYA, MAJALAYA",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "543444d2-8b12-4894-a441-202c64560bda",
+            "family_card_id": "0304e885-973b-438a-addb-8177ec6b8ef4",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-40",
+            "block": "A09",
+            "number": "40",
+            "head_citizen_id": "cb098f53-e5d1-4237-896a-9ab7a33efd53",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "cb098f53-e5d1-4237-896a-9ab7a33efd53",
+                "family_card_id": "0304e885-973b-438a-addb-8177ec6b8ef4",
+                "citizen_card_number": "3215010702980001",
+                "fullname": "Dicka Bagus Ari Pradana",
+                "gender": "Laki-Laki",
+                "birth_place": "Karanganyar",
+                "birth_date": "1998-02-07",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "13168a49-7f8c-4c2f-817f-6c0adb1e83c0",
+                "family_card_id": "0304e885-973b-438a-addb-8177ec6b8ef4",
+                "citizen_card_number": "3274014209960004",
+                "fullname": "Nur Octaviani",
+                "gender": "Perempuan",
+                "birth_place": "Cirebon",
+                "birth_date": "1996-09-02",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "a355ebc8-c300-4c3d-b818-8229c9718b91",
+                "family_card_id": "0304e885-973b-438a-addb-8177ec6b8ef4",
+                "citizen_card_number": "3215216408240002",
+                "fullname": "Cassandra Ariana Izzati",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2024-08-24",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+            "family_card_number": "3301212806220005",
+            "address": "JL.TANJUNG , RT.05/RW.013 , KEL.SIDAKAYA , KEC.CILACAP SELATAN , KAB.CILACAP ,PROVINSI. JAWA TENGAH",
+            "rt": "05",
+            "rw": "013",
+            "village_code": "3301211001",
+            "subdistrict_code": "330121",
+            "district_code": "3301",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "c55c6bde-0c91-436b-bfea-2024b9c6ff7e",
+            "family_card_id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-25",
+            "block": "A06",
+            "number": "25",
+            "head_citizen_id": "8ab07ffa-a361-4d8a-8d9c-c4f411859f4f",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "8ab07ffa-a361-4d8a-8d9c-c4f411859f4f",
+                "family_card_id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+                "citizen_card_number": "3301210507840008",
+                "fullname": "Wibowo Yulianto",
+                "gender": "Laki-Laki",
+                "birth_place": "Cilacap",
+                "birth_date": "1984-07-05",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "d15d31e9-d2c7-41c0-87ce-c1a42cfb0b93",
+                "family_card_id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+                "citizen_card_number": "3215154109910004",
+                "fullname": "Laela Sari",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1991-09-01",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "fb9fa939-9038-4b8d-9509-62e7b6089abb",
+                "family_card_id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+                "citizen_card_number": "3215150105110001",
+                "fullname": "Miko Bagus Haryono",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2011-05-01",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMP",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "354ddaaa-bd2b-402f-a66f-30f6cb3a98ba",
+                "family_card_id": "a7f066e5-78c6-42fa-8141-769fdbe6d494",
+                "citizen_card_number": "3301212907210001",
+                "fullname": "Elfathan Fadhil Yulianto",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-07-29",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+            "family_card_number": "3215030603170010",
+            "address": "PERUMAHAN NIERA RESIDENCE BLOK L14, DS PALUMBONSARI ,KEC. KARAWANG TIMUR",
+            "rt": null,
+            "rw": null,
+            "village_code": "3215261003",
+            "subdistrict_code": "321526",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "adfda918-849d-4475-b825-13885ae3793d",
+            "family_card_id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A07-22",
+            "block": "A07",
+            "number": "22",
+            "head_citizen_id": "eb85ee3a-20fe-446e-b8bd-62dd7e5e778a",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "eb85ee3a-20fe-446e-b8bd-62dd7e5e778a",
+                "family_card_id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+                "citizen_card_number": "1007071005950005",
+                "fullname": "Abdul Latif",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1995-05-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "218c8e87-08e0-4110-9b2e-c7e127e2cfb7",
+                "family_card_id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+                "citizen_card_number": "3314185009970001",
+                "fullname": "Dewi Dhina Pertiana",
+                "gender": "Perempuan",
+                "birth_place": "Sragen",
+                "birth_date": "1997-09-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "d11fecae-da88-416a-ad86-49d08dae0141",
+                "family_card_id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+                "citizen_card_number": "3215036911190008",
+                "fullname": "Zava Shabila Latif",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2019-11-29",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "63f21763-465e-40a5-b586-5ff52b57c9d0",
+                "family_card_id": "fd61f8a6-0d6b-4c89-a8d6-26771cb6c080",
+                "citizen_card_number": "3215031702220003",
+                "fullname": "Zein Azhar Al Latif",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2022-02-17",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "1e1c1ae9-4672-4b74-b5a5-f333c727897e",
+            "family_card_number": "3215212312220007",
+            "address": "Mustika Village blok A10 no 12 Kecamatan Majalaya Desa Lemahmulya Kabupaten Karawang",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "378d848a-9220-4a75-8477-2909b813a9b8",
+            "family_card_id": "1e1c1ae9-4672-4b74-b5a5-f333c727897e",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A10-12",
+            "block": "A10",
+            "number": "12",
+            "head_citizen_id": "d96e7afe-c4cd-4b96-b1de-5af41ee77798",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "d96e7afe-c4cd-4b96-b1de-5af41ee77798",
+                "family_card_id": "1e1c1ae9-4672-4b74-b5a5-f333c727897e",
+                "citizen_card_number": "71020812910001",
+                "fullname": "Devid Formen Tengker",
+                "gender": "Laki-Laki",
+                "birth_place": "Koyawas Langowan Barat",
+                "birth_date": "1991-12-08",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "0cdd5ea1-2aa5-4212-a032-a1469704da0b",
+                "family_card_id": "1e1c1ae9-4672-4b74-b5a5-f333c727897e",
+                "citizen_card_number": "7102094506920001",
+                "fullname": "Ribka Jennita Londah",
+                "gender": "Perempuan",
+                "birth_place": "Balikpapan",
+                "birth_date": "1992-06-05",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Magister (S2)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "a9838ba0-7e44-4998-bd5f-215285176f3f",
+                "family_card_id": "1e1c1ae9-4672-4b74-b5a5-f333c727897e",
+                "citizen_card_number": "3215210708230002",
+                "fullname": "Derrick Russell Tengker",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2023-08-07",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ed789fab-fb28-4d8a-9163-a255b13f43d0",
+            "family_card_number": "3273172102220005",
+            "address": "Leuwipanjang No15, Bandung",
+            "rt": null,
+            "rw": null,
+            "village_code": "3205022019",
+            "subdistrict_code": "320502",
+            "district_code": "3205",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "517ef307-c0ca-40af-b0c1-282d2a78eb97",
+            "family_card_id": "ed789fab-fb28-4d8a-9163-a255b13f43d0",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B10-08",
+            "block": "B10",
+            "number": "08",
+            "head_citizen_id": "70f6b86e-6602-4ef7-9061-0db002787f2e",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "70f6b86e-6602-4ef7-9061-0db002787f2e",
+                "family_card_id": "ed789fab-fb28-4d8a-9163-a255b13f43d0",
+                "citizen_card_number": "3273171005920003",
+                "fullname": "Hendri Hermawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Cilacap",
+                "birth_date": "1992-05-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "7832b6e1-87ff-4e1c-b065-d805ef0f78f2",
+                "family_card_id": "ed789fab-fb28-4d8a-9163-a255b13f43d0",
+                "citizen_card_number": "3204077004920001",
+                "fullname": "Melati Aprilia",
+                "gender": "Perempuan",
+                "birth_place": "Tangerang",
+                "birth_date": "1992-04-30",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+            "family_card_number": "3215030208180012",
+            "address": "BUMI TELUKJAMBE BLOK PF NO.36 RT 003/020 KEL. SUKALUYU KEC.TELUKJAMBE TIMUR KAB. KARAWANG PROV. JAWA BARAT",
+            "rt": "003",
+            "rw": "020",
+            "village_code": "3215031005",
+            "subdistrict_code": "321503",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "3ecad069-367e-4ee1-9df4-3d6ff8587330",
+            "family_card_id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-46",
+            "block": "A09",
+            "number": "46",
+            "head_citizen_id": "63757d38-17ce-4227-ba5d-087edc4cdf5e",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "63757d38-17ce-4227-ba5d-087edc4cdf5e",
+                "family_card_id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+                "citizen_card_number": "3215031610870005",
+                "fullname": "Sigit Widianto",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1987-10-16",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "ce720d37-0fcb-44d1-a44e-7c4e0783c0af",
+                "family_card_id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+                "citizen_card_number": "3201144607860002",
+                "fullname": "Luthfah Fuji Wijayanti",
+                "gender": "Perempuan",
+                "birth_place": "Bogor",
+                "birth_date": "1986-07-06",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "df29ba4d-615e-4ccb-bcd9-ac8504a8336b",
+                "family_card_id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+                "citizen_card_number": "3215033010190001",
+                "fullname": "Muhammad Alif Hafidz",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2019-10-30",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Belum/Tidak Bekerja"
+            },
+            {
+                "id": "0d453f3a-2dfe-4dff-ba29-d69ed4622ef2",
+                "family_card_id": "d178360f-7e60-48c2-bc64-cb1401f538a6",
+                "citizen_card_number": "3215034804220002",
+                "fullname": "Zahrah Shanum Azkadina",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2022-04-08",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "205bf64e-69be-4b3d-86b9-affbe5c7712e",
+            "family_card_number": "3215152001210002",
+            "address": "DUSUN KOSBAR RT/RW 001/005 DS.SUKATANI KEC.CILAMAYA WETAN KAB.KARAWANG",
+            "rt": "001",
+            "rw": "005",
+            "village_code": "3215152005",
+            "subdistrict_code": "321515",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "12a41d1d-fc8a-497b-b7ad-835edda3da0b",
+            "family_card_id": "205bf64e-69be-4b3d-86b9-affbe5c7712e",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-20",
+            "block": "A09",
+            "number": "20",
+            "head_citizen_id": "82163146-bc70-4ed7-a535-3b4e2970b861",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "82163146-bc70-4ed7-a535-3b4e2970b861",
+                "family_card_id": "205bf64e-69be-4b3d-86b9-affbe5c7712e",
+                "citizen_card_number": "3215232806950002",
+                "fullname": "Tatang Azis",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1995-06-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "a0a5a260-5f31-41c2-a12d-f35fe8cdae28",
+                "family_card_id": "205bf64e-69be-4b3d-86b9-affbe5c7712e",
+                "citizen_card_number": "3215156311950001",
+                "fullname": "Sagita Sholihat",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1995-11-23",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Magister (S2)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "fe289215-a4fd-4dfa-9557-0e838c0d670b",
+                "family_card_id": "205bf64e-69be-4b3d-86b9-affbe5c7712e",
+                "citizen_card_number": "3215155909210004",
+                "fullname": "Bilqis Hillya Al-azis",
+                "gender": "Perempuan",
+                "birth_place": "",
+                "birth_date": "2021-09-19",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+            "family_card_number": "3215051808140015",
+            "address": "DUSUN SUKAMULYA RT 019 RW 007 DESA ANGGADITA KECAMATAN KLARI",
+            "rt": "019",
+            "rw": "007",
+            "village_code": "321505",
+            "subdistrict_code": "321505",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "34c80e54-ecf9-4d19-8475-d4d40edea27b",
+            "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B05-05",
+            "block": "B05",
+            "number": "05",
+            "head_citizen_id": "9c9b3c9b-ec62-4b8d-aa6c-ca1a656901f9",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "9c9b3c9b-ec62-4b8d-aa6c-ca1a656901f9",
+                "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+                "citizen_card_number": "3215052710880002",
+                "fullname": "Diki Kurnia",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1988-10-27",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "259841df-ccd4-4eaf-be25-5e494d4b00af",
+                "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+                "citizen_card_number": "3215266001920001",
+                "fullname": "Tiara Siti Romlah",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1992-01-20",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "b4f868dd-4c07-4c3e-b500-ce7d14148543",
+                "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+                "citizen_card_number": "3215051411130005",
+                "fullname": "Aqil Ghani Kurnia",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2013-11-14",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "9731e2be-849e-4d39-861a-8766877c6af9",
+                "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+                "citizen_card_number": "32150508061820005",
+                "fullname": "Abil Ghava Kurnia",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2018-06-08",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "d9e34933-b757-4a6c-a69b-13693796ff3b",
+                "family_card_id": "5434ce3f-6a9d-4145-ae12-2df8876d0104",
+                "citizen_card_number": "3215051501210005",
+                "fullname": "Ariq Ghafi Kurnia",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-01-15",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "7fa83f1b-2d5e-4dea-acd8-5bb5490f6f7d",
+            "family_card_number": "3210192706060004",
+            "address": "DUSUN SUKAASIH RT03/RW04 DESA BUNIWANGI, KECAMATAN PALASAH, KABUPATEN MAJALENGKA, JAWA BARAT 45475.",
+            "rt": "03",
+            "rw": "004",
+            "village_code": "3210192007",
+            "subdistrict_code": "321019",
+            "district_code": "3210",
+            "province_code": "32",
+            "postal_code": "45475",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "ccb1076c-c0d7-4ad4-867a-256a81c4403f",
+            "family_card_id": "7fa83f1b-2d5e-4dea-acd8-5bb5490f6f7d",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-24",
+            "block": "A06",
+            "number": "24",
+            "head_citizen_id": "7557ede0-051d-4983-a18b-97d583e90604",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "7557ede0-051d-4983-a18b-97d583e90604",
+                "family_card_id": "7fa83f1b-2d5e-4dea-acd8-5bb5490f6f7d",
+                "citizen_card_number": "3210191808020021",
+                "fullname": "Indra Rosadi",
+                "gender": "Laki-Laki",
+                "birth_place": "Majalengka",
+                "birth_date": "2002-08-18",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "cc326448-826a-437f-8c23-669f66a14cc1",
+            "family_card_number": "3215040501160004",
+            "address": "perum griya indah blok e1 no28",
+            "rt": null,
+            "rw": null,
+            "village_code": "3215020007",
+            "subdistrict_code": "321502",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "d398c227-9c7c-4eb6-aea5-d1c4bebc3968",
+            "family_card_id": "cc326448-826a-437f-8c23-669f66a14cc1",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A10-10",
+            "block": "A10",
+            "number": "10",
+            "head_citizen_id": "98fa3f30-0ff3-476c-8ea3-9a6715af0c84",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "98fa3f30-0ff3-476c-8ea3-9a6715af0c84",
+                "family_card_id": "cc326448-826a-437f-8c23-669f66a14cc1",
+                "citizen_card_number": "3172041010900016",
+                "fullname": "Mohammad Akbar",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1990-10-10",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "bd28a0bf-52a1-4fb9-a3a9-970b9c5f1917",
+                "family_card_id": "cc326448-826a-437f-8c23-669f66a14cc1",
+                "citizen_card_number": "3215046802900001",
+                "fullname": "Dewi Hartini Anggreini",
+                "gender": "Perempuan",
+                "birth_place": "Bojonegoro",
+                "birth_date": "1990-02-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "f8ac9988-9164-4226-bdc4-dbff5ac6ba19",
+                "family_card_id": "cc326448-826a-437f-8c23-669f66a14cc1",
+                "citizen_card_number": "3215046316090001",
+                "fullname": "Dearla Windy Awalia",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2009-11-23",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "ecac9e92-6f13-4c4c-9284-a748a13af2de",
+                "family_card_id": "cc326448-826a-437f-8c23-669f66a14cc1",
+                "citizen_card_number": "3215040112150001",
+                "fullname": "Adzin Arsyad",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2015-12-01",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "3a555961-9539-42c0-8386-74ed38a4de95",
+            "family_card_number": "3215150404140002",
+            "address": "Dusun praubosok rt 09 rw 03 desa muarabaru kec cilamaya kab karawang prov jawabarat",
+            "rt": "09",
+            "rw": "03",
+            "village_code": "3215152004",
+            "subdistrict_code": "321515",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "7e5545af-a234-4ced-b0f2-962fa030f571",
+            "family_card_id": "3a555961-9539-42c0-8386-74ed38a4de95",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B05-01",
+            "block": "B05",
+            "number": "01",
+            "head_citizen_id": "f7255489-a020-4e85-a744-4ff6e83f88fc",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "f7255489-a020-4e85-a744-4ff6e83f88fc",
+                "family_card_id": "3a555961-9539-42c0-8386-74ed38a4de95",
+                "citizen_card_number": "3215151710910003",
+                "fullname": "Zaenal Abidin",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1991-10-17",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "64229d61-4473-4034-96d5-29572d59388e",
+                "family_card_id": "3a555961-9539-42c0-8386-74ed38a4de95",
+                "citizen_card_number": "1674036001960001",
+                "fullname": "Mutiara Ade Safitri",
+                "gender": "Perempuan",
+                "birth_place": "Prabumulih",
+                "birth_date": "1996-02-21",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "c7a91776-236f-4705-97a1-b7ec1254d995",
+                "family_card_id": "3a555961-9539-42c0-8386-74ed38a4de95",
+                "citizen_card_number": "3215156512110003",
+                "fullname": "Regina Kamelia Amanda",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": null,
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "f8d2a5bd-692a-4547-b4f6-0bb47d1097f6",
+                "family_card_id": "3a555961-9539-42c0-8386-74ed38a4de95",
+                "citizen_card_number": "3215155512210003",
+                "fullname": "Michella Zhyamecca Qianessa",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": null,
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "cbdae80f-d352-4e17-b77a-d22de3265901",
+            "family_card_number": "3204370511200004",
+            "address": "KP. PATROL 03/08 DESA. SUKAJADI KEC. SOREANG KAB. BANDUNG",
+            "rt": "03",
+            "rw": "08",
+            "village_code": "3204190003",
+            "subdistrict_code": "320419",
+            "district_code": "3204",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "ae1b7c70-4fff-4d60-9d7c-dddcc4c0171e",
+            "family_card_id": "cbdae80f-d352-4e17-b77a-d22de3265901",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-16",
+            "block": "A09",
+            "number": "16",
+            "head_citizen_id": "5c7a45a0-e43c-484e-8875-a15c124dbb0c",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "5c7a45a0-e43c-484e-8875-a15c124dbb0c",
+                "family_card_id": "cbdae80f-d352-4e17-b77a-d22de3265901",
+                "citizen_card_number": "3204370604940005",
+                "fullname": "Iwan Gunawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Bandung",
+                "birth_date": "1994-04-06",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "ccf709b4-0694-409d-bc10-0d27f9c6a550",
+                "family_card_id": "cbdae80f-d352-4e17-b77a-d22de3265901",
+                "citizen_card_number": "3215264311010003",
+                "fullname": "Siti Asyifa Badriana",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "2001-11-15",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "68f21959-02c9-4f1e-b04d-e38484ba8410",
+                "family_card_id": "cbdae80f-d352-4e17-b77a-d22de3265901",
+                "citizen_card_number": "3204375504210001",
+                "fullname": "Kinara Azalea Zalfaa",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-04-15",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ccf1c0a8-6d94-4adb-8faf-33877909f5e4",
+            "family_card_number": "3215211008230007",
+            "address": "PERUMAHAN MUSTIKA VILLAGE KARAWANG, BLOK A 10 NO 11, RT/RW 17/07, DESA LEMAH MULYA, KECAMATAN MAJALAYA, KABUPATEN KARAWANG, JAWA BARAT, 41370",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "fd5f5353-68d4-4145-af07-a63085b332e2",
+            "family_card_id": "ccf1c0a8-6d94-4adb-8faf-33877909f5e4",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A10-011",
+            "block": "A10",
+            "number": "011",
+            "head_citizen_id": "20937d57-6738-4485-b4bf-41382b19d221",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "20937d57-6738-4485-b4bf-41382b19d221",
+                "family_card_id": "ccf1c0a8-6d94-4adb-8faf-33877909f5e4",
+                "citizen_card_number": "3674062906860011",
+                "fullname": "Kurniawan Asrin Saputra",
+                "gender": "Laki-Laki",
+                "birth_place": "Bekasi",
+                "birth_date": "1986-06-29",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "075a03a6-773e-42bb-bd65-39c51c912747",
+                "family_card_id": "ccf1c0a8-6d94-4adb-8faf-33877909f5e4",
+                "citizen_card_number": "3211084702990005",
+                "fullname": "Mila Hesti",
+                "gender": "Perempuan",
+                "birth_place": "Sumedang",
+                "birth_date": "99-02-07",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "f31d28c6-e493-4238-a1a4-ca69bd58615f",
+                "family_card_id": "ccf1c0a8-6d94-4adb-8faf-33877909f5e4",
+                "citizen_card_number": "3215210703240001",
+                "fullname": "Muhammad Syamil Faizan",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2024-03-07",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "621673fc-9ce9-4b86-87a3-78f964033fae",
+            "family_card_number": "3215250712070017",
+            "address": "Perum Panorama Blok F2 No 08. Munjul Jaya, Purwakarta",
+            "rt": null,
+            "rw": null,
+            "village_code": "3214011009",
+            "subdistrict_code": "321401",
+            "district_code": "3214",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "8b059057-76e7-44dc-a131-9b2866a84637",
+            "family_card_id": "621673fc-9ce9-4b86-87a3-78f964033fae",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-52",
+            "block": "A09",
+            "number": "52",
+            "head_citizen_id": "ee7a875a-1343-4bb1-a87d-8f86f1297986",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ee7a875a-1343-4bb1-a87d-8f86f1297986",
+                "family_card_id": "621673fc-9ce9-4b86-87a3-78f964033fae",
+                "citizen_card_number": "3215252601920004",
+                "fullname": "Sayid Gagas Pangkas",
+                "gender": "Laki-Laki",
+                "birth_place": "Purwakarta",
+                "birth_date": "1992-01-26",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "42d2d450-b1e2-42d6-821c-6abd21246c2c",
+            "family_card_number": "3201021803210035",
+            "address": "Mustika village",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "c073be47-87d5-4cb4-adf6-c69c4b867e12",
+            "family_card_id": "42d2d450-b1e2-42d6-821c-6abd21246c2c",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-14",
+            "block": "A06",
+            "number": "14",
+            "head_citizen_id": "a9ab6f45-40cb-4f49-b0b7-b43c13266932",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "a9ab6f45-40cb-4f49-b0b7-b43c13266932",
+                "family_card_id": "42d2d450-b1e2-42d6-821c-6abd21246c2c",
+                "citizen_card_number": "3201020306950008",
+                "fullname": "Muhammad Azmi Rafi",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1995-06-03",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "986dd735-afb5-40c0-a01e-c059679e8e75",
+                "family_card_id": "42d2d450-b1e2-42d6-821c-6abd21246c2c",
+                "citizen_card_number": "1571086107970121",
+                "fullname": "Rindi Oriska",
+                "gender": "Perempuan",
+                "birth_place": "Muara Sabak",
+                "birth_date": "1997-07-21",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "005eb492-ed95-4b1d-b78f-ce7d4af40a24",
+                "family_card_id": "42d2d450-b1e2-42d6-821c-6abd21246c2c",
+                "citizen_card_number": "1571112404200002",
+                "fullname": "Muhammad Arrasya",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2020-04-24",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "070daaef-b727-472f-8517-267db4507baf",
+            "family_card_number": "3404072202170001",
+            "address": "Kios Gorongan no 25, Nglaren, Condongcatur, Depok, Sleman, DIY",
+            "rt": null,
+            "rw": null,
+            "village_code": "3404072003",
+            "subdistrict_code": "340407",
+            "district_code": "3404",
+            "province_code": "34",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "4068abea-1552-4c84-88f2-6371019f0a6c",
+            "family_card_id": "070daaef-b727-472f-8517-267db4507baf",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A07-10",
+            "block": "A07",
+            "number": "10",
+            "head_citizen_id": "ea3efcfa-ee1b-4e62-bc31-ae1c0baed1fd",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ea3efcfa-ee1b-4e62-bc31-ae1c0baed1fd",
+                "family_card_id": "070daaef-b727-472f-8517-267db4507baf",
+                "citizen_card_number": "1307110412950001",
+                "fullname": "Sulaiman",
+                "gender": "Laki-Laki",
+                "birth_place": "Mungka",
+                "birth_date": "1995-12-04",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "a3b364d7-04a8-4dce-a0c8-2385bc84bae6",
+            "family_card_number": "3215210907250007",
+            "address": "PERUM MUSTIKA VILLA KARAWANG BLOK A09 NO 50, RT 027 RW 007, DESA LEMAHMULYA, KEC. MAJALAYA, KAB. KARAWANG",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "cdc7d0a7-2673-4ef9-bde7-825b31b18e62",
+            "family_card_id": "a3b364d7-04a8-4dce-a0c8-2385bc84bae6",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-50",
+            "block": "A09",
+            "number": "50",
+            "head_citizen_id": "df5a56f7-ecb1-4b9c-ab7f-d16caa71079f",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "df5a56f7-ecb1-4b9c-ab7f-d16caa71079f",
+                "family_card_id": "a3b364d7-04a8-4dce-a0c8-2385bc84bae6",
+                "citizen_card_number": "3306121408000003",
+                "fullname": "Muhamad Saifudin",
+                "gender": "Laki-Laki",
+                "birth_place": "Purworejo",
+                "birth_date": "2000-08-14",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "aae8ed57-ad5f-476b-b530-447a08b6e523",
+                "family_card_id": "a3b364d7-04a8-4dce-a0c8-2385bc84bae6",
+                "citizen_card_number": "3306124305010003",
+                "fullname": "Ika Meilina Amalia",
+                "gender": "Perempuan",
+                "birth_place": "Purworejo",
+                "birth_date": "2001-05-03",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ca5e9b0c-af96-49db-a9c6-9571ec8b0b87",
+            "family_card_number": "3215210902250001",
+            "address": "PERUMAHAN MUSTIKA VILLAGE KARAWANG BLOK A6 NO 23, RT/RW 027/007, DUSUN BELENDUNG, DESA LEMAHMULYA, KECAMATAN MAJALAYA, KABUPATEN KARAWANG, PROVINSI JAWA BARAT",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "b706f0dd-b15d-438a-b9e7-b1ba450dd1a5",
+            "family_card_id": "ca5e9b0c-af96-49db-a9c6-9571ec8b0b87",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-23",
+            "block": "A06",
+            "number": "23",
+            "head_citizen_id": "5927ca6d-9ce5-4102-8900-8f968bca8267",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "5927ca6d-9ce5-4102-8900-8f968bca8267",
+                "family_card_id": "ca5e9b0c-af96-49db-a9c6-9571ec8b0b87",
+                "citizen_card_number": "3516101710930001",
+                "fullname": "Ahmad Basyir Ihsan",
+                "gender": "Laki-Laki",
+                "birth_place": "Mojokerto",
+                "birth_date": "1993-10-17",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "262a5012-e50f-463b-8276-7130a64c9243",
+                "family_card_id": "ca5e9b0c-af96-49db-a9c6-9571ec8b0b87",
+                "citizen_card_number": "3206365312010003",
+                "fullname": "Rani Nurmala",
+                "gender": "Perempuan",
+                "birth_place": "Tasikmalaya",
+                "birth_date": "2001-12-13",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "f7717fe1-04f0-4695-808a-6b3129ab355c",
+                "family_card_id": "ca5e9b0c-af96-49db-a9c6-9571ec8b0b87",
+                "citizen_card_number": "3516102208200002",
+                "fullname": "Azriel Ihsan Maulana",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2020-08-22",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "8a09dba3-e8bc-44c8-9fc0-4914b2b9551f",
+            "family_card_number": "3215150711070005",
+            "address": "Kampung krasak, RT 001/RW003, Desa Tegalsari, Kec Cilamaya Wetan, Kab Krawang, prov Jawa Barat",
+            "rt": "001",
+            "rw": "003",
+            "village_code": "3215152007",
+            "subdistrict_code": "321515",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "cc58d2c5-3cd3-4457-97e6-af0f7004237c",
+            "family_card_id": "8a09dba3-e8bc-44c8-9fc0-4914b2b9551f",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A10-16",
+            "block": "A10",
+            "number": "16",
+            "head_citizen_id": "87fe801a-abe4-4eb3-8c14-dc9354286cc8",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "87fe801a-abe4-4eb3-8c14-dc9354286cc8",
+                "family_card_id": "8a09dba3-e8bc-44c8-9fc0-4914b2b9551f",
+                "citizen_card_number": "3215152205960002",
+                "fullname": "Hidayat Arifin",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1996-05-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "15f95d6c-b078-4fbd-bd05-399a5a29f15d",
+                "family_card_id": "8a09dba3-e8bc-44c8-9fc0-4914b2b9551f",
+                "citizen_card_number": "1671014101970005",
+                "fullname": "Silvi Rama Widiya",
+                "gender": "Perempuan",
+                "birth_place": "Palembang",
+                "birth_date": "1997-02-01",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "8de12ee0-a3d6-463a-b1ce-f12742a2a833",
+            "family_card_number": "3215012811220004",
+            "address": "BUBULAK RT 08 RW 09 DESA TANJUNGURA KEC. KARAWANG BARAT KAB. KARAWANG",
+            "rt": "08",
+            "rw": "09",
+            "village_code": "3215011005",
+            "subdistrict_code": "321501",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "2fc0ab5c-a0dc-4766-bf5c-48328ef98c78",
+            "family_card_id": "8de12ee0-a3d6-463a-b1ce-f12742a2a833",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A06-017",
+            "block": "A06",
+            "number": "017",
+            "head_citizen_id": "32fc1922-590d-466c-a45e-5eb1652d2f86",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "32fc1922-590d-466c-a45e-5eb1652d2f86",
+                "family_card_id": "8de12ee0-a3d6-463a-b1ce-f12742a2a833",
+                "citizen_card_number": "3215011804930001",
+                "fullname": "Fendi Apriyanto",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1993-04-18",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "375674be-d38b-4cdb-a115-6c40e523c307",
+                "family_card_id": "8de12ee0-a3d6-463a-b1ce-f12742a2a833",
+                "citizen_card_number": "1806016804930002",
+                "fullname": "Haryati",
+                "gender": "Perempuan",
+                "birth_place": "Tanjung Karang",
+                "birth_date": "1993-04-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "47ba837b-17bf-4fbb-9f3a-f1d05d80c900",
+                "family_card_id": "8de12ee0-a3d6-463a-b1ce-f12742a2a833",
+                "citizen_card_number": "3215012512220005",
+                "fullname": "Muhammad Rayyan Al Fatih",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2022-12-25",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ee5e423c-cbed-4286-b664-1475a1739e2a",
+            "family_card_number": "3215052609190017",
+            "address": "DUSUN RUMAMBE 1 DESA ANGGADITA KEC. KLARI KAB. KARAWANG",
+            "rt": null,
+            "rw": null,
+            "village_code": "3215052016",
+            "subdistrict_code": "321505",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "15fa2583-6f24-4df1-88cb-dd2933a50e30",
+            "family_card_id": "ee5e423c-cbed-4286-b664-1475a1739e2a",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B05-09",
+            "block": "B05",
+            "number": "09",
+            "head_citizen_id": "59ab13de-b22d-4d39-9c9f-3295ac9fa892",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "59ab13de-b22d-4d39-9c9f-3295ac9fa892",
+                "family_card_id": "ee5e423c-cbed-4286-b664-1475a1739e2a",
+                "citizen_card_number": "3215052608950001",
+                "fullname": "Abdul Malik",
+                "gender": "Laki-Laki",
+                "birth_place": "Tangerang",
+                "birth_date": "1995-08-26",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "25952c3c-11d4-42b7-ba93-c7a6508879b6",
+                "family_card_id": "ee5e423c-cbed-4286-b664-1475a1739e2a",
+                "citizen_card_number": "3215056906960001",
+                "fullname": "Nayri Riri Anggraeni",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1996-06-29",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "998ba873-0400-4820-8275-c32590ef02ba",
+                "family_card_id": "ee5e423c-cbed-4286-b664-1475a1739e2a",
+                "citizen_card_number": "3215054803210003",
+                "fullname": "Shabina Ziraily Malik",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-03-08",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "3881b138-a5dd-4504-b06d-8823aacc54fc",
+            "family_card_number": "3276051912230023",
+            "address": "JL. ANJASMARA 6 NO 120 RT. 06/010 KEC. SUKMAJAYA, KEL. MEKARJAYA. DEPOK 2 TENGAH, JAWA BARAT",
+            "rt": "06",
+            "rw": "010",
+            "village_code": "3276051001",
+            "subdistrict_code": "327605",
+            "district_code": "3276",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "e01a9924-7c4b-4efa-ae30-f1c54e22ee24",
+            "family_card_id": "3881b138-a5dd-4504-b06d-8823aacc54fc",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-49",
+            "block": "A08",
+            "number": "49",
+            "head_citizen_id": "d15db903-046b-49cc-aec7-819d15c818b6",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "d15db903-046b-49cc-aec7-819d15c818b6",
+                "family_card_id": "3881b138-a5dd-4504-b06d-8823aacc54fc",
+                "citizen_card_number": "3276050802950010",
+                "fullname": "Fakhri Ramadhan Ruswandi",
+                "gender": "Laki-Laki",
+                "birth_place": "Depok",
+                "birth_date": "1995-02-08",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Diploma III (D3)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "e136f14e-715f-4d02-a16b-6134a7994cb5",
+            "family_card_number": "1801060304230002",
+            "address": "DUSUN SUKAJADI RT18RW09 KELURAHAN BUMI AGUNG KECAMATAN KALIANDA LAMPUNG SELATAN",
+            "rt": "18",
+            "rw": "09",
+            "village_code": "1801050032",
+            "subdistrict_code": "180105",
+            "district_code": "1801",
+            "province_code": "18",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "97408772-f4fb-46c3-86d6-f81a5a84c2d4",
+            "family_card_id": "e136f14e-715f-4d02-a16b-6134a7994cb5",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B08-04",
+            "block": "B08",
+            "number": "04",
+            "head_citizen_id": "ed4be1f4-8616-41e8-ab68-695b70d32353",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ed4be1f4-8616-41e8-ab68-695b70d32353",
+                "family_card_id": "e136f14e-715f-4d02-a16b-6134a7994cb5",
+                "citizen_card_number": "1801071207980003",
+                "fullname": "Slamet Setiawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Sidodadi",
+                "birth_date": "1998-07-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "1102417f-b6f9-4d03-ba02-7e63a5a7647c",
+                "family_card_id": "e136f14e-715f-4d02-a16b-6134a7994cb5",
+                "citizen_card_number": "1801066812000005",
+                "fullname": "Desi Fitriana",
+                "gender": "Perempuan",
+                "birth_place": "Kalianda",
+                "birth_date": "2000-12-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "2019024f-6eca-4e6f-b2bc-d0030686d431",
+                "family_card_id": "e136f14e-715f-4d02-a16b-6134a7994cb5",
+                "citizen_card_number": "1801062710230001",
+                "fullname": "Arshaka Khairrazky",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": null,
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "80758c3c-750c-42ad-87a6-d2fa0c532b3d",
+            "family_card_number": "3215211212220003",
+            "address": "MUSTIKA VILLAGE KARAWANG BLOK A8 NO 31",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "6fb9dc39-552b-4461-8338-4d2b4ec13b12",
+            "family_card_id": "80758c3c-750c-42ad-87a6-d2fa0c532b3d",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-31",
+            "block": "A08",
+            "number": "31",
+            "head_citizen_id": "231c8db0-e4ef-46c4-97d9-e87671c3ceab",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "231c8db0-e4ef-46c4-97d9-e87671c3ceab",
+                "family_card_id": "80758c3c-750c-42ad-87a6-d2fa0c532b3d",
+                "citizen_card_number": "3314111411920002",
+                "fullname": "Siswanto",
+                "gender": "Laki-Laki",
+                "birth_place": "Sragen",
+                "birth_date": "1992-11-14",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "5ac00c72-9ee3-43a8-b250-73cfe133f556",
+                "family_card_id": "80758c3c-750c-42ad-87a6-d2fa0c532b3d",
+                "citizen_card_number": "3302115204930003",
+                "fullname": "Elia Winarsih",
+                "gender": "Perempuan",
+                "birth_place": "Banyumas",
+                "birth_date": "1993-04-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "e02dca29-6cc8-46a3-9b29-2381e8b1550b",
+                "family_card_id": "80758c3c-750c-42ad-87a6-d2fa0c532b3d",
+                "citizen_card_number": "3215216801230001",
+                "fullname": "Naura Hasna Adiba",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2023-01-28",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "6ae9b9ce-02ca-47d9-9f8b-9151d5d294c7",
+            "family_card_number": "3175042802230025",
+            "address": "JL.RAYA CONDET, KP.KRAMAT RT.13/RW.5 , NO.23A, KEL.CILILITAN,KEC.KRAMATJATI ,JAKARTA TIMUR DKI JAKARTA",
+            "rt": null,
+            "rw": null,
+            "village_code": "3175041007",
+            "subdistrict_code": "317504",
+            "district_code": "3175",
+            "province_code": "31",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "0fcc10de-e965-496b-b964-2fa0c0fe526d",
+            "family_card_id": "6ae9b9ce-02ca-47d9-9f8b-9151d5d294c7",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-03",
+            "block": "A09",
+            "number": "03",
+            "head_citizen_id": "e8e3a09b-1c06-48da-b9a7-deebc0b2acbd",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "e8e3a09b-1c06-48da-b9a7-deebc0b2acbd",
+                "family_card_id": "6ae9b9ce-02ca-47d9-9f8b-9151d5d294c7",
+                "citizen_card_number": "3175042211020010",
+                "fullname": "Sakha Ramdhan",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "2002-11-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "0ddbb0e4-c40f-4add-a420-9c0547e4701c",
+                "family_card_id": "6ae9b9ce-02ca-47d9-9f8b-9151d5d294c7",
+                "citizen_card_number": "3175046810990004",
+                "fullname": "Reni Oktafiani",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1999-10-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "e0bd1358-0181-4284-9f02-47e416676603",
+                "family_card_id": "6ae9b9ce-02ca-47d9-9f8b-9151d5d294c7",
+                "citizen_card_number": "3175043107190002",
+                "fullname": "Farrel Kenzo Julian",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2019-07-31",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+            "family_card_number": "3275021408090003",
+            "address": "MUSTIKA VILLAGE KARAWANG",
+            "rt": "027",
+            "rw": "007",
+            "village_code": "3215212007",
+            "subdistrict_code": "321521",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "6ac4be88-7fb8-4275-8a91-5c2d040f53d0",
+            "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-06",
+            "block": "B09",
+            "number": "06",
+            "head_citizen_id": "638f453b-c075-47d7-99ef-e115caf6d6ec",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "638f453b-c075-47d7-99ef-e115caf6d6ec",
+                "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+                "citizen_card_number": "3275024101560027",
+                "fullname": "Sumarsih",
+                "gender": "Laki-Laki",
+                "birth_place": "Solo",
+                "birth_date": "1956-01-01",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "038d6d81-ad08-4b78-80fd-81f3be7072b3",
+                "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+                "citizen_card_number": "3275024101560027",
+                "fullname": "Sumarsih",
+                "gender": "Perempuan",
+                "birth_place": "Solo",
+                "birth_date": "1956-01-01",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "06ce806a-4d95-4048-ad1c-5265624f2f36",
+                "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+                "citizen_card_number": "3275026808860028",
+                "fullname": "Ida Purwaningsih",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "1986-08-28",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "16f9b541-0790-4092-844f-cdac7dbae069",
+                "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+                "citizen_card_number": "3275026803910015",
+                "fullname": "Indri Lestari",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "1995-08-30",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "c31f168a-1aa4-47f4-9c83-4a8adf706d37",
+                "family_card_id": "9b176818-7665-44aa-8a68-fdbc379b24fb",
+                "citizen_card_number": "3275020702000018",
+                "fullname": "Gati Sunu Kasworo",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2000-02-07",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+            "family_card_number": "330201030413001",
+            "address": "PARUNGKAMAL RT 03 RW 04 KECAMATAN LUMBIR KABUPATEN BANYUMAS PROPINSI JAWA TENGAH",
+            "rt": "03",
+            "rw": "04",
+            "village_code": "3302010003",
+            "subdistrict_code": "330201",
+            "district_code": "3302",
+            "province_code": "33",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "6c0e6b4d-41fe-4e08-b0aa-5618405edaa9",
+            "family_card_id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B08-11",
+            "block": "B08",
+            "number": "11",
+            "head_citizen_id": "c1e8fe2c-6d57-4574-b628-4c0ec84bee0b",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "c1e8fe2c-6d57-4574-b628-4c0ec84bee0b",
+                "family_card_id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+                "citizen_card_number": "3302012509900001",
+                "fullname": "Sobi'is",
+                "gender": "Laki-Laki",
+                "birth_place": "Banyumas",
+                "birth_date": "1990-09-25",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMP",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "6a3c159d-eb6b-4f84-9fe5-d00498e9d2fe",
+                "family_card_id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+                "citizen_card_number": "330201450793003",
+                "fullname": "Piah Sopiah",
+                "gender": "Perempuan",
+                "birth_place": "Cianjur",
+                "birth_date": "1993-07-05",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SD",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "4873f773-ec2c-4f86-a531-b27954e00bc0",
+                "family_card_id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+                "citizen_card_number": "3302015703130002",
+                "fullname": "Syafila Ayatul Husnah",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2013-03-17",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "6920883b-8feb-456c-8245-1de147bea8e7",
+                "family_card_id": "6630b912-9dcc-4826-9b0e-2c4a5fe09666",
+                "citizen_card_number": "3302014304180003",
+                "fullname": "Maryam Nur Fatihah",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2018-04-03",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "a30bfc9c-fb5c-4a9d-a9cf-0ac9833aaebf",
+            "family_card_number": "3216110604073963",
+            "address": "Jl. Rusa 1 Blok. G No. 67 , 03/10 . Cikarang timur Kab. Bekasi. Jawa barat",
+            "rt": "03",
+            "rw": "18",
+            "village_code": "3216112001",
+            "subdistrict_code": "321611",
+            "district_code": "3216",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "16e9ce41-2484-4d54-a3b3-a3959220b9b8",
+            "family_card_id": "a30bfc9c-fb5c-4a9d-a9cf-0ac9833aaebf",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-09",
+            "block": "B09",
+            "number": "09",
+            "head_citizen_id": "f0e5996b-34bb-44dc-8c18-7020d9cadee8",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "f0e5996b-34bb-44dc-8c18-7020d9cadee8",
+                "family_card_id": "a30bfc9c-fb5c-4a9d-a9cf-0ac9833aaebf",
+                "citizen_card_number": "3216112803970002",
+                "fullname": "Adrian Fansya Prasetyo",
+                "gender": "Laki-Laki",
+                "birth_place": "Jakarta",
+                "birth_date": "1997-03-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "a61a5745-b871-48b6-9227-c77d98b8fc2d",
+                "family_card_id": "a30bfc9c-fb5c-4a9d-a9cf-0ac9833aaebf",
+                "citizen_card_number": "3175015605970001",
+                "fullname": "Sarah Ristianti",
+                "gender": "Perempuan",
+                "birth_place": "Jakarta",
+                "birth_date": "1997-05-16",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "38576279-f6b4-4f33-b01f-db9287a96111",
+            "family_card_number": "3215102908140010",
+            "address": "Dusun Pajaten RT 03 RW 02 Desa Kendaljaya Kec. Pedes Kab. Karawang",
+            "rt": "03",
+            "rw": "02",
+            "village_code": "3215102017",
+            "subdistrict_code": "321510",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "8c6438ec-4ffe-4e85-8431-4ff38d9c9d40",
+            "family_card_id": "38576279-f6b4-4f33-b01f-db9287a96111",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B05-08",
+            "block": "B05",
+            "number": "08",
+            "head_citizen_id": "ac5979ce-8752-4c25-a02d-cbbbb0585f4d",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "ac5979ce-8752-4c25-a02d-cbbbb0585f4d",
+                "family_card_id": "38576279-f6b4-4f33-b01f-db9287a96111",
+                "citizen_card_number": "3215107101860001",
+                "fullname": "Komalasari Wijaya",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1986-01-30",
+                "blood_type": "-",
+                "marital_status": "Cerai Mati",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "d423c622-854a-4090-99be-11e2adf6c563",
+                "family_card_id": "38576279-f6b4-4f33-b01f-db9287a96111",
+                "citizen_card_number": "3215105406060002",
+                "fullname": "Ardila Wijaya",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2007-06-14",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "e891ae56-7e56-433d-bf8f-be33f5dda49d",
+            "family_card_number": "3205101912070018",
+            "address": "kp Kiaragoong rt01 RW 09, DS Mandalasari, kec Kadungora, kan garut",
+            "rt": "01",
+            "rw": "09",
+            "village_code": "3205102005",
+            "subdistrict_code": "320510",
+            "district_code": "3205",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "785c01b8-ca6f-4b25-84fe-7ae75b5ce942",
+            "family_card_id": "e891ae56-7e56-433d-bf8f-be33f5dda49d",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A08-018",
+            "block": "A08",
+            "number": "018",
+            "head_citizen_id": "7634ac3a-210e-42ae-872f-e418c9335a30",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "7634ac3a-210e-42ae-872f-e418c9335a30",
+                "family_card_id": "e891ae56-7e56-433d-bf8f-be33f5dda49d",
+                "citizen_card_number": "3205100905960001",
+                "fullname": "Agung Ridwan Maulana",
+                "gender": "Laki-Laki",
+                "birth_place": "Bandung",
+                "birth_date": "1996-05-09",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "36383dc9-da95-4bf5-be27-0d2ef53bed99",
+            "family_card_number": "3212123005220007",
+            "address": "Blok pasih RT/RW 023/004 majasih kec.sliyeg indramayu",
+            "rt": "023",
+            "rw": "004",
+            "village_code": "3212122007",
+            "subdistrict_code": "321212",
+            "district_code": "3212",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "15ab9de2-1bb6-4552-b0a2-62301e0b25c5",
+            "family_card_id": "36383dc9-da95-4bf5-be27-0d2ef53bed99",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A09-27",
+            "block": "A09",
+            "number": "27",
+            "head_citizen_id": "39cf7685-e5e7-45d0-b7b5-0e16c6f1f234",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "39cf7685-e5e7-45d0-b7b5-0e16c6f1f234",
+                "family_card_id": "36383dc9-da95-4bf5-be27-0d2ef53bed99",
+                "citizen_card_number": "3215111610970004",
+                "fullname": "Sony Firmansyah",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1997-10-16",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "53dcd892-fd7a-4eec-be12-6a3544a0022e",
+                "family_card_id": "36383dc9-da95-4bf5-be27-0d2ef53bed99",
+                "citizen_card_number": "3212126603010003",
+                "fullname": "Salsa Ayu Sherly",
+                "gender": "Perempuan",
+                "birth_place": "Indramayu",
+                "birth_date": "2001-03-26",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "f020aeac-3192-45b1-98fa-c94d30b439c1",
+                "family_card_id": "36383dc9-da95-4bf5-be27-0d2ef53bed99",
+                "citizen_card_number": "3212124209230001",
+                "fullname": "Wilonna Cecilia Agatha",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2023-09-02",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+            "family_card_number": "3273130903120005",
+            "address": "JL. BURANGRANG DLM NO  71/36B RT03/03 KEL. BURANGRANG KEC. LENGKONG BANDUNG 40262",
+            "rt": "03",
+            "rw": "03",
+            "village_code": "3273131003",
+            "subdistrict_code": "327313",
+            "district_code": "3273",
+            "province_code": "32",
+            "postal_code": null,
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "a5411470-af64-4d20-b8cd-ef4d4d73350e",
+            "family_card_id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "A07-23",
+            "block": "A07",
+            "number": "23",
+            "head_citizen_id": "90ffce0b-356d-4c92-8d70-99544f8d8672",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "90ffce0b-356d-4c92-8d70-99544f8d8672",
+                "family_card_id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+                "citizen_card_number": "3273132104880007",
+                "fullname": "Ricky Ramdani",
+                "gender": "Laki-Laki",
+                "birth_place": "Bandung",
+                "birth_date": "1988-04-21",
+                "blood_type": "-",
+                "marital_status": "Cerai Mati",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "3db5aa6d-428d-4a81-a6ce-4074861fe6ad",
+                "family_card_id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+                "citizen_card_number": "3273135211920001",
+                "fullname": "Dewi Sri Yulianti",
+                "gender": "Perempuan",
+                "birth_place": "Garut",
+                "birth_date": "1992-11-12",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "304dae47-ea94-41b1-a657-d91fc9360bd8",
+                "family_card_id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+                "citizen_card_number": "3273130108130003",
+                "fullname": "Daffa Arkanul Ramdhan",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2013-08-01",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            },
+            {
+                "id": "9d8283aa-0ae9-47fa-ab42-5a9493a66f5c",
+                "family_card_id": "45958eaa-6fcc-4141-8f15-f5123f524bf3",
+                "citizen_card_number": "3273135802180002",
+                "fullname": "Rafani Azkadina Humaira",
+                "gender": "Perempuan",
+                "birth_place": null,
+                "birth_date": "2018-02-18",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "SD",
+                "work_type": "Pelajar/Mahasiswa"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "ed72a1a0-f9be-4089-99b4-35203b7d532a",
+            "family_card_number": "3215052209960002",
+            "address": "Dusun Sukaresmi Rt015 Rw 005 Kel Anggadita Kec Klari",
+            "rt": "015",
+            "rw": "005",
+            "village_code": "3215052016",
+            "subdistrict_code": "321505",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "e35c00a9-0e29-4993-aa48-fb03abe44bbb",
+            "family_card_id": "ed72a1a0-f9be-4089-99b4-35203b7d532a",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-19",
+            "block": "B09",
+            "number": "19",
+            "head_citizen_id": "1deb5def-4e4e-410d-9a00-e747eb0face5",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "1deb5def-4e4e-410d-9a00-e747eb0face5",
+                "family_card_id": "ed72a1a0-f9be-4089-99b4-35203b7d532a",
+                "citizen_card_number": "3215052209960002",
+                "fullname": "Rizky Mh",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1996-09-22",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "979c483a-62e1-47bf-8981-b94a1806be1c",
+                "family_card_id": "ed72a1a0-f9be-4089-99b4-35203b7d532a",
+                "citizen_card_number": "3215216712970001",
+                "fullname": "Astri Candra Dewi",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1997-12-27",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "Sarjana (S1)",
+                "work_type": "Ibu Rumah Tangga"
+            }
+        ]
+    },
+    {
+        "family_card": {
+            "id": "aa834611-c922-4eed-b1d8-d1c65e244f12",
+            "family_card_number": "3215031712210007",
+            "address": "Dusun Sukadana  RT 01/01 desa pinayungan Telukjambe timur Karawang",
+            "rt": "01",
+            "rw": "01",
+            "village_code": "3215032019",
+            "subdistrict_code": "321503",
+            "district_code": "3215",
+            "province_code": "32",
+            "postal_code": "41371",
+            "created_at": null,
+            "updated_at": null
+        },
+        "house": {
+            "id": "7a3af40a-ef53-48df-9196-1227d951d1d6",
+            "family_card_id": "aa834611-c922-4eed-b1d8-d1c65e244f12",
+            "housing_id": "019a0631-0088-714f-a32c-6eec11ceece9",
+            "house_name": "B09-5",
+            "block": "B09",
+            "number": "5",
+            "head_citizen_id": "7729310a-54f8-413e-ba58-828619317abc",
+            "created_at": null,
+            "updated_at": null
+        },
+        "citizens": [
+            {
+                "id": "7729310a-54f8-413e-ba58-828619317abc",
+                "family_card_id": "aa834611-c922-4eed-b1d8-d1c65e244f12",
+                "citizen_card_number": "32151031308970003",
+                "fullname": "Egi Darmawan",
+                "gender": "Laki-Laki",
+                "birth_place": "Karawang",
+                "birth_date": "1997-08-13",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Karyawan Swasta"
+            },
+            {
+                "id": "61294286-30b0-477b-998f-a9ced33a886c",
+                "family_card_id": "aa834611-c922-4eed-b1d8-d1c65e244f12",
+                "citizen_card_number": "3215016803970004",
+                "fullname": "Memey Maryanti",
+                "gender": "Perempuan",
+                "birth_place": "Karawang",
+                "birth_date": "1997-03-28",
+                "blood_type": "-",
+                "marital_status": "Kawin",
+                "education_type": "SMA/SMK/MA",
+                "work_type": "Ibu Rumah Tangga"
+            },
+            {
+                "id": "d209d37b-ba65-4a17-9775-117910cb4f9e",
+                "family_card_id": "aa834611-c922-4eed-b1d8-d1c65e244f12",
+                "citizen_card_number": "3215032703210007",
+                "fullname": "Haidar Ghoffar Susendra",
+                "gender": "Laki-Laki",
+                "birth_place": null,
+                "birth_date": "2021-03-27",
+                "blood_type": "-",
+                "marital_status": "Belum Kawin",
+                "education_type": "Tidak Sekolah",
+                "work_type": "Belum/Tidak Bekerja"
+            }
+        ]
+    }
+]

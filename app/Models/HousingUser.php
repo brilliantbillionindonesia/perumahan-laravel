@@ -30,6 +30,11 @@ class HousingUser extends Model
 
     public function housing()
     {
-        return $this->belongsTo(Housing::class);
+        return $this->belongsTo(Housing::class, 'housing_id');
+    }
+
+    public function citizen()
+    {
+        return $this->belongsTo(Citizen::class, 'citizen_id');
     }
 }

@@ -49,7 +49,8 @@
                                 <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold">Kota/Kabupaten</th>
                                 <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold">Kecamatan</th>
                                 <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold">Desa</th>
-                                <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold text-center">Kode Pos
+                                <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold whitespace-nowrap">
+                                    Kode Pos
                                 </th>
                                 <th class="p-3 border-b border-slate-200 text-slate-700 font-semibold text-center">Aksi</th>
                             </tr>
@@ -66,9 +67,13 @@
                                     <td class="p-3 text-slate-600">{{ $housing->district->name ?? '-' }}</td>
                                     <td class="p-3 text-slate-600">{{ $housing->subdistrict->name ?? '-' }}</td>
                                     <td class="p-3 text-slate-600">{{ $housing->village->name ?? '-' }}</td>
-                                    <td class="p-3 text-center text-slate-600">{{ $housing->postal_code }}</td>
+                                    <td class="p-3 text-slate-600 whitespace-nowrap">{{ $housing->postal_code }}</td>
                                     <td class="p-3 text-center space-x-2">
                                         <div class="flex items-center space-x-1">
+                                            <a href="{{ route('admin.housings.residents', $housing->id) }}"
+                                                class="inline-block bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1 rounded-md transition">
+                                                Detail
+                                            </a>
                                             <!-- Tombol Edit -->
                                             <a href="#" @click.prevent="openEdit('{{ $housing->id }}')"
                                                 class="px-2 py-1 text-blue-600 border border-blue-500 rounded-md text-xs font-medium hover:bg-blue-500 hover:text-white transition cursor-pointer">
@@ -216,12 +221,14 @@
                 selectedVillage: '',
 
                 baseUrl: "http://localhost:8000/api",
-                token: "6|j8qBYMu97KLiWVLJFKOKTkSpiaC89lFGQNK4fRrk1d57e3f7", // ganti sesuai token kamu
+                token: "1|z0WyGXFMTM9Jx6LJSIVg8Mim1DAxt44NdEkhy4yVff4a11e2", // ganti sesuai token kamu
 
+                // =============================
+                // CRUD
+                // =============================
                 async updateHousing(id) {
                     try {
                         console.log("🚀 Mengirim update untuk ID:", id);
-
                         const form = document.getElementById('housing-form-edit');
                         const formData = new FormData(form);
 
@@ -251,13 +258,9 @@
                             showConfirmButton: false,
                             timer: 3000,
                             timerProgressBar: true,
-                            background: '#f0f9ff', // biru muda lembut
-                            color: '#1e3a8a', // teks biru tua
-                            iconColor: '#2563eb', // 💙 biru utama (ganti dari #16a34a)
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer);
-                                toast.addEventListener('mouseleave', Swal.resumeTimer);
-                            }
+                            background: '#f0f9ff',
+                            color: '#1e3a8a',
+                            iconColor: '#2563eb',
                         });
 
                         Toast.fire({
@@ -273,33 +276,34 @@
                     }
                 },
 
-                // === OPEN/CLOSE ===
+                // =============================
+                // MODALS
+                // =============================
                 openAdd() {
                     this.resetForm();
                     this.isOpenAdd = true;
                 },
-
                 async openEdit(id) {
                     this.resetForm();
                     this.isOpenEdit = true;
 
                     try {
-                        // 🔹 PENTING: Load daftar provinsi dulu
                         await this.loadProvinces();
-
                         const res = await fetch(`/admin/housings/${id}`);
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         const result = await res.json();
 
                         this.editData = result.data ?? result;
 
-                        // 🔹 Isi dropdown sesuai data
                         this.selectedProvince = this.editData.province_code ?? '';
                         await this.loadDistricts();
+
                         this.selectedDistrict = this.editData.district_code ?? '';
                         await this.loadSubdistricts();
+
                         this.selectedSubdistrict = this.editData.subdistrict_code ?? '';
                         await this.loadVillages();
+
                         this.selectedVillage = this.editData.village_code ?? '';
 
                     } catch (err) {
@@ -312,7 +316,6 @@
                     this.isOpenAdd = false;
                     this.isOpenEdit = false;
                 },
-
                 resetForm() {
                     this.editData = {};
                     this.selectedProvince = '';
@@ -321,11 +324,13 @@
                     this.selectedVillage = '';
                 },
 
-                // === API CALLS ===
+                // =============================
+                // API CALLS
+                // =============================
                 async loadProvinces() {
                     try {
                         const url =
-                            `${this.baseUrl}/master/list?entity=provinces&columns[]=id&columns[]=code&columns[]=name`;
+                            `${this.baseUrl}/master/list?entity=provinces&columns[]=code&columns[]=name&columns[]=id&per_page=40`;
                         const res = await fetch(url, {
                             headers: {
                                 "Authorization": `Bearer ${this.token}`,
@@ -334,6 +339,7 @@
                         });
                         const json = await res.json();
                         this.provinces = json.data || [];
+                        console.log("🌍 Provinces loaded:", this.provinces.length);
                     } catch (err) {
                         console.error("❌ Gagal load provinces:", err);
                     }
@@ -342,16 +348,23 @@
                 async loadDistricts() {
                     if (!this.selectedProvince) return;
                     try {
-                        const url =
-                            `${this.baseUrl}/master/list?entity=districts&columns[]=id&columns[]=code&columns[]=name&columns[]=province_code&filters[0][column]=province_code&filters[0][operator]==&filters[0][value]=${this.selectedProvince}`;
+                        const url = `${this.baseUrl}/master/list?entity=districts` +
+                            `&columns[]=id&columns[]=code&columns[]=name&columns[]=province_code` +
+                            `&filters[0][column]=province_code` +
+                            `&filters[0][operator]=` +
+                            `&filters[0][value]=${this.selectedProvince}` +
+                            `&per_page=40`;
+
                         const res = await fetch(url, {
                             headers: {
                                 "Authorization": `Bearer ${this.token}`,
                                 "Accept": "application/json"
                             }
                         });
+
                         const json = await res.json();
                         this.districts = json.data || [];
+                        console.log("🏙️ Districts loaded:", this.districts.length);
                     } catch (err) {
                         console.error("❌ Gagal load districts:", err);
                     }
@@ -368,24 +381,18 @@
                     this.villages = [];
 
                     try {
-                        // Debug log
-                        console.log("📍 Fetching subdistricts for district:", this
-                            .selectedDistrict);
-
-                        // Ubah code jadi 6 digit (beberapa dataset pakai format ini)
-                        let districtCode = this.selectedDistrict;
-                        if (typeof districtCode === 'string' && districtCode.length === 4) {
-                            districtCode = districtCode + '01';
-                        }
+                        const districtCode = this.selectedDistrict; // jangan ubah jadi 6 digit!
 
                         const url = `${this.baseUrl}/master/list?entity=subdistricts` +
                             `&columns[]=id&columns[]=code&columns[]=name` +
                             `&columns[]=province_code&columns[]=district_code` +
                             `&filters[0][column]=district_code` +
-                            `&filters[0][operator]==` +
-                            `&filters[0][value]=${districtCode}`;
+                            `&filters[0][operator]=` +
+                            `&filters[0][value]=${districtCode}` +
+                            `&order_by=code` +
+                            `&per_page=40`;
 
-                        console.log("🌐 URL dipanggil:", url);
+                        console.log("🌐 Fetching subdistricts:", url);
 
                         const res = await fetch(url, {
                             headers: {
@@ -394,18 +401,9 @@
                             }
                         });
 
-                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
                         const json = await res.json();
-
-                        console.log("✅ Subdistricts loaded:", json.data);
                         this.subdistricts = json.data || [];
-
-                        // Kalau data kosong, log supaya tahu masalah API
-                        if (!this.subdistricts.length) {
-                            console.warn("⚠️ Tidak ada data kecamatan untuk district_code:",
-                                districtCode);
-                        }
-
+                        console.log(`✅ Loaded ${this.subdistricts.length} subdistricts`);
                     } catch (err) {
                         console.error("💥 Gagal load subdistricts:", err);
                     }
@@ -414,16 +412,23 @@
                 async loadVillages() {
                     if (!this.selectedSubdistrict) return;
                     try {
-                        const url =
-                            `${this.baseUrl}/master/list?entity=villages&columns[]=id&columns[]=code&columns[]=name&columns[]=province_code&columns[]=district_code&columns[]=subdistrict_code&filters[0][column]=subdistrict_code&filters[0][operator]==&filters[0][value]=${this.selectedSubdistrict}`;
+                        const url = `${this.baseUrl}/master/list?entity=villages` +
+                            `&columns[]=id&columns[]=code&columns[]=name` +
+                            `&columns[]=province_code&columns[]=district_code&columns[]=subdistrict_code` +
+                            `&filters[0][column]=subdistrict_code` +
+                            `&filters[0][operator]=` +
+                            `&filters[0][value]=${this.selectedSubdistrict}` +
+                            `&per_page=40`;
                         const res = await fetch(url, {
                             headers: {
                                 "Authorization": `Bearer ${this.token}`,
                                 "Accept": "application/json"
                             }
                         });
+
                         const json = await res.json();
                         this.villages = json.data || [];
+                        console.log(`🏘️ Loaded ${this.villages.length} villages`);
                     } catch (err) {
                         console.error("❌ Gagal load villages:", err);
                     }

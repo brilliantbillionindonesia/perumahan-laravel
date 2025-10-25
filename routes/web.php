@@ -16,7 +16,6 @@ Route::get('test/email', function () {
     ]);
 });
 
-<<<<<<< HEAD
 // ROUTE ADMIN TANPA LOGIN
 Route::prefix('admin')->group(function () {
     // Dashboard
@@ -24,8 +23,11 @@ Route::prefix('admin')->group(function () {
 
     // CRUD Housings
     Route::resource('/housings', ManageHousingController::class);
+
+    Route::get('/admin/housings/{id}/residents', [ManageHousingController::class, 'residents'])
+        ->name('admin.housings.residents');
 });
-=======
+
 Route::middleware(['web_token'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -34,4 +36,3 @@ Route::middleware(['web_token'])->group(function () {
         dd('citizennnnnn');
     });
 });
->>>>>>> b6d1a5abb3b161fe3255907d8e7b4ee696b9e407

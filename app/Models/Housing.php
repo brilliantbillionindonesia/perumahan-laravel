@@ -32,4 +32,26 @@ class Housing extends Model
     {
         return $this->belongsTo(Village::class, 'village_code', 'code');
     }
+
+    public function housingUsers()
+    {
+        return $this->hasMany(HousingUser::class, 'housing_id');
+    }
+
+    public function citizens()
+    {
+        return $this->hasManyThrough(
+            Citizen::class,
+            House::class,
+            'housing_id',        // Foreign key on houses
+            'family_card_id',    // Foreign key on citizens
+            'id',                // Local key on housings
+            'family_card_id'     // Local key on houses
+        );
+    }
+
+    public function houses()
+    {
+        return $this->hasMany(House::class, 'housing_id', 'id');
+    }
 }

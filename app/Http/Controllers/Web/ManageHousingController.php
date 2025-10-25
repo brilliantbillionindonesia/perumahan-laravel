@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Citizen;
 use Illuminate\Http\Request;
 use App\Models\Housing;
 use App\Models\User;
@@ -11,18 +11,105 @@ use App\Models\Village;
 use App\Models\Subdistrict;
 use App\Models\District;
 use App\Models\Province;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ManageHousingController extends Controller
 {
     public function dashboard()
     {
+        // === Data Total ===
         $totalUsers = User::count();
         $totalHousings = Housing::count();
+        $totalCitizens = Citizen::count();
 
-        // Gunakan SQLite-safe query (tanpa fungsi YEAR)
-        $userGrowth = User::selectRaw("strftime('%Y', created_at) as year, COUNT(*) as count")->groupBy('year')->orderBy('year')->get()->toArray();
+        // === Driver Database ===
+        $driver = DB::getDriverName();
 
-        return view('admin.dashboard', compact('totalUsers', 'totalHousings', 'userGrowth'));
+        $monthQuery = match ($driver) {
+            'mysql'  => "MONTH(created_at)",
+            'pgsql'  => "EXTRACT(MONTH FROM created_at)",
+            'sqlite' => "strftime('%m', created_at)",
+            default  => "MONTH(created_at)",
+        };
+
+        $yearQuery = match ($driver) {
+            'mysql'  => "YEAR(created_at)",
+            'pgsql'  => "EXTRACT(YEAR FROM created_at)",
+            'sqlite' => "strftime('%Y', created_at)",
+            default  => "YEAR(created_at)",
+        };
+
+        $currentYear = Carbon::now()->year;
+
+        // === Pertumbuhan per Bulan ===
+        $housingGrowth = Housing::selectRaw("$monthQuery as month, COUNT(*) as count")
+            ->whereRaw("$yearQuery = ?", [$currentYear])
+            ->groupBy('month')->pluck('count', 'month')->toArray();
+
+        $userGrowth = User::selectRaw("$monthQuery as month, COUNT(*) as count")
+            ->whereRaw("$yearQuery = ?", [$currentYear])
+            ->groupBy('month')->pluck('count', 'month')->toArray();
+
+        $citizenGrowth = Citizen::selectRaw("$monthQuery as month, COUNT(*) as count")
+            ->whereRaw("$yearQuery = ?", [$currentYear])
+            ->groupBy('month')->pluck('count', 'month')->toArray();
+
+        // === Format bulan ===
+        $months = collect(range(1, 12))->map(fn($m) => Carbon::create()->month($m)->format('M'))->toArray();
+
+        // === Data untuk Sales Volume (bar chart) ===
+        $salesVolume = [
+            'labels' => $months,
+            'data' => [
+                'Perumahan' => array_values(array_replace(array_fill(1, 12, 0), $housingGrowth)),
+                'Pengguna' => array_values(array_replace(array_fill(1, 12, 0), $userGrowth)),
+                'Warga' => array_values(array_replace(array_fill(1, 12, 0), $citizenGrowth)),
+            ],
+            'colors' => ['#EF4444', '#10B981', '#3B82F6'],
+        ];
+
+        // === Customer Volume (doughnut chart) ===
+        $customerVolume = [
+            'labels' => ['Perumahan', 'Pengguna', 'Warga'],
+            'data' => [$totalHousings, $totalUsers, $totalCitizens],
+            'colors' => ['#EF4444', '#10B981', '#3B82F6'],
+        ];
+
+        // === Cards Statistik ===
+        $stats = [
+            [
+                'title' => 'Total Pengguna',
+                'value' => $totalUsers,
+                'change' => '',
+                'icon' => '👥',
+                'color' => 'bg-blue-100 text-blue-600',
+            ],
+            [
+                'title' => 'Total Perumahan',
+                'value' => $totalHousings,
+                'change' => '',
+                'icon' => '🏠',
+                'color' => 'bg-green-100 text-green-600',
+            ],
+            [
+                'title' => 'Total Warga',
+                'value' => $totalCitizens,
+                'change' => '',
+                'icon' => '🙎🏻‍♂️🙍🏼‍♀️',
+                'color' => 'bg-yellow-100 text-yellow-600',
+            ],
+            [
+                'title' => 'Tahun Aktif',
+                'value' => $currentYear,
+                'change' => '',
+                'icon' => '🪩',
+                'color' => 'bg-gray-100 text-gray-600',
+            ],
+        ];
+
+        return view('admin.dashboard', compact('stats', 'customerVolume', 'salesVolume'));
     }
 
     public function index(Request $request)
@@ -130,5 +217,46 @@ class ManageHousingController extends Controller
     {
         $housing->delete();
         return redirect()->route('housings.index')->with('success', 'Data perumahan berhasil dihapus');
+    }
+
+    public function residents($id)
+    {
+        $housing = Housing::with([
+            'houses.familyCard.citizens' => function ($query) {
+                $query->select(
+                    'id',
+                    'family_card_id',
+                    'citizen_card_number',
+                    'fullname',
+                    'birth_place',
+                    'birth_date',
+                    'gender',
+                    'religion',
+                    'marital_status',
+                    'work_type',
+                    'education_type'
+                );
+            }
+        ])->findOrFail($id);
+
+        // 🔹 Ambil semua warga dari setiap rumah
+        $allResidents = $housing->houses
+            ->flatMap(fn($house) => $house->familyCard?->citizens ?? collect())
+            ->sortBy('fullname') // optional, biar urut rapi
+            ->values();
+
+        // 🔹 Manual paginate
+        $page = request()->get('page', 1);
+        $perPage = 10;
+        $items = $allResidents->forPage($page, $perPage);
+        $residents = new LengthAwarePaginator(
+            $items,
+            $allResidents->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return view('admin.housings.residents', compact('housing', 'residents'));
     }
 }

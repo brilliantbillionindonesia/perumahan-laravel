@@ -25,4 +25,9 @@ class Citizen extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function housingUsers()
+    {
+        return $this->hasMany(HousingUser::class, 'citizen_id');
+    }
 }
