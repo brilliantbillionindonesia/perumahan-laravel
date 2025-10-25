@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\Citizen;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class ManageHousingController extends Controller
+class HousingController extends Controller
 {
     public function dashboard()
     {
@@ -69,6 +69,10 @@ class ManageHousingController extends Controller
             ],
             'colors' => ['#EF4444', '#10B981', '#3B82F6'],
         ];
+
+        // Gunakan SQLite-safe query (tanpa fungsi YEAR)
+        $userGrowth = User::selectRaw("YEAR(created_at) as year, COUNT(*) as count")
+            ->groupBy('year')->orderBy('year')->get()->toArray();
 
         // === Customer Volume (doughnut chart) ===
         $customerVolume = [

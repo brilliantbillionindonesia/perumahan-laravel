@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notification_recipients', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->uuid('notification_id');
             $table->uuid('user_id');
             $table->enum('status', ['pending', 'sent', 'failed'])->default('sent');

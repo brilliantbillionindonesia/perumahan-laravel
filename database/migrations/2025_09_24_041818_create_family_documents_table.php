@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('family_card_id');
             $table->string('doc_name');
-            $table->string('doc_file');
+            $table->text('doc_file');
             $table->timestamps();
         });
     }

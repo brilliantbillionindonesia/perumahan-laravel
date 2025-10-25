@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // 🔥 Aktifkan agar Sanctum bisa baca token Bearer dari request API
         $middleware->statefulApi();
-    
+
         // 🔥 Tambahkan alias middleware Sanctum dan lainnya
         $middleware->alias([
             'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\Authenticate::class,

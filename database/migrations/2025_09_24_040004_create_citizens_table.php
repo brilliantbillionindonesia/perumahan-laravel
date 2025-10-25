@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('citizens', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('family_card_id');
+            $table->uuid('family_card_id')->nullable();
             $table->string('citizen_card_number')->nullable();
             $table->string('fullname')->nullable();
             $table->string('gender')->nullable();

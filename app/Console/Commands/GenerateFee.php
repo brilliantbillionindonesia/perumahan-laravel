@@ -20,7 +20,7 @@ class GenerateFee extends Command
      *
      * @var string
      */
-    protected $description = 'Generate tagihan bul';
+    protected $description = 'Generate tagihan bulanan';
 
     /**
      * Execute the console command.
@@ -29,8 +29,7 @@ class GenerateFee extends Command
     {
         $controller = new DueController;
         $request = new Request([
-            // 'due_date' => date('d'),
-            'due_date_payment' => 15
+            'due_date_payment' => date('d'),
         ]);
         $controller->generate($request);
     }

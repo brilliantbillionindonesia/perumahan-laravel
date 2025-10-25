@@ -9,3 +9,5 @@ Route::middleware(['permission:manage_users'])->group(function () {
         Route::put('role', [UserController::class, 'changeRole']);
     });
 });
+
+

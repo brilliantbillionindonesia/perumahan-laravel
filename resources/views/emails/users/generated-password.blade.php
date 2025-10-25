@@ -221,7 +221,7 @@
                             <p style="margin: 0;">Jika Anda belum memiliki aplikasi {{ config('app.name') }}, silakan
                                 unduh dengan link berikut :</p>
                             <p style="margin: 0;"><a
-                                    href="https://play.google.com/store/apps/details?id=com.serumpunpadi"
+                                    href="https://drive.google.com/uc?export=download&id=1Tzf5qz-GE1lidd-cxTqWSf7QIEB3dm9c"
                                     target="_blank">Unduh Serumpun Padi</a></p>
                         </td>
                     </tr>

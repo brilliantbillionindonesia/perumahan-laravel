@@ -118,8 +118,8 @@ class TransactionController extends Controller
         $perPage = (int) ($request->input('per_page', 5));
 
         $housingUser = HousingUser::where('housing_id', $request->housing_id)
-        ->where('is_active', 1)
-        ->where('user_id', auth()->user()->id)->first();
+            ->where('is_active', 1)
+            ->where('user_id', auth()->user()->id)->first();
 
         if (!$housingUser) {
             return response()->json([
@@ -447,19 +447,21 @@ class TransactionController extends Controller
         $year = $cashBalance->year;
         $month = $cashBalance->month;
 
-        $data = DB::table('financial_transactions as ft')
-            ->join('financial_categories as fc', 'ft.financial_category_code', '=', 'fc.code')
+        $data = DB::table('financial_categories as fc')
+            ->leftJoin('financial_transactions as ft', function ($join) use ($request, $year, $month) {
+                $join->on('ft.financial_category_code', '=', 'fc.code')
+                    ->where('ft.housing_id', $request->input('housing_id'))
+                    ->whereYear('ft.transaction_date', $year)
+                    ->whereMonth('ft.transaction_date', $month);
+            })
             ->select(
-                'ft.financial_category_code as code',
+                'fc.code',
                 'fc.name',
-                'ft.type',
-                DB::raw('SUM(ft.amount) as total')
+                'fc.type',
+                DB::raw('COALESCE(SUM(ft.amount), 0) as total')
             )
-            ->where('ft.housing_id', $request->input('housing_id'))
-            ->whereYear('ft.transaction_date', $year)
-            ->whereMonth('ft.transaction_date', $month)
-            ->groupBy('ft.financial_category_code', 'fc.name', 'ft.type')
-            ->orderByRaw('sum(ft.amount) desc')
+            ->groupBy('fc.code', 'fc.name', 'fc.type')
+            ->orderByDesc('total')
             ->get();
 
         return response()->json([

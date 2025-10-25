@@ -208,7 +208,7 @@ class ComplaintController extends Controller
         $data = $validator->validated();
         $category = ComplaintCategory::where('code', $data['category_code'])->firstOrFail();
         $status = ComplaintStatus::where('code', 'new')->firstOrFail();
-        DB::transaction(function () use ($data, $category, $status, $request, &$created) {
+        DB::transaction(function () use ($data, $category, $status, $request, &$created, &$complaint) {
             $complaint = Complaint::create([
                 'title' => $data['title'],
                 'description' => $data['description'],
@@ -249,14 +249,11 @@ class ComplaintController extends Controller
                 'submitted_at' => $complaint->submitted_at,
             ];
 
-
-            DispatchComplaintStore::dispatch(
-                complaintId: $complaint->id
-            )->onQueue('notifications');
-
-            // (new DispatchComplaintStore($complaint->id))->handle(app(\App\Http\Services\PushService::class));
         });
 
+        DispatchComplaintStore::dispatch(
+            complaintId: $complaint->id
+        )->onQueue('notifications');
 
         return response()->json(
             [

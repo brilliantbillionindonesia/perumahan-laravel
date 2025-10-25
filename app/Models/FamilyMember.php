@@ -10,11 +10,5 @@ class FamilyMember extends Model
     use HasUuids;
 
     protected $table = 'family_members';
-    protected $fillable = [
-        'id',
-        'citizen_id',
-        'relationship_status',
-        'father_name',
-        'mother_name',
-    ];
+    protected $guarded = [];
 }

@@ -137,4 +137,38 @@
             </script>
         @endpush
     </div>
+<<<<<<< HEAD
+=======
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('userGrowthChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode(array_column($userGrowth, 'year')) !!},
+            datasets: [{
+                label: 'Jumlah Pengguna',
+                data: {!! json_encode(array_column($userGrowth, 'count')) !!},
+                borderColor: 'rgb(79, 70, 229)',
+                backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, ticks: { color: '#4B5563' } },
+                x: { ticks: { color: '#4B5563' } }
+            },
+            plugins: {
+                legend: { labels: { color: '#111827' } }
+            }
+        }
+    });
+</script>
+>>>>>>> 3e10734edaa76f00959619efda7aee555dc256f1
 @endsection

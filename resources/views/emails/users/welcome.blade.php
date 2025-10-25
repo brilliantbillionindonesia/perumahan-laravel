@@ -126,17 +126,17 @@
         <tr>
         <td align="center" valign="top" width="600">
         <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                {{-- <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="center" valign="top" style="padding: 36px 24px;">
                             <a href="https://serumpunpadi.com" target="_blank" style="display: inline-block;">
-                                <img src="{{ config('app.url') }}/storage/icon/logo.png " alt="Logo" border="0"
+                                <img src="{{ config('app.url') }}/storage/icon/logo.png" alt="Logo" border="0"
                                     width="80"
                                     style="display: block; width: 80px; max-width: 80px; min-width: 80px;">
                             </a>
                         </td>
                     </tr>
-                </table>
+                </table> --}}
                 <!--[if (gte mso 9)|(IE)]>
         </td>
         </tr>
@@ -223,7 +223,7 @@
                             <p style="margin: 0;">Jika Anda belum memiliki aplikasi {{ config('app.name') }}, silakan
                                 unduh dengan link berikut :</p>
                             <p style="margin: 0;"><a
-                                    href="https://play.google.com/store/apps/details?id=com.serumpunpadi"
+                                    href="https://drive.google.com/uc?export=download&id=1Tzf5qz-GE1lidd-cxTqWSf7QIEB3dm9c"
                                     target="_blank">Unduh Serumpun Padi</a></p>
                         </td>
                     </tr>

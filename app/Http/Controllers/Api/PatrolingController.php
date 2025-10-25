@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patroling;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,6 @@ class PatrolingController extends Controller
     public function list(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'housing_id' => ['nullable', 'string'], // hanya admin
             'year' => ['required', 'integer'],
             'month' => ['required', 'integer', 'between:1,12'],
             'page' => ['nullable', 'integer', 'min:1'],
@@ -50,12 +50,16 @@ class PatrolingController extends Controller
             ->where('p.housing_id', $housingId)
             ->whereBetween('p.patrol_date', [$startOfMonth, $endOfMonth])
             ->whereNull('p.deleted_at')
-            ->select('p.patrol_date as date', 'p.presence', 'p.note', 'p.replaced_by', 'c.id as citizen_id', 'c.fullname as citizen_name', 'h.id as house_id', 'h.block', 'h.number')
+            ->select('p.id as patrol_id', 'p.patrol_date as date', 'p.presence', 'p.note', 'p.replaced_by', 'c.id as citizen_id', 'c.fullname as citizen_name', 'h.id as house_id', 'h.block', 'h.number')
             ->orderBy('p.patrol_date', 'asc');
+
+        $builder->when('search', function($query) use($request) {
+            $search = $request->input('search');
+            $query->where('c.fullname', 'like', '%'.$search.'%');
+        });
 
         $results = $builder->get();
 
-        // 🧩 Kelompokkan berdasarkan tanggal
         $grouped = $results
             ->groupBy('date')
             ->map(function ($items, $date) {
@@ -64,12 +68,13 @@ class PatrolingController extends Controller
                     'member' => $items
                         ->map(function ($item) {
                             return [
+                                'patrol_id' => $item->patrol_id,
                                 'citizen_id' => $item->citizen_id,
                                 'citizen_name' => $item->citizen_name,
                                 'house_id' => $item->house_id,
                                 'block' => $item->block,
                                 'number' => $item->number,
-                                'presence' => $item->presence,
+                                'is_presence' => $item->presence ? 1 : 0,
                                 'note' => $item->note,
                                 'replaced_by' => $item->replaced_by,
                             ];
@@ -79,7 +84,6 @@ class PatrolingController extends Controller
             })
             ->values();
 
-        // 🧮 Pagination manual setelah digroup
         $paginated = $grouped->forPage($page, $perPage)->values();
 
         return response()->json([
@@ -93,7 +97,6 @@ class PatrolingController extends Controller
     public function show(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'housing_id' => ['nullable', 'string'], // hanya admin
             'date' => ['required', 'date_format:Y-m-d'],
         ]);
 
@@ -112,7 +115,13 @@ class PatrolingController extends Controller
         $housingId = $request->input('housing_id', null);
 
         // Query utama
-        $builder = DB::table('patrollings as p')->join('citizens as c', 'c.id', '=', 'p.citizen_id')->join('houses as h', 'h.id', '=', 'p.house_id')->where('p.housing_id', $housingId)->whereDate('p.patrol_date', $date)->whereNull('p.deleted_at')->select('p.patrol_date as date', 'p.presence', 'p.note', 'p.replaced_by', 'c.id as citizen_id', 'c.fullname as citizen_name', 'h.id as house_id', 'h.block', 'h.number')->orderBy('h.block')->orderBy('h.number');
+        $builder = DB::table('patrollings as p')
+        ->join('citizens as c', 'c.id', '=', 'p.citizen_id')
+        ->join('houses as h', 'h.id', '=', 'p.house_id')
+        ->where('p.housing_id', $housingId)
+        ->whereDate('p.patrol_date', $date)
+        ->whereNull('p.deleted_at')
+        ->select('p.id as patrol_id', 'p.patrol_date as date', 'p.presence', 'p.note', 'p.replaced_by', 'c.id as citizen_id', 'c.fullname as citizen_name', 'h.id as house_id', 'h.block', 'h.number')->orderBy('h.block')->orderBy('h.number');
 
         $results = $builder->get();
 
@@ -132,9 +141,71 @@ class PatrolingController extends Controller
         $members = $results
             ->map(function ($item) {
                 return [
+                    'patrol_id' => $item->patrol_id,
                     'citizen_id' => $item->citizen_id,
                     'citizen_name' => $item->citizen_name,
-                    'is_presence' => $item->presence === 'hadir' || $item->presence === true,
+                    'is_presence' => $item->presence ? 1: 0,
+                    'replaced_by' => $item->replaced_by,
+                    'note' => $item->note,
+                    'house_id' => $item->house_id,
+                    'block' => $item->block,
+                    'number' => $item->number,
+                ];
+            })
+            ->values();
+
+        $data = [
+            'date' => $date,
+            'member' => $members,
+        ];
+
+        return response()->json(
+            [
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
+                'message' => 'Berhasil menampilkan data',
+                'data' => $data,
+            ],
+            HttpStatusCodes::HTTP_OK,
+        );
+    }
+
+    public function today(Request $request)
+    {
+        $date = date('Y-m-d');
+        $housingId = $request->input('housing_id', null);
+
+        // Query utama
+        $builder = DB::table('patrollings as p')
+        ->join('citizens as c', 'c.id', '=', 'p.citizen_id')
+        ->join('houses as h', 'h.id', '=', 'p.house_id')
+        ->where('p.housing_id', $housingId)
+        ->whereDate('p.patrol_date', $date)
+        ->whereNull('p.deleted_at')
+        ->select('p.id as patrol_id', 'p.patrol_date as date', 'p.presence', 'p.note', 'p.replaced_by', 'c.id as citizen_id', 'c.fullname as citizen_name', 'h.id as house_id', 'h.block', 'h.number')->orderBy('h.block')->orderBy('h.number');
+
+        $results = $builder->get();
+
+        if ($results->isEmpty()) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'code' => HttpStatusCodes::HTTP_OK,
+                    'message' => 'Tidak ada data ronda untuk tanggal tersebut.',
+                    'data' => null,
+                ],
+                HttpStatusCodes::HTTP_OK,
+            );
+        }
+
+        // Format hasil agar konsisten dengan struktur list()
+        $members = $results
+            ->map(function ($item) {
+                return [
+                    'patrol_id' => $item->patrol_id,
+                    'citizen_id' => $item->citizen_id,
+                    'citizen_name' => $item->citizen_name,
+                    'is_presence' => $item->presence ? 1: 0,
                     'replaced_by' => $item->replaced_by,
                     'note' => $item->note,
                     'house_id' => $item->house_id,
@@ -162,13 +233,27 @@ class PatrolingController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
-            'housing_id' => ['required', 'uuid', 'exists:housings,id'],
             'start_date' => ['required', 'date_format:Y-m-d'],
             'end_date' => ['required', 'date_format:Y-m-d', 'after_or_equal:start_date'],
             'frequency' => ['nullable', 'integer', 'min:1', 'max:10'],
         ]);
+
+        $validator->after(function ($validator) use ($request) {
+            if ($request->filled(['start_date', 'end_date'])) {
+                $start = Carbon::parse($request->start_date);
+                $end = Carbon::parse($request->end_date);
+
+                $diff = $start->diffInDays($end);
+
+                if ($diff != 31) {
+                    $validator->errors()->add(
+                        'end_date',
+                        'Rentang tanggal harus 31 hari.'
+                    );
+                }
+            }
+        });
 
         if ($validator->fails()) {
             return response()->json(
@@ -183,12 +268,28 @@ class PatrolingController extends Controller
         }
 
         $validated = $validator->validated();
-        $housingId = $validated['housing_id'];
+        $housingId = $request->input('housing_id');
         $frequency = $validated['frequency'] ?? 1;
         $forceRegenerate = true;
 
+        $checkPresence = Patroling::whereBetween('patrol_date', [$validated['start_date'], $validated['end_date']])
+        ->where('housing_id', $housingId)
+        ->where('presence', 1)->count();
+
+        if($checkPresence > 0) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => 'Jadwal tidak dapat diubah karena ronda sudah berjalan.',
+                ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
         // Hapus data lama jika force_regenerate = true
-        DB::table('patrollings')->where('housing_id', $housingId)->delete();
+        Patroling::where('housing_id', $housingId)
+        ->whereBetween('patrol_date', [$validated['start_date'], $validated['end_date']])
+        ->delete();
 
         // Generate range tanggal
         $datesToGenerate = collect();
@@ -302,6 +403,8 @@ class PatrolingController extends Controller
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => $forceRegenerate ? 'Berhasil membuat ulang jadwal ronda' : 'Berhasil membuat jadwal patroli bergilir.',
             'data' => [
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
                 'total_inserted' => count($dataPatrols),
                 'frequency_input' => $frequency,
                 'total_citizens' => $totalHouses,
