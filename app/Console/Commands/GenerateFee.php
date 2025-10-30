@@ -30,8 +30,7 @@ class GenerateFee extends Command
     {
         $controller = new DueController;
         $request = new Request([
-            // 'due_date_payment' => date('d'),
-            'due_date_payment' => 25
+            'due_date_payment' => date('d'),
         ]);
         $controller->generate($request);
     }
