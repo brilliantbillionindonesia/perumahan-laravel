@@ -10,6 +10,7 @@ Route::prefix('financial')->group(function () {
     Route::middleware(['permission:manage_transactions'])->group(function () {
         Route::prefix('dues')->group(function () {
             Route::post('pay', [DueController::class, 'pay']);
+            Route::post('generate', [DueController::class, 'generate']);
         });
         Route::prefix('categories')->group(function () {
             Route::get('list', [CategoryController::class, 'list']);
