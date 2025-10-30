@@ -21,13 +21,17 @@ class DispatchPanicPush implements ShouldQueue
     {
         $panic = PanicEvent::with(['recipients.user.devices', 'citizen', 'user'])->findOrFail($this->panicId);
 
-        $citizen = Citizen::where('id', $panic->citizen->id)->first();
-        $house = House::where('family_card_id', $citizen->family_card_id)->first();
+        if(isset($panic->citizen)){
+            $citizen = Citizen::where('id', $panic->citizen->id)->first();
+            $house = House::where('family_card_id', $citizen->family_card_id)->first();
 
-        $name = $panic->citizen->fullname ?? $panic->user->name;
-        $house = $house->block .'|'. $house->number;
+            $name = $panic->citizen->fullname ?? $panic->user->name;
+            $house = $house->block .'|'. $house->number;
 
-        $namePanic = $name . ' - ' . $house ;
+            $namePanic = $name . ' - ' . $house ;
+        } else {
+            $namePanic = $panic->user->name;
+        }
 
         foreach ($panic->recipients as $rec) {
             $tokens = $rec->user->devices->pluck('token')->filter()->all();
