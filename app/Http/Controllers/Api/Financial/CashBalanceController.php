@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Financial;
 
 use App\Http\Controllers\Controller;
 use App\Models\FinancialTransaction;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\CashBalance;
 use App\Constants\HttpStatusCodes;
@@ -15,23 +16,39 @@ class CashBalanceController extends Controller
 {
     public function latest(Request $request){
         $data = CashBalance::where('housing_id', $request->housing_id)
+        ->where('payment_method', 'all')
         ->orderBy('created_at', 'desc')
         ->first();
 
         if (!$data) {
             return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'success' => true,
+                'code' => HttpStatusCodes::HTTP_OK,
                 'message' => 'Data tidak ditemukan',
-            ], HttpStatusCodes::HTTP_NOT_FOUND);
+                'data' => []
+            ], HttpStatusCodes::HTTP_OK);
         }
+
+        $cashBalance = CashBalance::where('housing_id', $request->housing_id)
+        ->where('year', $data->year)
+        ->where('month', $data->month)
+        ->where('payment_method', 'cash')
+        ->first();
+
+        $nonCashBalance = CashBalance::where('housing_id', $request->housing_id)
+        ->where('year', $data->year)
+        ->where('month', $data->month)
+        ->where('payment_method', 'non_cash')
+        ->first();
+
+        $data->cash = $cashBalance ? $cashBalance->closing_balance : 0;
+        $data->non_cash = $nonCashBalance ? $nonCashBalance->closing_balance : 0;
 
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'data' => $data
         ], HttpStatusCodes::HTTP_OK);
-
     }
 
     public function list(Request $request)
@@ -105,6 +122,95 @@ class CashBalanceController extends Controller
             'message' => 'Success',
             'data' => $data
         ], HttpStatusCodes::HTTP_OK);
+    }
+
+
+    // initial amount digunakan saat awal pendaftaran perumahan untuk menambahkan saldo awal
+    // jika perumahan sudah ada, tidak perlu menggunakan initial amount
+    public function initialAmount(Request $request){
+        $validator = Validator::make($request->all(), [
+            "amount_cash" => ['required', 'numeric', 'min:0'],
+            "amount_non_cash" => ['required', 'numeric', 'min:0'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $existCashBalance = CashBalance::where('housing_id', $request->input('housing_id'))
+        ->where('payment_method', 'cash')
+        ->first();
+
+        if ($existCashBalance) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_CONFLICT,
+                'message' => 'Cash balance dengan method cash sudah ada',
+            ], HttpStatusCodes::HTTP_CONFLICT);
+        }
+
+        $existNonCashBalance = CashBalance::where('housing_id', $request->input('housing_id'))
+        ->where('payment_method', 'non_cash')
+        ->first();
+
+        if ($existNonCashBalance) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_CONFLICT,
+                'message' => 'Cash balance dengan method non cash sudah ada',
+            ], HttpStatusCodes::HTTP_CONFLICT);
+        }
+
+        $existAllBalance = CashBalance::where('housing_id', $request->input('housing_id'))
+        ->where('year', date('Y'))
+        ->where('month', date('m'))
+        ->where('payment_method', 'all')
+        ->first();
+
+        CashBalance::create([
+            'housing_id' => $request->input('housing_id'),
+            'year' => date('Y'),
+            'month' => date('m'),
+            'opening_balance' => $request->input('amount_cash'),
+            'closing_balance' => $request->input('amount_cash'),
+            'payment_method' => "cash",
+        ]);
+
+        CashBalance::create([
+            'housing_id' => $request->input('housing_id'),
+            'year' => date('Y'),
+            'month' => date('m'),
+            'opening_balance' => $request->input('amount_non_cash'),
+            'closing_balance' => $request->input('amount_non_cash'),
+            'payment_method' => "non_cash",
+        ]);
+
+        if ($existAllBalance) {
+            $existAllBalance->opening_balance = $existAllBalance->opening_balance + $request->input('amount_cash') + $request->input('amount_non_cash');
+            $existAllBalance->closing_balance = $existAllBalance->closing_balance + $request->input('amount_cash') + $request->input('amount_non_cash');
+            $existAllBalance->save();
+        } else {
+            CashBalance::create([
+                'housing_id' => $request->input('housing_id'),
+                'year' => date('Y'),
+                'month' => date('m'),
+                'opening_balance' => $request->input('amount_cash') + $request->input('amount_non_cash'),
+                'closing_balance' => $request->input('amount_cash') + $request->input('amount_non_cash'),
+                'payment_method' => 'all',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Berhasil menambahkan saldo awal',
+        ], HttpStatusCodes::HTTP_OK);
+
+
     }
 
     public function transaction(Request $request)

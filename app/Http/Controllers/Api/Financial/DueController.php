@@ -10,6 +10,7 @@ use App\Http\Repositories\Financial\DueRepository;
 use App\Http\Services\ActivityLogService;
 use App\Http\Services\PushService;
 use App\Jobs\DispatchPayDue;
+use App\Jobs\DispatchReleasedDue;
 use App\Models\CashBalance;
 use App\Models\Citizen;
 use App\Models\Due;
@@ -96,6 +97,63 @@ class DueController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function me(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "periode" => ['nullable', 'string'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $citizen = Citizen::where('id', $request->current_housing->citizen_id)->first();
+
+        if (!$citizen) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $house = House::where('family_card_id', $citizen->family_card_id)
+        ->where('housing_id', $request->input('housing_id'))
+        ->first();
+
+        if (!$house) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $request = $request->merge([
+            'house_id' => $house->id
+        ]);
+
+        $data = DueRepository::duesSummary($request)->first();
+
+        if (!$data) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
     public function detail(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -120,7 +178,56 @@ class DueController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
-    public function me(Request $request){
+    public function myDetail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => ['nullable', Rule::in(['paid', 'unpaid'])],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $citizen = Citizen::where('id', $request->current_housing->citizen_id)->first();
+
+        if (!$citizen) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $house = House::where('family_card_id', $citizen->family_card_id)
+        ->where('housing_id', $request->input('housing_id'))
+        ->first();
+
+        if (!$house) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_NOT_FOUND,
+                'message' => 'Data tidak ditemukan',
+            ], HttpStatusCodes::HTTP_NOT_FOUND);
+        }
+
+        $request = $request->merge([
+            'house_id' => $house->id
+        ]);
+
+        $data = DueRepository::showDetailQuery($request)->get()->toArray();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
+    public function myBillingSummary(Request $request){
 
         $citizen = Citizen::where('id', $request->current_housing->citizen_id)->first();
         if(!$citizen){
@@ -159,6 +266,7 @@ class DueController extends Controller
         $validator = Validator::make($request->all(), [
             "due_id" => ['required', 'exists:dues,id', 'array'],
             "note" => ['nullable', 'string'],
+            "payment_method" => ['required', Rule::in(['cash', 'non_cash'])],
         ]);
 
         if ($validator->fails()) {
@@ -198,6 +306,7 @@ class DueController extends Controller
                 $payment->due_id = $value->id;
                 $payment->amount = $value->amount;
                 $payment->paid_at = $now;
+                $payment->method = $request->input('payment_method');
                 $payment->note = $request->input('note');
                 $payment->created_by = auth()->user()->id;
                 $payment->save();
@@ -219,6 +328,7 @@ class DueController extends Controller
                 $financialTransaction->financial_category_code = $fee->financial_category_code;
                 $financialTransaction->amount = $value->amount;
                 $financialTransaction->transaction_date = $now;
+                $financialTransaction->payment_method = $request->input('payment_method');
                 $financialTransaction->type = "income";
                 $financialTransaction->note = "Pembayaran " . $fee->name . " " . $house->block . " - " . $house->number;
                 $financialTransaction->save();
@@ -233,6 +343,7 @@ class DueController extends Controller
                 $cashBalance = CashBalance::where('housing_id', $value->housing_id)
                     ->where('year', $now->year)
                     ->where('month', $now->month)
+                    ->where('payment_method', $request->input('payment_method'))
                     ->first();
 
                 if ($cashBalance) {
@@ -251,6 +362,7 @@ class DueController extends Controller
                     $prevBalance = CashBalance::where('housing_id', $value->housing_id)
                         ->orderBy('year', 'desc')
                         ->orderBy('month', 'desc')
+                        ->where('payment_method', $request->input('payment_method'))
                         ->first();
 
                     $openingBalance = $prevBalance ? $prevBalance->closing_balance : 0;
@@ -262,6 +374,7 @@ class DueController extends Controller
                     $cashBalance->month = $now->month;
                     $cashBalance->income = $value->amount;
                     $cashBalance->closing_balance = $value->amount;
+                    $cashBalance->payment_method = $request->input('payment_method');
                     $cashBalance->save();
 
                     ActivityLogService::logModel(
@@ -271,6 +384,44 @@ class DueController extends Controller
                         type: 'update',
                     );
                 }
+
+                $allCashBalance = CashBalance::where('housing_id', $value->housing_id)
+                    ->where('year', $now->year)
+                    ->where('month', $now->month)
+                    ->where('payment_method', 'all')
+                    ->first();
+
+                if ($allCashBalance) {
+                    $allCashBalance->income += $value->amount;
+                    $allCashBalance->closing_balance += $value->amount;
+                    $allCashBalance->save();
+                } else {
+                    $prevAllBalance = CashBalance::where('housing_id', $value->housing_id)
+                        ->orderBy('year', 'desc')
+                        ->orderBy('month', 'desc')
+                        ->where('payment_method', 'all')
+                        ->first();
+
+                    $openingAllBalance = $prevAllBalance ? $prevAllBalance->closing_balance : 0;
+
+                    $allCashBalance = new CashBalance();
+                    $allCashBalance->housing_id = $value->housing_id;
+                    $allCashBalance->opening_balance = $openingAllBalance;
+                    $allCashBalance->year = $now->year;
+                    $allCashBalance->month = $now->month;
+                    $allCashBalance->income = $value->amount;
+                    $allCashBalance->closing_balance = $value->amount;
+                    $allCashBalance->payment_method = 'all';
+                    $allCashBalance->save();
+
+                    ActivityLogService::logModel(
+                        model: $allCashBalance->getTable(),
+                        rowId: $cashBalance->id,
+                        json: $cashBalance->toArray(),
+                        type: 'update',
+                    );
+                }
+
 
             });
         }
@@ -333,6 +484,7 @@ class DueController extends Controller
                 ->get();
 
             foreach ($houses as $house) {
+
                 $checkHouseDue = Due::where('house_id', $house->id)
                     ->where('periode', $this->getBillingPeriod($day))
                     ->where('fee_id', $fee->id)
@@ -350,9 +502,18 @@ class DueController extends Controller
                 $due->status = 'unpaid';
                 $due->periode = $this->getBillingPeriod($day);
                 $due->save();
+
+                $houseIds[] = $house->id;
             }
         }
 
+        $uniqueHouseIds = array_unique($houseIds);
+        foreach ($uniqueHouseIds as $key => $item) {
+            // (new DispatchReleasedDue($item))->handle(app(\App\Http\Services\PushService::class));
+            DispatchReleasedDue::dispatch(
+                houseId: $item,
+            )->onQueue('notifications');
+        }
 
     }
 

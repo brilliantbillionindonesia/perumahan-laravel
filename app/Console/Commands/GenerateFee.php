@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\Api\Financial\DueController;
+use App\Jobs\DispatchReleasedDue;
 use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 
@@ -29,7 +30,8 @@ class GenerateFee extends Command
     {
         $controller = new DueController;
         $request = new Request([
-            'due_date_payment' => date('d'),
+            // 'due_date_payment' => date('d'),
+            'due_date_payment' => 25
         ]);
         $controller->generate($request);
     }

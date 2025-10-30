@@ -62,6 +62,14 @@ class NotificationController extends Controller
                 return $item;
             });
 
+        NotificationRecipient::
+        where('is_read', 0)
+        ->where('user_id', auth()->id())
+        ->update([
+            'is_read' => 1,
+            'read_at' => now(),
+        ]);
+
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,

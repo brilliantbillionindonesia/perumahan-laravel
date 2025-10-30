@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Models\Citizen;
+use App\Models\House;
 use App\Models\PanicEvent;
 use App\Models\PanicRecipient;
 use App\Http\Services\PushService;
@@ -19,7 +21,13 @@ class DispatchPanicPush implements ShouldQueue
     {
         $panic = PanicEvent::with(['recipients.user.devices', 'citizen', 'user'])->findOrFail($this->panicId);
 
-        $namePanic = $panic->citizen ? $panic->citizen->fullname : $panic->user->name;
+        $citizen = Citizen::where('id', $panic->citizen->id)->first();
+        $house = House::where('family_card_id', $citizen->family_card_id)->first();
+
+        $name = $panic->citizen->fullname ?? $panic->user->name;
+        $house = $house->block .'|'. $house->number;
+
+        $namePanic = $name . ' - ' . $house ;
 
         foreach ($panic->recipients as $rec) {
             $tokens = $rec->user->devices->pluck('token')->filter()->all();

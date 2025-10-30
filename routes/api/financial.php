@@ -38,7 +38,9 @@ Route::prefix('financial')->group(function () {
         Route::get('list', [DueController::class, 'list']);
         Route::get('show', [DueController::class, 'show']);
         Route::get('detail', [DueController::class, 'detail']);
+        Route::get('my-summary', [DueController::class, 'myBillingSummary']);
         Route::get('me', [DueController::class, 'me']);
+        Route::get('my-detail', [DueController::class, 'myDetail']);
     });
 
     Route::prefix('categories')->group(function () {
@@ -55,6 +57,7 @@ Route::prefix('financial')->group(function () {
         Route::get('list', [CashBalanceController::class, 'list']);
         Route::get('show', [CashBalanceController::class, 'show']);
         Route::get('latest', [CashBalanceController::class, 'latest']);
+        Route::post('initial-amount', [CashBalanceController::class, 'initialAmount']);
     });
 
     Route::prefix('transactions')->group(function () {

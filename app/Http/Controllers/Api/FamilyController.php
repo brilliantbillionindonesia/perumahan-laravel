@@ -78,6 +78,7 @@ class FamilyController extends Controller
                 'fm.relationship_status',
                 'c.marital_status'
             )
+            ->orderBy('c.birth_date', 'asc')
             ->get();
 
         return response()->json([
@@ -134,6 +135,7 @@ class FamilyController extends Controller
                 'fm.relationship_status',
                 'c.marital_status'
             )
+            ->orderBy('c.birth_date', 'asc')
             ->get();
 
         return response()->json([
