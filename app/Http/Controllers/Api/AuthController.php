@@ -64,6 +64,15 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Email atau password salah',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $userToken = null;
         if($request->token) {
             $userToken = DeviceToken::where('user_id', $user->id)
@@ -80,25 +89,11 @@ class AuthController extends Controller
             }
         }
 
-        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => 'Email atau password salah',
-            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        if($userToken){
-            $userToken->token = $request->token;
-            $userToken->platform = $request->platform;
-            $userToken->save();
-        } else {
-            DeviceToken::create([
-                'user_id' => $user->id,
-                'platform' => $request->platform,
-                'token' => $request->token
-            ]);
-        }
+        DeviceToken::create([
+            'user_id' => $user->id,
+            'platform' => $request->platform,
+            'token' => $request->token
+        ]);
 
         $token = $user->createToken('api-token')->plainTextToken;
 
