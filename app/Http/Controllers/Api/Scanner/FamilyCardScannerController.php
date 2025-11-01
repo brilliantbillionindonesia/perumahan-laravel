@@ -111,8 +111,8 @@ class FamilyCardScannerController extends Controller
     {
         $fullPath = $convert['path'];
         $filename = $convert['filename'];
-        $scannerUrl = config('services.scanner.url') . '/scan-kk-full';
-        // $scannerUrl = config('services.scanner.url') . '/scan-kk-url';
+        // $scannerUrl = config('services.scanner.url') . '/scan-kk-full';
+        $scannerUrl = config('services.scanner.url') . '/scan-kk-url';
 
         if (!Storage::disk('public')->exists($fullPath)) {
             throw new \Exception("File {$fullPath} tidak ditemukan di storage");
@@ -122,9 +122,10 @@ class FamilyCardScannerController extends Controller
         $pythonResp = Http::
             timeout(120)
             ->attach(
+                // 'file',
                 'image_url',
-                file_get_contents(storage_path('app/public/' . $fullPath)),
-                // $imageUrl,
+                // file_get_contents(storage_path('app/public/' . $fullPath)),
+                $imageUrl,
                 $filename
             )->post($scannerUrl);
 
