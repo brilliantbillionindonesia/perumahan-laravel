@@ -52,8 +52,9 @@ class NotificationController extends Controller
             ->orderByDesc('n.created_at');
 
         $data = $query
-            ->skip(($page - 1) * $perPage)
-            ->take($perPage)
+            ->limit(5)
+            // ->skip(($page - 1) * $perPage)
+            // ->take($perPage)
             ->get()
             ->map(function ($item) {
                 $item->data_json = !empty($item->data_json)

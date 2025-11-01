@@ -452,21 +452,6 @@ class PatrolingController extends Controller
             );
         }
 
-        // 3️⃣ Pastikan user yang update adalah admin housing
-        $user = $request->user();
-        $housingUser = DB::table('housing_users')->where('user_id', $user->id)->where('housing_id', $patrol->housing_id)->where('is_active', 1)->first();
-
-        if (!$housingUser || $housingUser->role_code !== 'admin') {
-            return response()->json(
-                [
-                    'success' => false,
-                    'code' => HttpStatusCodes::HTTP_FORBIDDEN,
-                    'message' => 'Hanya admin housing yang dapat memperbarui jadwal ronda.',
-                ],
-                HttpStatusCodes::HTTP_FORBIDDEN,
-            );
-        }
-
         // 4️⃣ Siapkan data yang akan diupdate
         $updateData = [];
 

@@ -519,11 +519,10 @@ class DueController extends Controller
 
     function getBillingPeriod($day)
     {
-        $billingDate = now();
+        $billingDate = Carbon::now()->timezone('Asia/Jakarta');
         if ($day > 20) {
-            $billingDate = $billingDate->addMonth();
+            $billingDate = $billingDate->addDays(30);
         }
-
         return $billingDate->format('Y-m-' . $day);
     }
 
