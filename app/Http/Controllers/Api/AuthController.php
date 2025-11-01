@@ -87,13 +87,14 @@ class AuthController extends Controller
                     ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
                 }
             }
+
+            DeviceToken::create([
+                'user_id' => $user->id,
+                'platform' => $request->platform,
+                'token' => $request->token
+            ]);
         }
 
-        DeviceToken::create([
-            'user_id' => $user->id,
-            'platform' => $request->platform,
-            'token' => $request->token
-        ]);
 
         $token = $user->createToken('api-token')->plainTextToken;
 
