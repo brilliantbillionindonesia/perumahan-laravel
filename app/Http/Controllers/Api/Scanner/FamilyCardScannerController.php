@@ -130,6 +130,7 @@ class FamilyCardScannerController extends Controller
             )->post($scannerUrl);
 
         if ($pythonResp->failed()) {
+            dump($fullPath);
             throw new \Exception("Gagal mengirim file ke AI: " . $pythonResp->body());
         }
 
