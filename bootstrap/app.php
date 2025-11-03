@@ -72,5 +72,19 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->withoutOverlapping()
                 ->onOneServer()
                 ->runInBackground();
+
+            $schedule->command('app:reminder-due-payment')
+                ->dailyAt('07:00')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-due-payment')
+                ->dailyAt('19:00')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
         })
     ->create();
