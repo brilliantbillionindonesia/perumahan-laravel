@@ -107,6 +107,61 @@ class FamilyCardScannerController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
+    public function storeWithJsonFile(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'file' => ['required', 'mimes:json', 'max:5120'],
+            'house_block' => ['required', 'string'],
+            'house_number' => ['required', 'string'],
+        ], [
+            'file.required' => 'File wajib diisi',
+            'file.mimes' => 'Format file tidak sesuai',
+            'file.max' => 'Ukuran file tidak boleh lebih dari 5MB',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $json = $request->file('file')->get();
+        $parseJson = $this->parseJson($json, null);
+        foreach ($parseJson['citizen'] as $key => $citizen) {
+            HousingUser::updateOrCreate([
+                'citizen_id' => $citizen['id'],
+                'housing_id' => $request->input('housing_id'),
+            ], [
+                'role_code' => 'citizen',
+                'is_active' => true
+            ]);
+        }
+
+        $kepalaKeluarga = collect($parseJson['family_member'])
+        ->firstWhere('relationship_status', 'Kepala Keluarga');
+
+        $block = $request->input('house_block');
+        $number = $request->input('house_number');
+        House::updateOrCreate([
+            'housing_id' => $request->input('housing_id'),
+            'family_card_id' => $parseJson['family_card']['id']
+        ], [
+            'house_name' => 'Rumah ' . $block . '-' . $number,
+            'block' => $block,
+            'number' => $number,
+            'head_citizen_id' => $kepalaKeluarga['citizen_id']
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Data berhasil diolah dan disimpan',
+            'data' => $parseJson
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
     private function sendToAi($convert, $housingId)
     {
         $fullPath = $convert['path'];
@@ -141,9 +196,13 @@ class FamilyCardScannerController extends Controller
         return $jsonPath;
     }
 
-    private function parseJson($fileLocation, $pathImage)
+    private function parseJson($fileLocation, $pathImage = null)
     {
-        $filePath = Storage::get($fileLocation);
+        if($pathImage){
+            $filePath = Storage::get($fileLocation);
+        } else {
+            $filePath = $fileLocation;
+        }
         $jsonDecode = json_decode($filePath, true);
         $dataFamilyCard = $jsonDecode['data_kk'];
         $mainData = $dataFamilyCard['data_utama'];
@@ -173,17 +232,20 @@ class FamilyCardScannerController extends Controller
             $parsedFamilyCard
         );
 
-        $createFamilyDoc = FamilyDocument::updateOrCreate(
-            [
-                'family_card_id' => $createFamilyCard->id
-            ],
-            [
-                'family_card_id' => $createFamilyCard->id,
-                'doc_name' => 'Kartu Keluarga',
-                'doc_file' => $pathImage,
-                'is_ai_generated' => true
-            ]
-        );
+        $createFamilyDoc = null;
+        if($pathImage){
+            $createFamilyDoc = FamilyDocument::updateOrCreate(
+                [
+                    'family_card_id' => $createFamilyCard->id
+                ],
+                [
+                    'family_card_id' => $createFamilyCard->id,
+                    'doc_name' => 'Kartu Keluarga',
+                    'doc_file' => $pathImage ?? null,
+                    'is_ai_generated' => true
+                ]
+            );
+        }
 
         $createCitizens = [];
         $createFamilyMembers = [];
