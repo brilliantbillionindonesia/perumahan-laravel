@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Financial;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ActivityLogService;
 use App\Models\FinancialTransaction;
 use DB;
 use Illuminate\Http\Request;
@@ -171,7 +172,7 @@ class CashBalanceController extends Controller
         ->where('payment_method', 'all')
         ->first();
 
-        CashBalance::create([
+        $cash = CashBalance::create([
             'housing_id' => $request->input('housing_id'),
             'year' => date('Y'),
             'month' => date('m'),
@@ -180,7 +181,7 @@ class CashBalanceController extends Controller
             'payment_method' => "cash",
         ]);
 
-        CashBalance::create([
+        $noncash = CashBalance::create([
             'housing_id' => $request->input('housing_id'),
             'year' => date('Y'),
             'month' => date('m'),
@@ -193,8 +194,10 @@ class CashBalanceController extends Controller
             $existAllBalance->opening_balance = $existAllBalance->opening_balance + $request->input('amount_cash') + $request->input('amount_non_cash');
             $existAllBalance->closing_balance = $existAllBalance->closing_balance + $request->input('amount_cash') + $request->input('amount_non_cash');
             $existAllBalance->save();
+
+            $all = $existAllBalance;
         } else {
-            CashBalance::create([
+            $all = CashBalance::create([
                 'housing_id' => $request->input('housing_id'),
                 'year' => date('Y'),
                 'month' => date('m'),
@@ -203,6 +206,28 @@ class CashBalanceController extends Controller
                 'payment_method' => 'all',
             ]);
         }
+
+        ActivityLogService::logModel(
+            model: 'cash_balances',
+            rowId: $cash->id,
+            json: $cash->toArray(), // cast ke array
+            type: 'create',
+        );
+
+        ActivityLogService::logModel(
+            model: 'cash_balances',
+            rowId: $noncash->id,
+            json: $noncash->toArray(), // cast ke array
+            type: 'create',
+        );
+
+        ActivityLogService::logModel(
+            model: 'cash_balances',
+            rowId: $all->id,
+            json: $all->toArray(), // cast ke array
+            type: 'create',
+        );
+
 
         return response()->json([
             'success' => true,
