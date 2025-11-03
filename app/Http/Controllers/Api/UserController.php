@@ -163,16 +163,6 @@ class UserController extends Controller
         }
 
         $generatedPassword = Str::random(8);
-
-        $user = User::updateOrCreate([
-            'email' => $request->input('email')
-        ], [
-            'name' => ucwords($request->input('name')),
-            'email' => $request->input('email'),
-            'password' => bcrypt($generatedPassword),
-            'is_generated_password' => true
-        ]);
-
         $checkuser = User::where('email', $request->input('email'))->first();
 
         if (!$checkuser) {
