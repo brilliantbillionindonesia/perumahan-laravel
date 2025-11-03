@@ -173,6 +173,21 @@ class UserController extends Controller
             'is_generated_password' => true
         ]);
 
+        $checkuser = User::where('email', $request->input('email'))->first();
+
+        if (!$checkuser) {
+            $isNewUser = true;
+            $user = User::create([
+                'name' => ucwords($request->input('name')),
+                'email' => $request->input('email'),
+                'password' => bcrypt($generatedPassword),
+                'is_generated_password' => true
+            ]);
+        } else {
+            $isNewUser = false;
+            $user = $checkuser;
+        }
+
         if ($request->input('citizen_id')) {
             HousingUser::updateOrCreate(
                 [
@@ -194,7 +209,9 @@ class UserController extends Controller
             ]);
         }
 
-        SendWelcomeEmailJob::dispatch($user->id, $generatedPassword)->onQueue('notifications');
+        $housingName = $request->current_housing->housing_name;
+
+        SendWelcomeEmailJob::dispatch($user->id, $generatedPassword, $isNewUser, $housingName)->onQueue('notifications');
 
         return response()->json([
             'success' => true,

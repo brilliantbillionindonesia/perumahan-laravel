@@ -8,16 +8,16 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeUserMail extends Mailable
+class LinkToHousingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public function __construct(public User $user, public string $password, public string $housingName) {}
 
-    public function build(): WelcomeUserMail
+    public function build(): LinkToHousingMail
     {
-        return $this->subject('Selamat Datang di ' . config('app.name'))
-            ->markdown(view: 'emails.users.welcome')
+        return $this->subject('Akun Anda Berhasil Disinkronkan')
+            ->markdown(view: 'emails.users.user-sync-housing')
             ->with([
                 'user' => $this->user,
                 'housing_name' => $this->housingName,

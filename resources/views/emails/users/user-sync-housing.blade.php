@@ -111,7 +111,7 @@
     <!-- start preheader -->
     <div class="preheader"
         style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        Selamat datang {{ $user->name }}. Akun {{ config('app.name') }} Anda Berhasil Dibuat.
+        Selamat datang {{ $user->name }}. Akun {{ config('app.name') }} Anda Berhasil Disinkrokan.
     </div>
     <!-- end preheader -->
 
@@ -187,39 +187,12 @@
                     <tr>
                         <td align="left" bgcolor="#f9efef"
                             style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                            <p style="margin: 0;">Akun {{ config('app.name') }} Anda Berhasil Dibuat. Silakan masuk
-                                dengan email dan kata sandi sementara Anda.</p>
+                            <p style="margin: 0;">Akun {{ config('app.name') }} Anda berhasil disinkronkan dengan {{ $housing_name }}. Silakan buka aplikasi  {{ config('app.name') }} Anda.</p>
                         </td>
                     </tr>
-                    <!-- end copy -->
-
-                    <!-- start button -->
-                    <tr>
-                        <td align="left" bgcolor="#f9efef">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td align="center" bgcolor="#f9efef" style="padding: 12px;">
-                                        <table border="0" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td align="center" style="border-radius: 6px;">
-                                                    <span
-                                                        style=" display: inline-block; border-radius: 6px; padding: 16px 28px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: bold; color: #b91c1c; line-height: 1; margin: 0;">
-                                                        {{ $password }}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <!-- end button -->
-
-                    <!-- start copy -->
                     <tr>
                         <td align="left" bgcolor="#f9efef"
-                            style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                            style="padding: 14px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                             <p style="margin: 0;">Jika Anda belum memiliki aplikasi {{ config('app.name') }}, silakan
                                 unduh dengan link berikut :</p>
                             <p style="margin: 0;"><a
@@ -262,7 +235,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">Anda mendapatkan email ini karena Anda mendaftar di
+                            <p style="margin: 0;">Anda mendapatkan email ini karena Anda terdaftar di
                                 {{ config('app.name') }}.</p>
                         </td>
                     </tr>
