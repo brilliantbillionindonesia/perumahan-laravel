@@ -39,7 +39,7 @@
                     <img src="assets/images/logopadi.png" alt=""
                         style="height: 35px; width: auto; margin-right: 8px;">
                     <span class="navbar-caption fs-4 fw-bold" style="color: #E53935;">
-                        SERUMPUN PADI
+                        Serumpun Padi
                     </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -71,26 +71,28 @@
         <div class="container">
             <!-- row start  -->
             <div class="row position-relative align-items-center justify-content-between">
-                <div class="col-lg-5">
+                <div class="col-xl-6 col-lg-12 col-md-12">
                     <div class="hero-text">
-                        <h5 class="mb-3">
-                            <i class="ri-smartphone-line align-middle text-primary"></i>
-                            Aplikasi
-                            Terbaik
-                        </h5>
-                        <h1 class="display-6 lh-55 text-dark">
-                            Company Profile Aplikasi <br />
-                            <span class="fw-semibold text-primary"> Serumpun
-                                Padi</span>
+                        <h1 class="display-1 text-dark">
+                            <span class="fw-semibold" style="color: #E53935;"> Capek urusan perumahan yang ribet ? </span>
+                            {{-- <span class="fw-semibold" style="color: #E53935;"> Capek update data warga masih manual ? --}}
+                            </span>
                         </h1>
                         <p class="fw-medium mt-3 lh-base">
-                            Bersatu dalam satu rumpun, tumbuh bersama, dan memberi manfaat
-                            <br />
+                            Pengelolaan perumahan sering terasa melelahkan: pencatatan manual, penagihan berulang, laporan yang tercecer, dan komunikasi yang tidak terarah.
+                            {{-- Dengan Serumpun Padi, data warga bisa di-update jauh lebih cepat berkat <b>AI</b> yang mampu membaca Kartu
+                            Keluarga (KK) — cukup foto, data langsung terisi, pengurus cukup validasi.<br>
+                            Pengurus tidak lagi perlu mengetik satu per satu — menghemat
+                            banyak waktu. --}}
+                            <br>
+                            Serumpun Padi menyederhanakan semuanya dalam satu aplikasi — dari pengelolaan data warga,
+                            kas, iuran, hingga laporan keuangan.
+                            Jalan lebih cepat, data lebih rapi.
                         </p>
                     </div>
                     <div class="main-btn mt-4">
-                        <a href="#" class="btn p-0 m-0"><img src="assets/images/app-store.png"
-                                alt="" /></a>
+                        {{-- <a href="#" class="btn p-0 m-0"><img src="assets/images/app-store.png"
+                                alt="" /></a> --}}
                         <a href="#" class="btn p-0 m-0 ms-2"><img src="assets/images/play-store.png"
                                 alt="" /></a>
                     </div>
@@ -190,7 +192,7 @@
                                 <h2 class="text-secondary fw-bold">500K</h2>
                             </div>
                             <div class="content">
-                                <p>Hour of work</p>
+                                <p>Keuangan Tercatat</p>
                             </div>
                         </div>
                     </div>
@@ -203,19 +205,19 @@
         <div class="container">
             <div class="about-header text-center mb-5 pb-5">
                 <div class="title-sm">
-                    <h6 class="text-primary">About</h6>
+                    <h2 class="text-primary">Latar Belakang</h2>
                 </div>
                 <div class="main-title mt-4">
-                    <h2 class="display-6 text-dark">
-                        Latar Belakang
-                    </h2>
                     <p class="mt-3 lh-base">
-                        Latar Belakang ini adalah menjelaskan kenapa kita harus membuat aplikasi ini
-                        dan agar bisa memberi manfaat kepada semua orang<br />
+                        Banyak perumahan menghadapi masalah serupa: pencatatan manual yang tidak terpusat, transparansi
+                        keuangan yang terbatas, serta respons keamanan dan aduan yang lambat.
+
+                        Karena itu, Serumpun Padi hadir untuk membantu menciptakan lingkungan yang lebih tertib, aman,
+                        dan transparan dengan sistem terintegrasi real-time.
                     </p>
                 </div>
             </div>
-            <div class="bg-info p-5 rounded-4">
+            <div class="bg-light p-5 rounded-4">
                 <div class="row g-3">
                     <div class="col-lg-4">
                         <div class="content shadow text-start bg-white p-4 rounded-4">
@@ -272,46 +274,48 @@
                 <div class="col-lg-5">
                     <div class="services-header">
                         <div class="title-sm">
-                            <h5 class="text-primary mb-4">Tujuan Serumpun Padi</h5>
+                            <h3 class="text-primary mb-4">Tujuan</h3>
                         </div>
-                        <h2 class="display-6 text-dark lh-55">Serumpun Padi bertujuan menciptakan lingkungan perumahan
+                        {{-- <h2 class="display-6 text-dark lh-55">Serumpun Padi bertujuan menciptakan lingkungan perumahan
                             yang modern.
                             <br>
-                        </h2>
-                        <p class="mt-3 lh-base">Ketika layanan telah sepenuhnya diberikan kepada konsumen,
-                            <br> layanan tersebut dianggap selesai
-                            dan tidak dapat dibatalkan.
+                        </h2> --}}
+                        <p class="mt-3 lh-base">Serumpun Padi bertujuan meningkatkan akuntabilitas
+                            pengelolaan keuangan, menertibkan administrasi serta pelayanan warga melalui pencatatan yang
+                            rapi dan terpusat, serta memperkuat keamanan lingkungan lewat fitur aduan dan panic button
+                            yang responsif.
                         </p>
                     </div>
                     <div class="services-contant mt-5">
                         <div class="step">
                             <span class="text-primary ms-3 fs-6 bg-info-subtle p-2 px-3 rounded-1">
-                                Perencenaan :
+                                Pendataan Warga :
                             </span>
                             <div class="row mt-3 align-items-center justify-content-center">
-                                <div class="col-lg-3">
+                                {{-- <div class="col-lg-3">
                                     <h5 class="">
                                         STEP 01<i class="ri-arrow-right-line ms-3"></i>
                                     </h5>
-                                </div>
-                                <div class="col-lg-8 border-bottom">
-                                    <p>Dengan adanya aplikasi ini membantu semua terprogram kepada digitalisasi modern
+                                </div> --}}
+                                <div class="col-lg-10 border-bottom">
+                                    <p>
+                                        Kini pengurus tidak perlu lagi memasukkan data manual, cukup scan dokumen Kartu
+                                        keluarga -> validasi data -> lihat data terkini.
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="step mt-3">
                             <span class="text-primary ms-3 fs-6 bg-info-subtle p-2 px-3 rounded-1">
-                                Desain :
+                                Keuangan dan Iuran :
                             </span>
                             <div class="row mt-3 align-items-center justify-content-center">
-                                <div class="col-lg-3">
-                                    <h5>
-                                        STEP 02<i class="ri-arrow-right-line ms-3"></i>
-                                    </h5>
-                                </div>
-                                <div class="col-lg-8 border-bottom">
-                                    <p>Desain aplikasi dibuat dengan tampilan yang mudah untuk dipahami oleh user</p>
+                                <div class="col-lg-10 border-bottom">
+                                    <p>Pengelolaan kas, iuran, serta pemasukan–pengeluaran menjadi lebih mudah dan.
+                                        Iuran akan dibuat otomatis setiap bulan, rekap laporan keuangan otomatis,
+                                        menampilkan saldo terkini, riwayat transaksi, serta laporan keuangan yang siap
+                                        diperiksa kapan saja.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +335,7 @@
                         Aplikasi Serumpun Padi
                     </h2>
                     <p>
-                        Kami Menyediakan Panduan Cara Kerja Aplikasi Serumpun Padi
+                        Mulai dari unduh, masuk, hingga langsung merasakan manfaatnya.
                     </p>
                 </div>
             </div>
@@ -339,7 +343,8 @@
                 <div class="col-lg-4">
                     <div class="guide-content text-center p-4 bg-light position-relative rounded-3 shadow-sm">
                         <h5 class="mt-4 mb-3">Download Aplikasi</h5>
-                        <p>Unduh Aplikasi Serumpun Padi dan Masuk ke Aplikasi</p>
+                        <p>Mulai perjalanan Anda dengan mengunduh aplikasi Serumpun Padi.
+Hanya butuh beberapa detik untuk siap mengelola lingkungan dengan cara yang lebih rapi dan modern.</p>
                         <a href="#"
                             class="text-primary fw-bold  text-decoration-underline link-offset-1">Download
                             Sekarang</a>
@@ -351,8 +356,8 @@
                 <div class="col-lg-4">
                     <div class="guide-content text-center p-4 bg-light position-relative rounded-3 shadow-sm">
                         <h5 class="mt-4 mb-3">Login Aplikasi</h5>
-                        <p>Pertama kali Anda membuka aplikasi, daftar di aplikasi dan masuk
-                            dengan Google</p>
+                        <p>Daftar sekarang.
+Tanpa proses rumit — begitu masuk, Anda langsung dapat melihat fitur yang tersedia dan menyesuaikannya dengan kebutuhan lingkungan Anda.</p>
                         <a href="#" class="text-primary fw-bold  text-decoration-underline link-offset-1">Daftar
                             Sekarang</a>
                         <div class="step-icon">
@@ -363,7 +368,8 @@
                 <div class="col-lg-4">
                     <div class="guide-content text-center p-4 bg-light position-relative rounded-3 shadow-sm">
                         <h5 class="mt-4 mb-3">Nikmati Dengan Fitur</h5>
-                        <p>Proses sebelumnya selesai dan nikmatilah<br> Serumpun Padi
+                        <p>Setelah login, Anda langsung dapat mengelola data warga, kas, dan iuran hingga menangani aduan secara real-time.
+Semua dilakukan dalam satu aplikasi — cepat, praktis, dan transparan.
                         </p>
                         <a href="#features"
                             class="text-primary fw-bold  text-decoration-underline link-offset-1">Pelajari Lebih
@@ -525,29 +531,30 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-lg-5">
-                    <div class="logo mb-4">
+                    {{-- <div class="logo mb-4">
                         <a class="navbar-brand logo-2 d-flex align-items-center" href="#">
                             <img src="assets/images/logopadi.png" alt=""
                                 style="height: 35px; width: auto; margin-right: 8px;">
                             <span class="navbar-caption fs-4 fw-bold" style="color: #E53935;">
-                                SERUMPUN PADI
+
+                                Serumpun Padi
                             </span>
                         </a>
-                    </div>
-                    <h3 class="fw-semibold">Siap untuk mulai di Download</h3>
-                    <p>Download Aplikasi ini di Playstore<br> and app store</p>
+                    </div> --}}
+                    <h2 class="fw-semibold">Mulai kelola perumahanmu sekarang, download dan rasakan kemudahannya.</h2>
+                    {{-- <p>Download Aplikasi ini di Playstore<br> and app store</p>
                     <span class="text-dark fw-semibold me-1">Support
                         :</span>
                     <a href="#" class="text-muted">
-                        brilliantbillionindonesia@gmail.com</a>
+                        brilliantbillionindonesia@gmail.com</a> --}}
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="text-primary">Download Aplikasi nya :</h5>
+                    {{-- <h5 class="text-primary">Download Aplikasi nya :</h5> --}}
                     <div class="main-btn mt-4 mb-4">
-                        <a href="#" class="btn p-0 m-0"><img src="assets/images/app-store.png"
-                                alt=""></a>
+                        {{-- <a href="#" class="btn p-0 m-0"><img src="assets/images/app-store.png"
+                                alt=""></a> --}}
                         <a href="#" class="btn p-0 m-0 ms-2"><img src="assets/images/play-store.png"
-                                alt=""></a>
+                                width="300" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -560,80 +567,13 @@
             <div class="container">
                 <div class="footer-item">
                     <div class="row align-items-center">
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="footer-inner">
-                                <h6 class="fw-semibold text-white pb-3">Product
-                                </h6>
-                                <ul class="p-0">
-                                    <li>
-                                        <a href="#" class="text-light ">Documentations</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Integrations</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Pricing</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Apl</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="footer-inner">
-                                <h6 class="fw-semibold text-white pb-3">Company
-                                </h6>
-                                <ul class="p-0">
-                                    <li>
-                                        <a href="#" class="text-light">About
-                                            Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Meet Our
-                                            team</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Careers</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">App</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="footer-inner">
-                                <h6 class="fw-semibold text-white pb-3">Support
-                                </h6>
-                                <ul class="p-0">
-                                    <li>
-                                        <a href="#" class="text-light">Knowladge
-                                            base</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Tutorial</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Document</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-light">Guidlines</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="col-lg-3 col-sm-6">
-                            <h6 class="fw-semibold m-0 text-white pb-3">Contact
-                                Us</h6>
+                            <h6 class="fw-semibold m-0 text-white pb-3">Hubungi Kami</h6>
                             <p class="text-light lh-lg mb-2">Indonesia ji.Griya
                                 permata Hijau Purwomartani Kalasan
                                 543881</p>
-                            <a href="#!" class="text-light">support12@gmail.com</a>
-                            <p class="mt-3"><a href="#!" class="text-light">+123
-                                    456 7890</a></p>
                         </div>
-                        <div class="col-lg-3 col-sm-6">
+                        {{-- <div class="col-lg-3 col-sm-6">
                             <h6 class="fw-semibold m-0 text-white pb-3">Stay Up
                                 to date</h6>
                             <p class="text-light lh-lg">Subscribe to every
@@ -644,7 +584,7 @@
                                     <a href="#" class="me-1"><i class="ri-send-plane-2-line"></i></a>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- end row -->
                 </div>
