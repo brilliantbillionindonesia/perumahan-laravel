@@ -10,7 +10,6 @@ class Citizen extends Model
     use HasUuids;
 
     protected $table = 'citizens';
-<<<<<<< HEAD
     protected $fillable = [
         'family_card_id',
         'citizen_card_number',
@@ -31,7 +30,5 @@ class Citizen extends Model
     {
         return $this->hasMany(HousingUser::class, 'citizen_id');
     }
-=======
     protected $guarded = [];
->>>>>>> 3e10734edaa76f00959619efda7aee555dc256f1
 }

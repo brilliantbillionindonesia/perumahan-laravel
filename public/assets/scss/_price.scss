@@ -1,0 +1,139 @@
+.price-part {
+    .card {
+        position: relative;
+        width: 98%;
+        overflow: hidden;
+        padding: 30px 30px;
+        transition: all 0.5s ease-in-out;
+        @media (max-width: 991px) {
+            padding: 50px 20px;
+        }
+        &:hover {
+            transform: translateY(-0.5rem);
+        }
+    }
+    .btn {
+        &:hover {
+            background-color: $primary !important;
+            color: $light !important;
+        }
+    }
+
+    .ribbon-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 75px;
+        height: 75px;
+        overflow: hidden;
+
+        span {
+            position: absolute;
+            font-size: 13px;
+            text-align: center;
+            transform: rotate(-45deg);
+            width: 100px;
+            color: $light;
+            background: $danger;
+            top: 19px;
+            left: -21px;
+        }
+    }
+
+    .rotate-text {
+        h3 {
+            top: 45%;
+            left: 48%;
+            transform: rotate(90deg) !important;
+            color: #ecedff;
+        }
+    }
+}
+
+//
+// Progress.scss
+//
+
+.price-part-2 {
+    .card{
+        transition: all 0.5s ease-in-out;
+        &:hover {
+            transform: translateY(-0.5rem);
+        }
+    }
+    .nav-pills {
+        margin-bottom: 15px;
+        background-color: $white;
+        border-radius: 6px;
+        .nav-link {
+            color: $secondary;
+            padding: 5px;
+            transition: all 0.5s ease;
+            font-size: 14px;
+            &:hover {
+                background: rgba($primary, 0.06);
+            }
+            &.active {
+                background: $primary;
+                color: $white;
+            }
+        }
+        a {
+            .title {
+                font-size: 17px;
+                font-weight: 700;
+            }
+        }
+    }
+    h4{
+        span{
+            font-size: 11px;
+        }
+    }   
+
+}
+
+.price-info-3{
+    ul{
+        li{
+            font-size: 18px;
+            margin: 15px 0;
+        }
+    }
+}
+
+.price-part-5{
+    .card{
+        .animation-img {
+            position: absolute;
+            bottom: 30%;
+            left: 10%;
+            right: 0;
+            animation: rotate-center 5s linear infinite both;
+            @media (max-width: 568px) {
+                display: none;
+            }
+            @keyframes rotate-center {
+                0% {
+                    transform: rotate(0);
+                }
+    
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+        .img-2 {
+            top: 10%;
+            left: 5%;
+        }
+        .img-3 {
+            top: 20%;
+            left: 90%;
+        }
+        .img-4 {
+            top: 90%;
+            left: 90%;
+        }
+    }
+}

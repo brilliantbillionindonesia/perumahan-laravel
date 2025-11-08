@@ -16,7 +16,7 @@ use App\Http\Controllers\Web\Management\HousingController;
 
 // Redirect root ke dashboard admin
 Route::get('/', function () {
-    return redirect()->route('admin.dashboard');
+    return view('welcome');
 });
 
 // Route test email (tanpa login)

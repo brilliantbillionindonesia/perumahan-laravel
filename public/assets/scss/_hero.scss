@@ -1,0 +1,167 @@
+.bg-img {
+  background-image: url(../images/hero/hero1.png);
+}
+.bg-home {
+  padding: 150px 0 100px 0;
+  .headline {
+    a {
+      color: $dark;
+      border-radius: 30px;
+      padding: 5px 20px 5px 10px;
+      font-size: 13px;
+      line-height: 24px;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+  }
+  .used_app {
+    display: flex;
+    align-items: center;
+    margin-top: 35px;
+    ul {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+
+      li {
+        &:not(:first-child) {
+          margin-left: -15px;
+        }
+      }
+      img {
+        height: 2.5rem;
+        width: 2.5rem;
+        line-height: 3rem;
+      }
+    }
+  }
+}
+
+.bg-home-1 {
+  padding: 150px 0;
+  overflow: hidden;
+  @media (max-width: 568px) {
+    padding: 100px 0;
+  }
+  h1 {
+    .animation-img {
+      animation: rotate-center 5s linear infinite both;
+      @keyframes rotate-center {
+        0% {
+          transform: rotate(0);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}
+
+.bg-img-2 {
+  background: linear-gradient(to right, #3a41c4, #000046);
+}
+.bg-home-2 {
+  padding: 250px 0;
+  overflow: hidden;
+  @media (max-width: 568px) {
+    padding: 150px 0;
+  }
+  .rotate-text {
+    h1 {
+      font-size: 180px;
+      top: 80%;
+      left: 50%;
+      color: #ecedff0f;
+    }
+  }
+}
+
+.bg-home-3 {
+  background-color: #1d2840;
+  padding: 150px 0;
+  @media (max-width: 991px) {
+    padding: 150px 0;
+    br {
+      display: none;
+    }
+    .img-side-1 {
+      display: none;
+    }
+    .header-img {
+      display: none;
+    }
+  }
+  .form-button {
+    .form-control {
+      height: 40px;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .btn {
+      padding: 5px 25px 5px 25px;
+    }
+  }
+  .main-btn {
+    img {
+      width: 90%;
+    }
+  }
+
+}
+.img-mobile {
+  img{
+    position: relative;
+    margin-top: -164px;
+    max-width: 60%;
+    @media (max-width: 991px) {
+      margin-top: -80px;
+    }
+  }
+}
+
+
+.bg-home-5 {
+  padding: 199px 0;
+
+  .animation-img {
+    position: absolute;
+    bottom: 30%;
+    left: 10%;
+    right: 0;
+    animation: rotate-center 5s linear infinite both;
+    @media (max-width: 568px) {
+      display: none;
+    }
+    @keyframes rotate-center {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+  .img-2 {
+    top: 10%;
+    left: 5%;
+  }
+  .img-3 {
+    top: 20%;
+    left: 90%;
+  }
+  .img-4 {
+    top: 90%;
+    left: 90%;
+  }
+  .hend-img{
+    top: 9%;
+    @media (max-width: 568px) {
+      display: none;
+    }
+  }
+}
+

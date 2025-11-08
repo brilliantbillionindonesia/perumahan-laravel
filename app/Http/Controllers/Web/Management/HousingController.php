@@ -41,40 +41,55 @@ class HousingController extends Controller
             default  => "YEAR(created_at)",
         };
 
-        $currentYear = Carbon::now()->year;
+        $currentYear = now()->year;
 
         // === Pertumbuhan per Bulan ===
         $housingGrowth = Housing::selectRaw("$monthQuery as month, COUNT(*) as count")
             ->whereRaw("$yearQuery = ?", [$currentYear])
-            ->groupBy('month')->pluck('count', 'month')->toArray();
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
 
-        $userGrowth = User::selectRaw("$monthQuery as month, COUNT(*) as count")
+        $userGrowthByMonth = User::selectRaw("$monthQuery as month, COUNT(*) as count")
             ->whereRaw("$yearQuery = ?", [$currentYear])
-            ->groupBy('month')->pluck('count', 'month')->toArray();
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
 
         $citizenGrowth = Citizen::selectRaw("$monthQuery as month, COUNT(*) as count")
             ->whereRaw("$yearQuery = ?", [$currentYear])
-            ->groupBy('month')->pluck('count', 'month')->toArray();
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
 
-        // === Format bulan ===
-        $months = collect(range(1, 12))->map(fn($m) => Carbon::create()->month($m)->format('M'))->toArray();
+        // === Format bulan (Jan–Dec) ===
+        $months = collect(range(1, 12))
+            ->map(fn($m) => now()->month($m)->format('M'))
+            ->toArray();
 
-        // === Data untuk Sales Volume (bar chart) ===
+        // === Data Sales Volume (Bar Chart) ===
         $salesVolume = [
             'labels' => $months,
             'data' => [
                 'Perumahan' => array_values(array_replace(array_fill(1, 12, 0), $housingGrowth)),
-                'Pengguna' => array_values(array_replace(array_fill(1, 12, 0), $userGrowth)),
-                'Warga' => array_values(array_replace(array_fill(1, 12, 0), $citizenGrowth)),
+                'Pengguna'  => array_values(array_replace(array_fill(1, 12, 0), $userGrowthByMonth)),
+                'Warga'     => array_values(array_replace(array_fill(1, 12, 0), $citizenGrowth)),
             ],
             'colors' => ['#EF4444', '#10B981', '#3B82F6'],
         ];
 
-        // Gunakan SQLite-safe query (tanpa fungsi YEAR)
+        // === Pertumbuhan per Tahun (Line Chart) ===
         $userGrowth = User::selectRaw("YEAR(created_at) as year, COUNT(*) as count")
-            ->groupBy('year')->orderBy('year')->get()->toArray();
+            ->groupBy('year')
+            ->orderBy('year')
+            ->get()
+            ->map(fn($row) => [
+                'year' => (int) $row->year,
+                'count' => (int) $row->count,
+            ])
+            ->toArray();
 
-        // === Customer Volume (doughnut chart) ===
+        // === Customer Volume (Doughnut Chart) ===
         $customerVolume = [
             'labels' => ['Perumahan', 'Pengguna', 'Warga'],
             'data' => [$totalHousings, $totalUsers, $totalCitizens],
@@ -87,33 +102,39 @@ class HousingController extends Controller
                 'title' => 'Total Pengguna',
                 'value' => $totalUsers,
                 'change' => '',
-                'icon' => '👥',
+                'icon'  => '👥',
                 'color' => 'bg-blue-100 text-blue-600',
             ],
             [
                 'title' => 'Total Perumahan',
                 'value' => $totalHousings,
                 'change' => '',
-                'icon' => '🏠',
+                'icon'  => '🏠',
                 'color' => 'bg-green-100 text-green-600',
             ],
             [
                 'title' => 'Total Warga',
                 'value' => $totalCitizens,
                 'change' => '',
-                'icon' => '🙎🏻‍♂️🙍🏼‍♀️',
+                'icon'  => '🙎🏻‍♂️🙍🏼‍♀️',
                 'color' => 'bg-yellow-100 text-yellow-600',
             ],
             [
                 'title' => 'Tahun Aktif',
                 'value' => $currentYear,
                 'change' => '',
-                'icon' => '🪩',
+                'icon'  => '🪩',
                 'color' => 'bg-gray-100 text-gray-600',
             ],
         ];
 
-        return view('admin.dashboard', compact('stats', 'customerVolume', 'salesVolume'));
+        // 🔹 Kirim semua data yang dibutuhkan ke view
+        return view('admin.dashboard', compact(
+            'stats',
+            'customerVolume',
+            'salesVolume',
+            'userGrowth', // <== ini dikirim ke view untuk chart line
+        ));
     }
 
     public function index(Request $request)

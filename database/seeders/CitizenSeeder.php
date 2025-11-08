@@ -10,6 +10,7 @@ use App\Models\House;
 use App\Models\Citizen;
 use App\Models\HousingUser;
 use App\Models\FamilyMember;
+use App\Models\Housing;
 
 class CitizenSeeder extends Seeder
 {
@@ -25,148 +26,104 @@ class CitizenSeeder extends Seeder
             $data = json_decode(file_get_contents($path), true);
 
             foreach ($data as $item) {
-                /**
-                 * 🔹 Family Card
-                 */
-                $familyCard = FamilyCard::updateOrCreate(
-                    ['family_card_number' => $item['family_card']['family_card_number'] ?? null],
-                    [
-                        'address'          => $this->formatTitleCase($item['family_card']['address'] ?? null),
-                        'rt'               => $item['family_card']['rt'] ?? null,
-                        'rw'               => $item['family_card']['rw'] ?? null,
-                        'village_code'     => $item['family_card']['village_code'] ?? null,
-                        'subdistrict_code' => $item['family_card']['subdistrict_code'] ?? null,
-                        'district_code'    => $item['family_card']['district_code'] ?? null,
-                        'province_code'    => $item['family_card']['province_code'] ?? null,
-                        'postal_code'      => $item['family_card']['postal_code'] ?? null,
-                    ]
-                );
+                echo "\n🧩 Proses keluarga: {$item['family_card']['family_card_number']}\n";
 
-                $citizenMap = [];
+                // Ambil housing_id dari database (tidak diubah)
+                $housing = Housing::first(); // hanya ambil yang sudah ada di DB
+                if (!$housing) {
+                    throw new \Exception("❌ Tidak ada housing terdaftar di database!");
+                }
+
+                // 🟩 1️⃣ Buat Family Card baru
+                $familyCard = FamilyCard::create([
+                    'id' => Str::uuid(),
+                    'family_card_number' => $item['family_card']['family_card_number'] ?? Str::random(10),
+                    'address' => $this->formatTitleCase($item['family_card']['address'] ?? 'Alamat Tidak Diketahui'),
+                    'rt' => $item['family_card']['rt'] ?? '-',
+                    'rw' => $item['family_card']['rw'] ?? '-',
+                    'village_code' => $item['family_card']['village_code'] ?? null,
+                    'subdistrict_code' => $item['family_card']['subdistrict_code'] ?? null,
+                    'district_code' => $item['family_card']['district_code'] ?? null,
+                    'province_code' => $item['family_card']['province_code'] ?? null,
+                    'postal_code' => $item['family_card']['postal_code'] ?? null,
+                ]);
+
+                // 🟨 2️⃣ Buat Citizen per anggota keluarga
                 $citizens = $item['citizens'] ?? [];
+                $citizenMap = [];
+                $fatherName = null;
+                $motherName = null;
 
-                /**
-                 * 🔹 Citizens
-                 */
                 foreach ($citizens as $index => $citizen) {
-                    $fullname   = $this->formatTitleCase($citizen['fullname'] ?? '');
-                    $birthPlace = $this->formatTitleCase($citizen['birth_place'] ?? '');
-                    $birthDate  = $citizen['birth_date'] ?? null;
-                    $cardNumber = $citizen['citizen_card_number'] ?? null;
-
-                    // Cari citizen existing
-                    $existingCitizen = Citizen::where('fullname', $fullname)
-                        ->when($birthDate, fn($q) => $q->where('birth_date', $birthDate))
-                        ->first();
-
-                    if (!$existingCitizen && $cardNumber) {
-                        $existingCitizen = Citizen::where('citizen_card_number', $cardNumber)->first();
-                    }
-
-                    $religion = $this->formatTitleCase($citizen['religion'] ?? '-');
-                    $citizenship = 'WNI';
-
-                    // Update atau create citizen
-                    if ($existingCitizen) {
-                        $existingCitizen->update([
-                            'citizen_card_number' => $cardNumber ?? $existingCitizen->citizen_card_number,
-                            'family_card_id'      => $familyCard->id,
-                            'fullname'            => $fullname,
-                            'birth_place'         => $birthPlace ?: $existingCitizen->birth_place,
-                            'birth_date'          => $birthDate ?: $existingCitizen->birth_date,
-                            'gender'              => $citizen['gender'] ?? $existingCitizen->gender ?? $this->guessGender($fullname),
-                            'blood_type'          => $citizen['blood_type'] ?? $existingCitizen->blood_type,
-                            'religion'            => $religion,
-                            'marital_status'      => $this->formatTitleCase($citizen['marital_status'] ?? $existingCitizen->marital_status),
-                            'work_type'           => $this->formatTitleCase($citizen['work_type'] ?? $existingCitizen->work_type),
-                            'education_type'      => $this->formatTitleCase($citizen['education_type'] ?? $existingCitizen->education_type),
-                            'citizenship'         => $citizenship,
-                        ]);
-                        $createdCitizen = $existingCitizen;
-                    } else {
-                        $createdCitizen = Citizen::create([
-                            'id'                  => Str::uuid(),
-                            'citizen_card_number' => $cardNumber,
-                            'family_card_id'      => $familyCard->id,
-                            'fullname'            => $fullname,
-                            'birth_place'         => $birthPlace,
-                            'birth_date'          => $birthDate,
-                            'gender'              => $citizen['gender'] ?? $this->guessGender($fullname),
-                            'blood_type'          => $citizen['blood_type'] ?? null,
-                            'religion'            => $religion,
-                            'marital_status'      => $this->formatTitleCase($citizen['marital_status'] ?? null),
-                            'work_type'           => $this->formatTitleCase($citizen['work_type'] ?? null),
-                            'education_type'      => $this->formatTitleCase($citizen['education_type'] ?? null),
-                            'citizenship'         => $citizenship,
-                        ]);
-                    }
-
-                    $citizenMap[$citizen['id'] ?? $createdCitizen->id] = $createdCitizen->id;
-
-                    /**
-                     * 🧩 FamilyMember:
-                     *  index 0 => Kepala Keluarga
-                     *  index 1 => Istri
-                     *  index 2+ => Anak
-                     */
+                    $fullname = $this->formatTitleCase($citizen['fullname'] ?? 'Tanpa Nama');
                     $relationship = match ($index) {
                         0 => 'Kepala Keluarga',
                         1 => 'Istri',
                         default => 'Anak',
                     };
 
-                    FamilyMember::updateOrCreate(
-                        ['citizen_id' => $createdCitizen->id],
-                        [
-                            'relationship_status' => $relationship,
-                            'father_name'         => $this->formatTitleCase($citizen['father_name'] ?? null),
-                            'mother_name'         => $this->formatTitleCase($citizen['mother_name'] ?? null),
-                        ]
-                    );
+                    $citizenModel = Citizen::create([
+                        'id' => Str::uuid(),
+                        'family_card_id' => $familyCard->id,
+                        'citizen_card_number' => $citizen['citizen_card_number'] ?? null,
+                        'fullname' => $fullname,
+                        'birth_place' => $this->formatTitleCase($citizen['birth_place'] ?? '-'),
+                        'birth_date' => $citizen['birth_date'] ?? now()->subYears(rand(1, 60)),
+                        'gender' => $citizen['gender'] ?? $this->guessGender($fullname),
+                        'blood_type' => $citizen['blood_type'] ?? null,
+                        'religion' => $this->formatTitleCase($citizen['religion'] ?? 'Islam'),
+                        'marital_status' => $this->formatTitleCase($citizen['marital_status'] ?? '-'),
+                        'work_type' => $this->formatTitleCase($citizen['work_type'] ?? 'Tidak Bekerja'),
+                        'education_type' => $this->formatTitleCase($citizen['education_type'] ?? '-'),
+                        'citizenship' => 'WNI',
+                    ]);
+
+                    $citizenMap[(string) $citizenModel->id] = $relationship;
+
+                    if ($relationship === 'Kepala Keluarga') {
+                        $fatherName = $fullname;
+                    } elseif ($relationship === 'Istri') {
+                        $motherName = $fullname;
+                    }
+
+                    // 🧩 3️⃣ Buat Family Member
+                    FamilyMember::create([
+                        'id' => Str::uuid(),
+                        'citizen_id' => $citizenModel->id,
+                        'relationship_status' => $relationship,
+                        'father_name' => $relationship === 'Anak' ? $fatherName : null,
+                        'mother_name' => $relationship === 'Anak' ? $motherName : null,
+                        'is_ai_generated' => false,
+                    ]);
                 }
 
-                /**
-                 * 🔹 Kepala Keluarga (index 0)
-                 */
-                $headCitizenId = $citizens[0]['id'] ?? array_values($citizenMap)[0];
+                // 🏠 4️⃣ Buat House (menggunakan housing_id dari DB)
+                $house = House::create([
+                    'id' => Str::uuid(),
+                    'housing_id' => $housing->id,
+                    'house_name' => $this->formatTitleCase($item['house']['house_name'] ?? $housing->housing_name),
+                    'block' => $this->formatTitleCase($item['house']['block'] ?? 'A'),
+                    'number' => $item['house']['number'] ?? rand(1, 200),
+                    'family_card_id' => $familyCard->id,
+                    'head_citizen_id' => (string) array_key_first($citizenMap),
+                ]);
 
-                /**
-                 * 🔹 House
-                 */
-                $house = House::updateOrCreate(
-                    [
-                        'house_name' => $this->formatTitleCase($item['house']['house_name'] ?? null),
-                        'block'      => $this->formatTitleCase($item['house']['block'] ?? null),
-                        'number'     => $item['house']['number'] ?? null,
-                        'housing_id' => $item['house']['housing_id'] ?? '019a0631-0088-714f-a32c-6eec11ceece9',
-                    ],
-                    [
-                        'family_card_id'  => $familyCard->id,
-                        'head_citizen_id' => $headCitizenId,
-                    ]
-                );
-
-                /**
-                 * 🔹 HousingUser
-                 */
-                foreach ($citizenMap as $citizenId) {
-                    HousingUser::updateOrCreate(
-                        ['citizen_id' => $citizenId],
-                        [
-                            'housing_id' => $house->housing_id,
-                            'user_id'   => null,
-                            'role_code' => 'citizen',
-                            'is_active' => 1,
-                        ]
-                    );
+                // 🧱 5️⃣ Tambah ke Housing User
+                foreach ($citizenMap as $citizenId => $rel) {
+                    HousingUser::create([
+                        'id' => Str::uuid(),
+                        'housing_id' => $housing->id,
+                        'citizen_id' => $citizenId,
+                        'is_active' => 1,
+                        'role_code' => 'citizen',
+                    ]);
                 }
+
+                echo "✅ Data keluarga berhasil dibuat: {$familyCard->family_card_number}\n";
             }
         });
     }
 
-    /**
-     * 🔤 Format ke Title Case (contoh: "Mustika Village Karawang")
-     */
     private function formatTitleCase(?string $text): ?string
     {
         if (!$text) return null;
@@ -174,14 +131,5 @@ class CitizenSeeder extends Seeder
         return collect(explode(' ', strtolower($text)))
             ->map(fn($word) => ucfirst($word))
             ->implode(' ');
-    }
-
-    private function guessGender(string $fullname): string
-    {
-        $fullname = strtolower($fullname);
-        if (str_contains($fullname, 'binti') || str_contains($fullname, 'siti')) {
-            return 'Perempuan';
-        }
-        return 'Laki-Laki';
     }
 }

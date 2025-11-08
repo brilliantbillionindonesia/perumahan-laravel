@@ -39,136 +39,146 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
 
-        @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', renderCharts);
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', renderCharts);
 
-                function renderCharts() {
-                    const customerCtx = document.getElementById('customerChart')?.getContext('2d');
-                    const salesCtx = document.getElementById('salesChart')?.getContext('2d');
+            function renderCharts() {
+                const customerCtx = document.getElementById('customerChart')?.getContext('2d');
+                const salesCtx = document.getElementById('salesChart')?.getContext('2d');
 
-                    if (!customerCtx || !salesCtx) return console.warn('Canvas Chart tidak ditemukan');
+                if (!customerCtx || !salesCtx) return console.warn('Canvas Chart tidak ditemukan');
 
-                    // === Customer Volume ===
-                    new Chart(customerCtx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: @json($customerVolume['labels']),
-                            datasets: [{
-                                data: @json($customerVolume['data']),
-                                backgroundColor: @json($customerVolume['colors']),
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        color: '#374151'
-                                    }
+                // === Customer Volume ===
+                new Chart(customerCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: @json($customerVolume['labels']),
+                        datasets: [{
+                            data: @json($customerVolume['data']),
+                            backgroundColor: @json($customerVolume['colors']),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#374151'
                                 }
                             }
                         }
-                    });
+                    }
+                });
 
-                    // === Sales Volume ===
-                    new Chart(salesCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: @json($salesVolume['labels']),
-                            datasets: [{
-                                    label: 'Perumahan',
-                                    data: @json($salesVolume['data']['Perumahan']),
-                                    backgroundColor: @json($salesVolume['colors'][0]),
-                                    borderRadius: 6
+                // === Sales Volume ===
+                new Chart(salesCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: @json($salesVolume['labels']),
+                        datasets: [{
+                                label: 'Perumahan',
+                                data: @json($salesVolume['data']['Perumahan']),
+                                backgroundColor: @json($salesVolume['colors'][0]),
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Pengguna',
+                                data: @json($salesVolume['data']['Pengguna']),
+                                backgroundColor: @json($salesVolume['colors'][1]),
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Warga',
+                                data: @json($salesVolume['data']['Warga']),
+                                backgroundColor: @json($salesVolume['colors'][2]),
+                                borderRadius: 6
+                            },
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: '#4B5563'
                                 },
-                                {
-                                    label: 'Pengguna',
-                                    data: @json($salesVolume['data']['Pengguna']),
-                                    backgroundColor: @json($salesVolume['colors'][1]),
-                                    borderRadius: 6
-                                },
-                                {
-                                    label: 'Warga',
-                                    data: @json($salesVolume['data']['Warga']),
-                                    backgroundColor: @json($salesVolume['colors'][2]),
-                                    borderRadius: 6
-                                },
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        color: '#4B5563'
-                                    },
-                                    grid: {
-                                        color: '#E5E7EB'
-                                    }
-                                },
-                                x: {
-                                    ticks: {
-                                        color: '#4B5563'
-                                    },
-                                    grid: {
-                                        display: false
-                                    }
+                                grid: {
+                                    color: '#E5E7EB'
                                 }
                             },
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        color: '#374151'
-                                    }
+                            x: {
+                                ticks: {
+                                    color: '#4B5563'
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#374151'
                                 }
                             }
                         }
-                    });
-                }
-            </script>
-        @endpush
-    </div>
-<<<<<<< HEAD
-=======
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('userGrowthChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {!! json_encode(array_column($userGrowth, 'year')) !!},
-            datasets: [{
-                label: 'Jumlah Pengguna',
-                data: {!! json_encode(array_column($userGrowth, 'count')) !!},
-                borderColor: 'rgb(79, 70, 229)',
-                backgroundColor: 'rgba(79, 70, 229, 0.2)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, ticks: { color: '#4B5563' } },
-                x: { ticks: { color: '#4B5563' } }
-            },
-            plugins: {
-                legend: { labels: { color: '#111827' } }
+                    }
+                });
             }
-        }
-    });
-</script>
->>>>>>> 3e10734edaa76f00959619efda7aee555dc256f1
+        </script>
+    @endpush
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('userGrowthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode(array_column($userGrowth, 'year')) !!},
+                datasets: [{
+                    label: 'Jumlah Pengguna',
+                    data: {!! json_encode(array_column($userGrowth, 'count')) !!},
+                    borderColor: 'rgb(79, 70, 229)',
+                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#4B5563'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#4B5563'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#111827'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

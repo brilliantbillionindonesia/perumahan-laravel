@@ -1,0 +1,138 @@
+.app-video {
+    // background: linear-gradient(to right, #6f42c1, #3a41c4);
+    background-image: url(../images/video-bg.jpg);
+}
+
+.services-part {
+    .img-part-1 {
+        background-image: url(../images/features-bg-effect.png);
+        background-size: cover;
+        background-position: center center;
+        z-index: -2;
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 360px;
+            width: 360px;
+            background-color: $primary;
+            margin: 0 auto;
+            border-radius: 50%;
+            bottom: 50%;
+            transform: translateY(50%);
+            transition: all 0.5s;
+            z-index: -1;
+            @media (max-width: 568px) {
+                height: 200px;
+                width: 200px;
+            }
+        }
+    }
+}
+
+.features-part {
+    background-image: url(../images/bg-light-about.png);
+}
+
+.services-part-1 {
+    .progress-services {
+        p {
+            font-size: 16px !important;
+        }
+        .progress {
+            overflow: visible;
+            .progress-bar {
+                position: relative;
+                background-color: $primary;
+                border-radius: 2px;
+                overflow: visible;
+
+                .progress-value {
+                    display: block;
+                    position: absolute;
+                    top: -28px;
+                    right: -23px;
+                    font-size: 13px !important;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+
+.services-part-3 {
+    .elementor-box {
+        border-radius: 10px;
+        background-color: $white;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+        padding: 40px 30px;
+        p {
+            font-size: 17px;
+            color: #47536b;
+        }
+    }
+    i {
+        color: $primary;
+    }
+    .title {
+        margin-top: 30px;
+    }
+}
+.services-inner {
+    .services-title {
+        h1 {
+            font-weight: 600;
+        }
+    }
+
+    .services-inner {
+        .services-content {
+            background-color: $light;
+            padding: 40px 27px;
+            border-top: 3px solid $primary;
+            transition: all 0.5s ease-in-out;
+            &:hover {
+                transform: translateY(-0.5rem);
+            }
+            h5 {
+                font-weight: 600;
+            }
+            i {
+                color: $primary;
+                background-color: $white;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 30px;
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+// MEDIA
+
+@media (max-width: 576px) {
+    .services {
+        .services-title {
+            h1 {
+                padding: 10px 0;
+            }
+        }
+        .services-inner {
+            .services-content {
+                margin: 10px 0;
+            }
+        }
+    }
+}
+.guide-app{
+    .guide-content{
+        .step-icon{
+            position: absolute;
+            top: -10px;
+            left: 44%;
+        }
+    }
+
+}
