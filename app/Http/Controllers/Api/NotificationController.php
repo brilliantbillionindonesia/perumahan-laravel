@@ -52,8 +52,9 @@ class NotificationController extends Controller
             ->orderByDesc('n.created_at');
 
         $data = $query
-            ->skip(($page - 1) * $perPage)
-            ->take($perPage)
+            ->limit(5)
+            // ->skip(($page - 1) * $perPage)
+            // ->take($perPage)
             ->get()
             ->map(function ($item) {
                 $item->data_json = !empty($item->data_json)
@@ -61,6 +62,14 @@ class NotificationController extends Controller
                     : null;
                 return $item;
             });
+
+        NotificationRecipient::
+        where('is_read', 0)
+        ->where('user_id', auth()->id())
+        ->update([
+            'is_read' => 1,
+            'read_at' => now(),
+        ]);
 
         return response()->json([
             'success' => true,

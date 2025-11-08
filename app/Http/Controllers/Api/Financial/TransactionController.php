@@ -63,6 +63,7 @@ class TransactionController extends Controller
         $data = FinancialTransaction::where('financial_transactions.housing_id', $request->input('housing_id'))
             ->select('financial_transactions.*', 'financial_categories.name as financial_category_name')
             ->join('financial_categories', 'financial_transactions.financial_category_code', '=', 'financial_categories.code')
+            ->whereNull('financial_categories.deleted_at')
             ->whereYear('transaction_date', $year)
             ->whereMonth('transaction_date', $month)
             ->when($request->input('search'), function ($query) use ($request) {
@@ -219,13 +220,32 @@ class TransactionController extends Controller
         $payment = DB::table('payments as p')
             ->join('dues as d', 'p.due_id', '=', 'd.id')
             ->join('fees as f', 'd.fee_id', '=', 'f.id')
+            ->join('houses as h', 'p.house_id', '=', 'h.id')
+            ->join('citizens as c', 'h.head_citizen_id', '=', 'c.id')
+            ->where('p.transaction_code', $request->input('transaction_code'))
+            ->groupBy('p.transaction_code')
+            ->selectRaw('
+                MAX(p.id)                           as payment_id,
+                MAX(c.fullname)                          as fullname,
+                MAX(h.block)                          as house_block,
+                MAX(h.number)                          as house_number,
+                p.transaction_code,
+                COUNT(*)                            as items_count,
+                SUM(p.amount)                       as amount,
+                MAX(p.paid_at)                      as paid_at,
+                GROUP_CONCAT(DISTINCT d.periode
+                    ORDER BY d.periode SEPARATOR ", ") as periode,
+                GROUP_CONCAT(DISTINCT f.name
+                    ORDER BY f.name SEPARATOR ", ")   as fee_name
+            ')
+            ->first();
+
+
+        $listPayment = DB::table('payments as p')
+            ->join('dues as d', 'p.due_id', '=', 'd.id')
+            ->join('fees as f', 'd.fee_id', '=', 'f.id')
             ->select(
-                'p.id as payment_id',
-                'd.id as due_id',
-                'd.periode',
-                'f.id as fee_id',
                 'f.name as fee_name',
-                'p.transaction_code',
                 'p.amount',
                 'p.paid_at'
             )
@@ -244,7 +264,10 @@ class TransactionController extends Controller
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => 'Success',
-            'data' => $payment->toArray()
+            'data' => [
+                'payment' => $payment,
+                'list_payment' => $listPayment
+            ]
         ], HttpStatusCodes::HTTP_OK);
     }
 
@@ -257,6 +280,7 @@ class TransactionController extends Controller
             'note' => ['required', 'string'],
             'type' => ['required', 'string', Rule::in(['expense', 'income'])],
             'evidence' => ['nullable', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'payment_method' => ['required', 'string', Rule::in(['cash', 'non_cash'])],
         ]);
 
         if ($validator->fails()) {
@@ -282,17 +306,24 @@ class TransactionController extends Controller
         try {
             $transaction = null;
 
-            DB::transaction(function () use ($request, &$transaction) {
+            DB::transaction(function () use ($request, &$transaction, &$cashBalance) {
                 $now = now();
                 $hid = $request->input('housing_id');
                 $type = $request->input('type');
                 $amount = (float) $request->input('amount');
 
                 // Ambil cash balance bulan berjalan (LOCK)
-                /** @var \App\Models\CashBalance|null $cashBalance */
                 $cashBalance = CashBalance::where('housing_id', $hid)
                     ->where('year', $now->year)
                     ->where('month', $now->month)
+                    ->where('payment_method', $request->input('payment_method'))
+                    ->lockForUpdate()
+                    ->first();
+
+                $allcashBalance = CashBalance::where('housing_id', $hid)
+                    ->where('year', $now->year)
+                    ->where('month', $now->month)
+                    ->where('payment_method', 'all')
                     ->lockForUpdate()
                     ->first();
 
@@ -302,23 +333,57 @@ class TransactionController extends Controller
                     $prev = CashBalance::where('housing_id', $hid)
                         ->orderBy('year', 'desc')
                         ->orderBy('month', 'desc')
+                        ->where('payment_method', $request->input('payment_method'))
                         ->lockForUpdate()
                         ->first();
+
                     $openingBalance = (float) optional($prev)->closing_balance ?? 0.0;
 
                     $cashBalance = new CashBalance();
                     $cashBalance->housing_id = $hid;
                     $cashBalance->year = $now->year;
                     $cashBalance->month = $now->month;
+                    $cashBalance->payment_method = $request->input('payment_method');
                     $cashBalance->opening_balance = $openingBalance;
                     $cashBalance->income = 0;
                     $cashBalance->expense = 0;
                     $cashBalance->closing_balance = $openingBalance; // start = opening
                     $cashBalance->save();
+
                     ActivityLogService::logModel(
                         model: $cashBalance->getTable(),
                         rowId: $cashBalance->id,
                         json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                        type: 'create',
+                    );
+                    // setelah save, closing_balance = openingBalance (nol perubahan)
+                }
+
+                if (!$allcashBalance) {
+                    $prevAll = CashBalance::where('housing_id', $hid)
+                        ->orderBy('year', 'desc')
+                        ->orderBy('month', 'desc')
+                        ->where('payment_method', 'all')
+                        ->lockForUpdate()
+                        ->first();
+
+                    $allOpeningBalance = (float) optional($prevAll)->closing_balance ?? 0.0;
+
+                    $allcashBalance = new CashBalance();
+                    $allcashBalance->housing_id = $hid;
+                    $allcashBalance->year = $now->year;
+                    $allcashBalance->month = $now->month;
+                    $allcashBalance->payment_method = 'all';
+                    $allcashBalance->opening_balance = $allOpeningBalance;
+                    $allcashBalance->income = 0;
+                    $allcashBalance->expense = 0;
+                    $allcashBalance->closing_balance = $allOpeningBalance; // start = opening
+                    $allcashBalance->save();
+
+                    ActivityLogService::logModel(
+                        model: $allcashBalance->getTable(),
+                        rowId: $allcashBalance->id,
+                        json: $allcashBalance->toArray(), // ini tetap array untuk JSON
                         type: 'create',
                     );
                     // setelah save, closing_balance = openingBalance (nol perubahan)
@@ -329,11 +394,12 @@ class TransactionController extends Controller
 
                 // Tolak jika pengeluaran melebihi saldo
                 if ($type === 'expense' && $amount > $available) {
+                    $methode = $request->input('payment_method') == 'cash' ? 'Tunai' : 'Non Tunai';
                     // Lempar exception supaya transaksi di-rollback
                     throw new HttpResponseException(response()->json([
                         'success' => false,
                         'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                        'message' => 'Saldo kas tidak mencukupi untuk melakukan pengeluaran.',
+                        'message' => 'Saldo ' . $methode .' tidak mencukupi untuk melakukan pengeluaran.',
                         'data' => [
                             'balance' => $available,
                             'amount' => $amount,
@@ -345,16 +411,31 @@ class TransactionController extends Controller
                 if ($type === 'expense') {
                     $cashBalance->expense = (float) $cashBalance->expense + $amount;
                     $cashBalance->closing_balance = (float) $cashBalance->closing_balance - $amount;
+
+                    $allcashBalance->expense = (float) $allcashBalance->expense + $amount;
+                    $allcashBalance->closing_balance = (float) $allcashBalance->closing_balance - $amount;
                 } else { // income
                     $cashBalance->income = (float) $cashBalance->income + $amount;
                     $cashBalance->closing_balance = (float) $cashBalance->closing_balance + $amount;
+
+                    $allcashBalance->income = (float) $allcashBalance->income + $amount;
+                    $allcashBalance->closing_balance = (float) $allcashBalance->closing_balance + $amount;
                 }
+
                 $cashBalance->save();
+                $allcashBalance->save();
 
                 ActivityLogService::logModel(
                     model: $cashBalance->getTable(),
                     rowId: $cashBalance->id,
                     json: $cashBalance->toArray(), // ini tetap array untuk JSON
+                    type: 'update',
+                );
+
+                ActivityLogService::logModel(
+                    model: $allcashBalance->getTable(),
+                    rowId: $allcashBalance->id,
+                    json: $allcashBalance->toArray(), // ini tetap array untuk JSON
                     type: 'update',
                 );
 
@@ -366,11 +447,11 @@ class TransactionController extends Controller
                 $transaction->transaction_code = $transactionCode;
                 $transaction->financial_category_code = $request->input('financial_category_code');
                 $transaction->amount = $amount;
+                $transaction->payment_method = $request->input('payment_method');
                 $transaction->transaction_date = $request->input('transaction_date');
                 $transaction->note = $request->input('note');
                 $transaction->type = $type;
 
-                // ====== SIMPAN FILE BUKTI (JIKA ADA) ======
                 if ($request->hasFile('evidence')) {
                     $file = $request->file('evidence');
                     $ext = $file->getClientOriginalExtension();
@@ -390,12 +471,12 @@ class TransactionController extends Controller
                     type: 'create',
                 );
 
-                DispatchTransactionStore::dispatch(
-                    transactionId: $transaction->id,
-                    cashBalanceId: $cashBalance->id
-                )->onQueue('notifications');
-
             });
+
+            DispatchTransactionStore::dispatch(
+                transactionId: $transaction->id,
+                cashBalanceId: $cashBalance->id
+            )->onQueue('notifications');
 
             return response()->json([
                 'success' => true,
@@ -409,7 +490,6 @@ class TransactionController extends Controller
             throw $e;
 
         } catch (\Throwable $e) {
-            // fallback error lain
             return response()->json([
                 'success' => false,
                 'code' => HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR,
@@ -460,6 +540,7 @@ class TransactionController extends Controller
                 'fc.type',
                 DB::raw('COALESCE(SUM(ft.amount), 0) as total')
             )
+            ->whereNull('fc.deleted_at')
             ->groupBy('fc.code', 'fc.name', 'fc.type')
             ->orderByDesc('total')
             ->get();

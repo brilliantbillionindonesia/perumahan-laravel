@@ -10,6 +10,7 @@ Route::prefix('financial')->group(function () {
     Route::middleware(['permission:manage_transactions'])->group(function () {
         Route::prefix('dues')->group(function () {
             Route::post('pay', [DueController::class, 'pay']);
+            Route::post('generate', [DueController::class, 'generate']);
         });
         Route::prefix('categories')->group(function () {
             Route::get('list', [CategoryController::class, 'list']);
@@ -38,7 +39,9 @@ Route::prefix('financial')->group(function () {
         Route::get('list', [DueController::class, 'list']);
         Route::get('show', [DueController::class, 'show']);
         Route::get('detail', [DueController::class, 'detail']);
+        Route::get('my-summary', [DueController::class, 'myBillingSummary']);
         Route::get('me', [DueController::class, 'me']);
+        Route::get('my-detail', [DueController::class, 'myDetail']);
     });
 
     Route::prefix('categories')->group(function () {
@@ -55,6 +58,7 @@ Route::prefix('financial')->group(function () {
         Route::get('list', [CashBalanceController::class, 'list']);
         Route::get('show', [CashBalanceController::class, 'show']);
         Route::get('latest', [CashBalanceController::class, 'latest']);
+        Route::post('initial-amount', [CashBalanceController::class, 'initialAmount']);
     });
 
     Route::prefix('transactions')->group(function () {

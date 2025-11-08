@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CashBalance;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -49,7 +50,7 @@ class LargeFamilySeeder extends Seeder
 
             // ====== buat 10 perumahan ======
             $housingIds = [];
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 1; $i++) {
                 $h = Housing::firstOrCreate(
                     ['housing_name' => "Perumahan Nusantara $i"],
                     [
@@ -63,6 +64,17 @@ class LargeFamilySeeder extends Seeder
                         'postal_code' => (string) $faker->numberBetween(41111, 41999),
                     ]
                 );
+
+                CashBalance::create([
+                    'housing_id' => $h->id,
+                    'year' => date('Y'),
+                    'month' => date('m'),
+                    'opening_balance' => 0,
+                    'closing_balance' => 0,
+                    'income' => 0,
+                    'expense' => 0,
+                ]);
+
                 $housingIds[] = $h->id;
             }
 

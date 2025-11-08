@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\Api\Financial\DueController;
+use App\Jobs\DispatchReleasedDue;
 use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 

@@ -45,12 +45,46 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->onOneServer()
                 ->runInBackground();
 
-            // every day at 00:05 app:generate-fee
             $schedule->command('app:generate-fee')
-            ->dailyAt('00:05')
-            ->timezone('Asia/Jakarta')
-            ->withoutOverlapping()
-            ->onOneServer()
-            ->runInBackground();
+                ->dailyAt('00:05')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-patrol-housing')
+                ->dailyAt('19:05')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-patrol')
+                ->dailyAt('16:15')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-patrol')
+                ->dailyAt('20:15')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-due-payment')
+                ->dailyAt('07:00')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
+
+            $schedule->command('app:reminder-due-payment')
+                ->dailyAt('19:00')
+                ->timezone('Asia/Jakarta')
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->runInBackground();
         })
     ->create();

@@ -4,6 +4,8 @@
 namespace App\Console\Commands;
 
 use App\Http\Services\PushService;
+use App\Models\Citizen;
+use App\Models\House;
 use App\Models\PanicRecipient;
 use Illuminate\Console\Command;
 
@@ -29,10 +31,21 @@ class RemindActivePanics extends Command
                         continue;
                     }
 
+                    $citizen = Citizen::where('id', $panic->citizen_id)->first();
+
+                    if(!$citizen) continue;
+
+                    $house = House::where('family_card_id', $citizen->family_card_id)->first();
+
+                    if(!$house) continue;
+
+                    $name = $panic->citizen->fullname ?? $panic->user->name;
+                    $house = $house->block .'|'. $house->number;
+
                     $data = [
                         'type' => 'panic',
                         'panic_id' => $panic->id,
-                        'name' => $panic->citizen->fullname ?? $panic->user->name,
+                        'name' => $name .' - '.$house,
                         'lat' => $panic->latitude,
                         'long' => $panic->longitude,
                         'created_at' => $panic->created_at->toIso8601String(),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
+use App\Models\DeviceToken;
 use App\Models\Housing;
 use App\Models\HousingUser;
 use App\Models\PermissionRole;
@@ -47,6 +48,8 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users',
             'password' => 'required',
+            'token' => 'nullable|string',
+            'platform' => 'nullable|string',
         ], [
             'email.exists' => 'Email tidak ditemukan',
             'password.required' => 'Password harus diisi',
@@ -60,9 +63,7 @@ class AuthController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $user = User::where('email', $request->email)
-        ->first();
-
+        $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
@@ -72,7 +73,29 @@ class AuthController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // jika berhasil, buat token
+        $userToken = null;
+        if($request->token) {
+            $userToken = DeviceToken::where('user_id', $user->id)
+            ->first();
+
+            if($userToken) {
+                if($userToken->token != $request->token) {
+                    return response()->json([
+                        'success' => false,
+                        'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                        'message' => 'Akun masih login di perangkat lain',
+                    ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+                }
+            }
+
+            DeviceToken::create([
+                'user_id' => $user->id,
+                'platform' => $request->platform,
+                'token' => $request->token
+            ]);
+        }
+
+
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
@@ -84,6 +107,22 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'token' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if($request->token) {
+            DeviceToken::where('user_id', $request->user()->id)->delete();
+        }
+
         // Hapus token yang sedang digunakan
         $request->user()->currentAccessToken()->delete();
 

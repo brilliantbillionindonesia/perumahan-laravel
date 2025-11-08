@@ -128,7 +128,7 @@ class FeeController extends Controller
         $data = Fee::create([
             'housing_id' => $request->input('housing_id'),
             'financial_category_code' => $request->input('financial_category_code'),
-            'name' => $request->input('name'),
+            'name' => ucwords($request->input('name')),
             'amount' => $request->input('amount'),
             'frequency' => $request->input('frequency'),
             'due_day' => $request->input('due_day'),

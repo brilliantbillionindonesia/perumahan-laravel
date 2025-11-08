@@ -148,25 +148,17 @@ class PanicController extends Controller
         }
 
         $panicEvent = PanicEvent::findOrFail($request->input('panic_id'));
-
-        if ($panicEvent->status != 'active') {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => 'Panic event tidak aktif',
-            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => 'Panic event aktif',
+            'data' => $panicEvent->status != 'active' ? 0 : 1
         ]);
     }
 
     public function panicNotifiedToMe(Request $request){
         $data = PanicRecipient::where('user_id', auth()->user()->id)
-        ->with('eventActive')->first();
+        ->with('eventActive')->get();
 
         if(!$data){
             return response()->json([

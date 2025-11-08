@@ -39,9 +39,11 @@ return [
         ],
     ],
 
-    'firebase' => [
-        'project_id' => 'perumahan-app',
-        'credentials' => storage_path('app/firebase/service-account.json'),
-    ],
+  'firebase' => [
+    'project_id' => env('FIREBASE_PROJECT_ID', 'perumahan-app'),
+    'credentials' => storage_path(
+        'app/firebase/service-account-' . (env('APP_ENV') === 'production' ? 'prod' : 'dev') . '.json'
+    ),
+],
 
 ];

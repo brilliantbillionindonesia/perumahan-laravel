@@ -45,6 +45,11 @@ class RolePermissionSeeder extends Seeder
             'name' => 'Mengatur Pengguna',
         ]);
 
+        $manageCitizens = Permission::create([
+            'code' => 'manage_citizens',
+            'name' => 'Mengatur Warga',
+        ]);
+
         $manageTransaction = Permission::create([
             'code' => 'manage_transactions',
             'name' => 'Mengatur Transaksi',
@@ -76,6 +81,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $admin->permissions()->attach([
+            $manageCitizens->code,
             $manageUsers->code,
             $manageTransaction->code,
             $manageComplaint->code,
@@ -86,6 +92,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $manager->permissions()->attach([
+            $manageCitizens->code,
             $manageUsers->code,
             $manageTransaction->code,
             $manageComplaint->code,
@@ -96,6 +103,8 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $secretary->permissions()->attach([
+            $manageCitizens->code,
+            $manageTransaction->code,
             $manageComplaint->code,
             $managePatrol->code,
             $viewReports->code,
@@ -104,6 +113,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $bendahara->permissions()->attach([
+            $manageCitizens->code,
             $manageTransaction->code,
             $viewReports->code,
             $viewFinancialReport->code,

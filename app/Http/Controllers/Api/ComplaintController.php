@@ -210,8 +210,8 @@ class ComplaintController extends Controller
         $status = ComplaintStatus::where('code', 'new')->firstOrFail();
         DB::transaction(function () use ($data, $category, $status, $request, &$created, &$complaint) {
             $complaint = Complaint::create([
-                'title' => $data['title'],
-                'description' => $data['description'],
+                'title' => ucwords($data['title']),
+                'description' => ucfirst($data['description']),
                 'housing_id' => $data['housing_id'],
                 'category_code' => $category->code,
                 'status_code' => $status->code,

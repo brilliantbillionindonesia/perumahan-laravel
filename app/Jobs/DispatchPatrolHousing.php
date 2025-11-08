@@ -7,18 +7,22 @@ use App\Http\Services\PushService;
 use App\Models\Citizen;
 use App\Models\House;
 use App\Models\HousingUser;
+use App\Models\Patroling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use PhpParser\Node\Expr\Cast\Object_;
 
-class DispatchPayDue implements ShouldQueue
+class DispatchPatrolHousing implements ShouldQueue
 {
-    use Queueable, Dispatchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $houseId, public string $transactionCode)
+    public function __construct(public $patrolId)
     {
     }
 
@@ -27,12 +31,11 @@ class DispatchPayDue implements ShouldQueue
      */
     public function handle(PushService $push): void
     {
-        $house = House::where('id', $this->houseId)->first();
-        $citizenIds = Citizen::where('family_card_id', $house->family_card_id)->pluck('id')->toArray();
-        $housingUsers = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $house->housing_id)
+        $patrol = Patroling::where('id', $this->patrolId)->first();
+        $housingUsers = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $patrol->housing_id)
             ->join('device_tokens', 'device_tokens.user_id', '=', 'housing_users.user_id')
             ->where('housing_users.is_active', 1)
-            ->whereIn('citizen_id', $citizenIds)->get();
+            ->get();
 
         if ($housingUsers->isEmpty()) {
             return;
@@ -40,33 +43,28 @@ class DispatchPayDue implements ShouldQueue
 
         $tokens = $housingUsers->pluck('token')->filter()->all();
         $channel = 'notification_channel';
-        $title = 'Informasi Pembayaran Iuran';
+        $title = 'Ronda akan dimulai';
+        $body = 'Sebentar lagi jadwal ronda akan dimulai. Cek siapa saja yang akan ronda.';
         $data = [
-            'type' => 'due_payment',
-            'housing_id' => $house->housing_id,
-            'id' => $house->id,
-            'transaction_code' => $this->transactionCode,
+            'type' => 'patrol',
+            'housing_id' => $patrol->housing_id,
+            'date' => $patrol->patrol_date
         ];
 
         $push->sendNotification(
             tokens: $tokens,
             title: $title,
-            body: 'Informasi pembayaran iuran sudah tersedia • Tap untuk buka',
+            body: $body,
             channel: $channel,
-            data: [
-                'type' => 'due_payment',
-                'housing_id' => $house->housing_id,
-                'id' => $house->id,
-                'transaction_code' => $this->transactionCode,
-            ],
+            data: $data
         );
 
         $notificationService = new NotificationService();
         $notificationService->sendNotification(
-            $house->housing_id,
+            $patrol->housing_id,
             'public',
             $title,
-            "Informasi pembayaran iuran",
+            $body,
             $channel,
             $data,
             $housingUsers

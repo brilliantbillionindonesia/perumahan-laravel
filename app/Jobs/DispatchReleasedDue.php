@@ -11,14 +11,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DispatchPayDue implements ShouldQueue
+class DispatchReleasedDue implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $houseId, public string $transactionCode)
+    public function __construct(public string $houseId)
     {
     }
 
@@ -27,12 +27,14 @@ class DispatchPayDue implements ShouldQueue
      */
     public function handle(PushService $push): void
     {
-        $house = House::where('id', $this->houseId)->first();
-        $citizenIds = Citizen::where('family_card_id', $house->family_card_id)->pluck('id')->toArray();
+        $house = House::where('id', operator: $this->houseId)->first();
+        $citizens = Citizen::where('family_card_id', $house->family_card_id)->get();
+        $citizenIds =  $citizens->pluck('id')->toArray();
         $housingUsers = HousingUser::selectRaw('housing_users.user_id,token')->where('housing_id', $house->housing_id)
             ->join('device_tokens', 'device_tokens.user_id', '=', 'housing_users.user_id')
+            ->whereIn('citizen_id', $citizenIds)
             ->where('housing_users.is_active', 1)
-            ->whereIn('citizen_id', $citizenIds)->get();
+            ->get();
 
         if ($housingUsers->isEmpty()) {
             return;
@@ -40,24 +42,22 @@ class DispatchPayDue implements ShouldQueue
 
         $tokens = $housingUsers->pluck('token')->filter()->all();
         $channel = 'notification_channel';
-        $title = 'Informasi Pembayaran Iuran';
+        $title = 'Iuran terbaru sudah terbit';
         $data = [
-            'type' => 'due_payment',
+            'type' => 'due',
             'housing_id' => $house->housing_id,
             'id' => $house->id,
-            'transaction_code' => $this->transactionCode,
         ];
 
         $push->sendNotification(
             tokens: $tokens,
             title: $title,
-            body: 'Informasi pembayaran iuran sudah tersedia • Tap untuk buka',
+            body: 'Informasi iuran terbaru sudah terbit • Tap untuk buka',
             channel: $channel,
             data: [
-                'type' => 'due_payment',
+                'type' => 'due',
                 'housing_id' => $house->housing_id,
                 'id' => $house->id,
-                'transaction_code' => $this->transactionCode,
             ],
         );
 
@@ -66,7 +66,7 @@ class DispatchPayDue implements ShouldQueue
             $house->housing_id,
             'public',
             $title,
-            "Informasi pembayaran iuran",
+            "Iuran terbaru sudah terbit",
             $channel,
             $data,
             $housingUsers

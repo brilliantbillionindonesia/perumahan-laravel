@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Management\CitizenController;
 use App\Http\Controllers\Web\Management\HousingController;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Route;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+>>>>>>> b3d629c1d79767cf8b58264debce1682206cd50d
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +60,11 @@ Route::middleware(['web_token'])->group(function () {
     })->name('user.dashboard');
 
     Route::get('/citizen', [CitizenController::class, 'index'])->name('citizen.index');
+});
+
+Route::get('/qr-drive', function () {
+    // $link = 'https://drive.google.com/file/d/1WkE7tduTGaSVHocBMDv55C_x_5GcmlGi/view?usp=drive_link';
+    // return response(QrCode::format('png')->size(300)->generate($link))
+    //     ->header('Content-Type', 'image/png');
+    return view('qr-code');
 });

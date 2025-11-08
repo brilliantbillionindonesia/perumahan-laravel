@@ -33,6 +33,7 @@ class CategoryController extends Controller
         $perPage = (int) ($request->input('per_page', 10));
 
         $data = FinancialCategory::selectRaw('
+            housing_id,
             id,
             code,
             name,
@@ -52,7 +53,7 @@ class CategoryController extends Controller
             $data = $data->where('name', 'like', '%' . $request->input('search') . '%');
         }
 
-        $data->orderBy('created_at', 'desc');
+        $data->orderBy('id', 'asc');
 
         $data = $data->limit($perPage)->offset(($page - 1) * $perPage);
 
@@ -77,6 +78,7 @@ class CategoryController extends Controller
         }
 
         $data = FinancialCategory::selectRaw('
+            housing_id,
             id,
             code,
             name,
@@ -110,6 +112,8 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => ['required', 'string', Rule::unique('financial_categories', 'name')->whereNull('deleted_at'), 'max:50'],
             "type" => ['required', 'string', Rule::in(['expense', 'income'])],
+        ], [
+            'name.unique' => 'Kategori dengan nama :input sudah ada',
         ]);
 
         if ($validator->fails()) {

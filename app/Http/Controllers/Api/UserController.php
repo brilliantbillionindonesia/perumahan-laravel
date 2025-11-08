@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\HousingRepository;
 use App\Http\Services\ActivityLogService;
 use App\Jobs\SendGeneratedPassword;
+use App\Models\Citizen;
 use App\Models\HousingUser;
 use App\Models\User;
 use DB;
@@ -116,7 +117,8 @@ class UserController extends Controller
 
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             "housing_user_id" => ['required', 'exists:housing_users,id'],
         ]);
@@ -161,26 +163,33 @@ class UserController extends Controller
         }
 
         $generatedPassword = Str::random(8);
+        $checkuser = User::where('email', $request->input('email'))->first();
 
-        $user = User::updateOrCreate([
-            'email' => $request->input('email')
-        ],[
-            'name' => ucwords($request->input('name')),
-            'email' => $request->input('email'),
-            'password' => bcrypt($generatedPassword),
-            'is_generated_password' => true
-        ]);
-
-        if($request->input('citizen_id')){
-            HousingUser::updateOrCreate([
-                'housing_id' => $request->input('housing_id'),
-                'citizen_id' => $request->input('citizen_id'),
-            ],
-            [
-                'user_id' => $user->id,
-                'role_code' => 'citizen',
-                'is_active' => true,
+        if (!$checkuser) {
+            $isNewUser = true;
+            $user = User::create([
+                'name' => ucwords($request->input('name')),
+                'email' => $request->input('email'),
+                'password' => bcrypt($generatedPassword),
+                'is_generated_password' => true
             ]);
+        } else {
+            $isNewUser = false;
+            $user = $checkuser;
+        }
+
+        if ($request->input('citizen_id')) {
+            HousingUser::updateOrCreate(
+                [
+                    'housing_id' => $request->input('housing_id'),
+                    'citizen_id' => $request->input('citizen_id'),
+                ],
+                [
+                    'user_id' => $user->id,
+                    'role_code' => 'citizen',
+                    'is_active' => true,
+                ]
+            );
         } else {
             HousingUser::create([
                 'housing_id' => $request->input('housing_id'),
@@ -190,7 +199,9 @@ class UserController extends Controller
             ]);
         }
 
-        SendWelcomeEmailJob::dispatch($user->id, $generatedPassword)->onQueue('notifications');
+        $housingName = $request->current_housing->housing_name;
+
+        SendWelcomeEmailJob::dispatch($user->id, $generatedPassword, $isNewUser, $housingName)->onQueue('notifications');
 
         return response()->json([
             'success' => true,
@@ -263,6 +274,60 @@ class UserController extends Controller
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => 'password berhasil diubah',
+        ], HttpStatusCodes::HTTP_OK);
+
+    }
+
+    public function syncCitizen(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'citizen_id' => ['nullable', 'exists:citizens,id'],
+            'housing_user_id' => ['nullable', 'exists:housing_users,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $housingUserByCitizen = HousingUser::where('housing_id', $request->input('housing_id'))
+        ->where('citizen_id', $request->input('citizen_id'))
+        ->first();
+
+        $housingUserById = HousingUser::where('id', $request->input('housing_user_id'))
+        ->where('housing_id', $request->input('housing_id'))
+        ->first();
+
+        if(!$housingUserByCitizen && !$housingUserById) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Housing user tidak ditemukan',
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $housingUserById->citizen_id = $request->input('citizen_id');
+        $housingUserById->save();
+
+        $citizen = Citizen::where('id', $request->input('citizen_id'))->first();
+
+        User::where('id', $housingUserById->user_id)
+        ->update([
+            'name' => $citizen->fullname
+        ]);
+
+        HousingUser::where('citizen_id', $request->input('citizen_id'))
+        ->where('housing_id', $request->input('housing_id'))
+        ->whereNull('user_id')
+        ->delete();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Pengguna berhasil disinkronkan',
         ], HttpStatusCodes::HTTP_OK);
 
     }
