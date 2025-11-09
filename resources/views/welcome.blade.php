@@ -74,7 +74,7 @@
                 <div class="col-xl-6 col-lg-12 col-md-12">
                     <div class="hero-text">
                         <h1 class="display-1 text-dark">
-                            <span class="fw-semibold" style="color: #E53935;"> Capek urusan perumahan yang ribet ? </span>
+                            <span class="fw-semibold" style="color: #E53935;"><b> Capek urusan perumahan yang ribet ? </b></span>
                             {{-- <span class="fw-semibold" style="color: #E53935;"> Capek update data warga masih manual ? --}}
                             </span>
                         </h1>
@@ -501,19 +501,15 @@ Semua dilakukan dalam satu aplikasi — cepat, praktis, dan transparan.
                 <div class="row align-items-center position-relative justify-content-center">
                     <div class="col-lg-6">
                         <div class="cta-header  text-center">
-                            <div class="title-sm">
-                                <h6 class="text-light">Contact Us</h6>
-                            </div>
                             <div class="main-title mt-4">
-                                <h2 class="text-light display-6 lh-55">
-                                    We would love to hear from you
+                                <h2 class="text-light display-6">
+                                    Kami siap membantu lingkungan Anda berkembang lebih baik.
                                 </h2>
-                                <p class="mb-4 text-white-50">We are all excited
-                                    to work with you and see ypu growing</p>
+                                <p class="mb-4 text-white-50">Segera daftarkan email Anda untuk mencoba aplikasi sekarang juga.</p>
                                 <div class="form-button cta-app mt-4">
                                     <form class="d-flex align-items-center justify-content-center">
                                         <input type="email" class="form-control border rounded-2 w-75"
-                                            placeholder="Your email" required />
+                                            placeholder="Masukkan email" required />
                                         <button type="submit" class="btn btn-light ms-2 rounded-2">
                                             <i class="ri-mail-add-line fs-5 fw-normal text-primary"></i>
                                         </button>
