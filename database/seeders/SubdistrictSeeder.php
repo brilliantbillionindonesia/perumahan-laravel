@@ -10,37 +10,58 @@ class SubdistrictSeeder extends Seeder
 {
     public function run()
     {
+        // ✅ Kosongkan tabel sebelum isi ulang
+        Subdistrict::truncate();
+
         $path = database_path('data/kecamatan');
         $files = File::files($path);
 
         foreach ($files as $file) {
+            $districtCode = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+
+            // ✅ Lewati file yang bukan kode angka 4 digit (contoh: 1101.json)
+            if (!preg_match('/^\d{4}$/', $districtCode)) {
+                $this->command->warn("⚠️ Lewati file tidak valid: {$file->getFilename()}");
+                continue;
+            }
+
+            $provinceCode = substr($districtCode, 0, 2);
             $json = file_get_contents($file->getPathname());
             $data = json_decode($json, true);
 
-            // Kalau JSON hanya 1 object, bungkus ke array
+            if (empty($data)) {
+                $this->command->warn("⚠️ File kosong: {$file->getFilename()}");
+                continue;
+            }
+
             if (isset($data['id'])) {
                 $data = [$data];
             }
 
-            // Ambil kode kabupaten dari nama file
-            $districtCode = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+            echo "\n📂 Memproses file: {$file->getFilename()} (District: {$districtCode})";
 
-            foreach ($data as $item) {
-                // Ambil 2 digit pertama dari district_code → province_code
-                $provinceCode = substr($districtCode, 0, 2);
+            foreach ($data as $index => $item) {
+                $formattedName = ucwords(strtolower($item['nama'] ?? 'Tanpa Nama'));
 
-                // Format nama: hanya huruf pertama kapital, sisanya huruf kecil
-                $formattedName = ucwords(strtolower($item['nama']));
+                // ✅ Ambil kode dari JSON kalau sudah ada
+                $subdistrictCode = $item['kode'] ?? ($districtCode . str_pad($index + 1, 2, '0', STR_PAD_LEFT));
+
+                // ✅ Pastikan kode hanya 6 digit
+                $subdistrictCode = substr($subdistrictCode, 0, 6);
 
                 Subdistrict::updateOrCreate(
-                    ['code' => $item['id']], // JSON "id" → DB "code"
                     [
-                        'name'          => $formattedName,  // Format huruf diperbaiki
-                        'district_code' => $districtCode,    // Nama file → district_code
-                        'province_code' => $provinceCode,    // Ambil otomatis dari district_code
+                        'code'          => $subdistrictCode,
+                        'province_code' => $provinceCode,
+                    ],
+                    [
+                        'name'          => $formattedName,
+                        'district_code' => $districtCode,
                     ]
                 );
             }
         }
+
+        $this->command->info("\n✅ SubdistrictSeeder selesai tanpa data ganda.");
     }
 }

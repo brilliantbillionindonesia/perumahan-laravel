@@ -69,12 +69,13 @@ class TransactionController extends Controller
             ->when($request->input('search'), function ($query) use ($request) {
                 $query->where(function ($query) use ($request) {
                     $query->where('note', 'like', '%' . $request->input('search') . '%');
+                    $query->orwhere('transaction_code', 'like', '%' . $request->input('search') . '%');
                 });
             })
             ->when($request->input('type'), function ($query) use ($request) {
                 $type = $request->input('type') == 'all' ? null : $request->input('type');
                 if ($type != null) {
-                    $query->where('type', $request->input('type'));
+                    $query->where('financial_transactions.type', $request->input('type'));
                 }
             })
             ->orderBy('created_at', 'desc')

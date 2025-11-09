@@ -1,0 +1,163 @@
+/* 
+// 06.menu
+*/
+.navbar {
+    padding: 10px 0;
+
+    &.info-nav {
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    color: $gray-600;
+                    &:hover {
+                        color: $info;
+                    }
+                    &.active {
+                        color: $info;
+                    }
+                }
+            }
+        }
+        &.nav-sticky {
+            .nav-btn {
+                a {
+                    background-color: $info !important;
+                }
+            }
+        }
+    }
+    &.orange-nav {
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    color: $light;
+                    &:hover {
+                        color: $orange;
+                    }
+                    &.active {
+                        color: $orange;
+                    }
+                }
+            }
+        }
+        &.nav-sticky {
+            .navbar-nav {
+                .nav-item {
+                    .nav-link {
+                        &:hover {
+                            color: $orange !important;
+                        }
+                        &.active {
+                            color: $orange;
+                        }
+                    }
+                }
+            }
+
+            .nav-btn {
+                a {
+                    background-color: $orange !important;
+                }
+            }
+        }
+    }
+    &.primary-nav {
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    color: $gray-600;
+                    &:hover {
+                        color: $primary;
+                    }
+                    &.active {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+    &.nav-sticky {
+        background-color: $white;
+        box-shadow: 10px -10px 20px 0px #c6c8e8;
+
+        .logo {
+            a {
+                color: $primary !important;
+            }
+            i {
+                color: $primary;
+            }
+        }
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    color: $gray-600;
+                    &:hover {
+                        color: $primary !important;
+                    }
+                    &.active {
+                        color: $primary !important;
+                    }
+                }
+            }
+        }
+        .navbar-link {
+            .nav-item {
+                .nav-link {
+                    color: $gray-600;
+                    &:hover {
+                        color: $info !important;
+                    }
+                    &.active {
+                        color: $info !important;
+                    }
+                }
+            }
+        }
+        .nav-btn {
+            a {
+                background-color: $primary !important;
+                color: $light !important;
+            }
+        }
+    }
+
+    @media (max-width: 991px) {
+        background-color: $white;
+    }
+    .navbar-toggler {
+        font-size: 16px;
+        border: 1px solid transparent;
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .logo {
+        a {
+            @media (max-width: 991px) {
+                color: $primary !important ;
+            }
+        }
+    }
+
+    .navbar-nav {
+        .nav-item {
+            .nav-link {
+                font-size: 16px;
+                color: $light;
+                padding: 10px 20px;
+                text-transform: capitalize;
+                font-weight: 700;
+                letter-spacing: 1px;
+                @media (max-width: 991px) {
+                    padding: 14px 14px;
+                }
+
+                @media (max-width: 991px) {
+                    color: $dark !important ;
+                }
+            }
+        }
+    }
+}

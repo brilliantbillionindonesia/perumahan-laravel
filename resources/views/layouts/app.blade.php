@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard')</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         [x-cloak] {
             display: none !important
@@ -37,10 +37,6 @@
                             <a href="{{ route('housings.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                                 Perumahan
-                            </a>
-                            <a href="#"
-                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                                Reports
                             </a>
                         </div>
                     </div>
@@ -100,6 +96,7 @@
             });
         </script>
     @endif
+    @stack('scripts')
 </body>
 
 </html>
