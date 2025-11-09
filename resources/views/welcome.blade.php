@@ -74,6 +74,17 @@
                 <div class="col-xl-6 col-lg-12 col-md-12">
                     <div class="hero-text">
                         <h1 class="display-1 text-dark">
+                            <!-- GAMBAR UNTUK MOBILE -->
+                            <img src="assets/images/screen3.png" alt="serumpun padi app" width="340"
+                                class="img-fluid d-block d-lg-none mx-auto hero-mobile-img mb-3" />
+                            <style>
+                                @media (max-width: 768px) {
+                                    .hero-mobile-img {
+                                        margin-top: -145px !important;
+                                        /* geser ke atas */
+                                    }
+                                }
+                            </style>
                             <span class="fw-semibold" style="color: #E53935;"><b> Capek Urusan Perumahan Yang Ribet ?
                                 </b></span>
                             {{-- <span class="fw-semibold" style="color: #E53935;"> Capek update data warga masih manual ? --}}
@@ -130,7 +141,7 @@
                 </div> -->
             </div>
             <!-- row end  -->
-            <img src="assets/images/screen.png" alt=""
+            <img src="assets/images/screen3.png" width="946" height="749"
                 class="img-fluid hend-img position-absolute start-50" />
         </div>
     </section>
@@ -203,68 +214,79 @@
             <!-- row end  -->
         </div>
     </section>
-    <section class="section about-part-5 hero-part pt-5 pb-5" id="about">
+    <section class="section about-part-5 hero-part pt-3 pb-3" id="about">
         <div class="container">
-            <div class="about-header text-center mb-5 pb-5">
+            <div class="about-header text-center mb-3 mb-md-5 pb-2 pb-md-5 pt-2 pt-md-5">
                 <div class="title-sm">
                     <h2 class="text-primary">Latar Belakang</h2>
                 </div>
-                <div class="main-title mt-4">
-                    <p class="mt-3 lh-base">
-                        Banyak perumahan menghadapi masalah serupa: pencatatan manual yang tidak terpusat, transparansi
-                        keuangan yang terbatas, serta respons keamanan dan aduan yang lambat.
 
-                        Karena itu, Serumpun Padi hadir untuk membantu menciptakan lingkungan yang lebih tertib, aman,
-                        dan transparan dengan sistem terintegrasi real-time.
+                <div class="main-title mt-3">
+                    <p class="mt-2 lh-base">
+                        Banyak perumahan menghadapi masalah serupa: pencatatan manual yang tidak terpusat,
+                        transparansi keuangan yang terbatas, serta respons keamanan dan aduan yang lambat.
+                        Karena itu, Serumpun Padi hadir untuk membantu menciptakan lingkungan yang lebih
+                        tertib, aman, dan transparan dengan sistem terintegrasi real-time.
                     </p>
                 </div>
             </div>
-            <div class="bg-light p-5 rounded-4">
-                <div class="row g-3">
-                    <div class="col-lg-4">
-                        <div class="content shadow text-start bg-white p-4 rounded-4">
-                            <div class="icon">
-                                <i class="ri-slideshow-line fs-1 text-primary"></i>
-                            </div>
-                            <div class="mt-4">
-                                <h6>Pengelolaan Manual dan Tidak Terpusat</h6>
-                                <p class="lh-base">Banyak kompleks perumahan masih mengelola data warga, keuangan,
-                                    aduan, dan komunikasi warga secara manual.
-                                    <br>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="content shadow text-start bg-white p-4 rounded-4">
-                            <div class="icon">
-                                <i class="ri-clipboard-line fs-1 text-primary"></i>
-                            </div>
-                            <div class="mt-4">
-                                <h6>Minim Transparansi dan Akuntabilitas
-                                </h6>
-                                <p class="lh-base">Warga sering tidak mengetahui kondisi keuangan lingkungan secara
-                                    jelas, seperti saldo kas, penggunaan dana,dan iuran.
-                                </p>
+
+            <!-- FULL WIDTH BACKGROUND -->
+            <div class="w-100 bg-light py-4">
+                <div class="container px-3 px-md-5">
+
+                    <div class="row g-3">
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="content shadow text-start bg-white p-4 rounded-4">
+                                <div class="icon">
+                                    <i class="ri-slideshow-line fs-1 text-primary"></i>
+                                </div>
+                                <div class="mt-4">
+                                    <h6>Pengelolaan Manual dan Tidak Terpusat</h6>
+                                    <p class="lh-base">
+                                        Banyak kompleks perumahan masih mengelola data warga,
+                                        keuangan, aduan, dan komunikasi warga secara manual.
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="content shadow text-start bg-white p-4 rounded-4">
-                            <div class="icon">
-                                <i class="ri-shield-user-line fs-1 text-primary"></i>
-                            </div>
-                            <div class="mt-4">
-                                <h6>Kurangnya Sistem Cepat dan Keamanan</h6>
-                                <p class="lh-base">Penanganan aduan dan situasi darurat sering terlambat karena tidak
-                                    adanya sistem terintegrasi secara real-time.
-                                </p>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="content shadow text-start bg-white p-4 rounded-4">
+                                <div class="icon">
+                                    <i class="ri-clipboard-line fs-1 text-primary"></i>
+                                </div>
+                                <div class="mt-4">
+                                    <h6>Minim Transparansi dan Akuntabilitas</h6>
+                                    <p class="lh-base">
+                                        Warga sering tidak mengetahui kondisi keuangan lingkungan,
+                                        seperti saldo kas & penggunaan dana.
+                                    </p>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="content shadow text-start bg-white p-4 rounded-4">
+                                <div class="icon">
+                                    <i class="ri-shield-user-line fs-1 text-primary"></i>
+                                </div>
+                                <div class="mt-4">
+                                    <h6>Kurangnya Sistem Cepat dan Keamanan</h6>
+                                    <p class="lh-base">
+                                        Penanganan aduan dan situasi darurat sering terlambat
+                                        karena tidak adanya sistem real-time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
-                <!-- row end  -->
             </div>
+
         </div>
     </section>
     <section class="section services-part-5 bg-light" id="">
@@ -601,7 +623,7 @@
                 <!-- Brand + Desc -->
                 <div class="col-lg-4 col-md-6">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <img src="assets/images/logopadi.png" style="height: 30px;">
+                        <img src="assets/images/logoputih.png" style="height: 30px;">
                         <h5 class="m-0 text-white fw-semibold">Serumpun Padi</h5>
                     </div>
 
@@ -620,15 +642,6 @@
                         <li><a href="#" class="text-light text-decoration-none">About</a></li>
                         <li><a href="#" class="text-light text-decoration-none">Features</a></li>
                         <li><a href="#" class="text-light text-decoration-none">Download</a></li>
-                    </ul>
-                </div>
-
-                <!-- Legal -->
-                <div class="col-lg-4 col-md-6">
-                    <h6 class="fw-semibold text-white mb-3">Legal</h6>
-                    <ul class="list-unstyled" style="font-size:0.9rem; line-height:1.9;">
-                        <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">Terms & Conditions</a></li>
                     </ul>
                 </div>
 
