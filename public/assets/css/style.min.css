@@ -1299,4 +1299,10 @@ h6 {
         height: auto;
         display: block;
     }
+
+    .footer-desc {
+        font-size: 0.85rem; /* kecil */
+        max-width: 300px; /* batasi agar tetap 3 baris */
+        line-height: 1.4;
+    }
 }
