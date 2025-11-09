@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Scanner;
 
+use App\Constants\BloodTypeOption;
 use App\Constants\EducationTypeOption;
 use App\Constants\GenderOption;
 use App\Constants\HttpStatusCodes;
@@ -166,8 +167,8 @@ class FamilyCardScannerController extends Controller
     {
         $fullPath = $convert['path'];
         $filename = $convert['filename'];
-        // $scannerUrl = config('services.scanner.url') . '/scan-kk-full';
-        $scannerUrl = config('services.scanner.url') . '/scan-kk-url';
+        $scannerUrl = config('services.scanner.url') . '/scan-kk-full';
+        // $scannerUrl = config('services.scanner.url') . '/scan-kk-url';
 
         if (!Storage::disk('public')->exists($fullPath)) {
             throw new \Exception("File {$fullPath} tidak ditemukan di storage");
@@ -177,10 +178,10 @@ class FamilyCardScannerController extends Controller
         $pythonResp = Http::
             timeout(120)
             ->attach(
-                // 'file',
-                'image_url',
-                // file_get_contents(storage_path('app/public/' . $fullPath)),
-                $imageUrl,
+                'file',
+                // 'image_url',
+                file_get_contents(storage_path('app/public/' . $fullPath)),
+                // $imageUrl,
                 $filename
             )->post($scannerUrl);
 
@@ -258,7 +259,8 @@ class FamilyCardScannerController extends Controller
                 'gender' => GenderOption::getTypeOption($itemMember['jenis_kelamin']),
                 'birth_place' => ucwords(strtolower($itemMember['tempat_lahir'])),
                 'birth_date' => Carbon::parse($itemMember['tanggal_lahir'])->format('Y-m-d'),
-                'blood_type' => strlen($itemMember['golongan_darah']) > 0 ? $itemMember['golongan_darah'] : "-",
+                // 'blood_type' => strlen($itemMember['golongan_darah']) > 0 ? $itemMember['golongan_darah'] : "-",
+                'blood_type' => BloodTypeOption::getTypeOption($itemMember['golongan_darah']),
                 'religion' => ReligionOption::getTypeOption($itemMember['agama']),
                 'marital_status' => MaritalStatusOption::getTypeOption($dataRelationshipStatus['status_perkawinan']),
                 'marriage_date' => strlen($dataRelationshipStatus['tanggal_perkawinan']) > 0 ? Carbon::parse($dataRelationshipStatus['tanggal_perkawinan'])->format('Y-m-d') : null,
