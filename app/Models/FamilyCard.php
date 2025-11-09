@@ -12,19 +12,28 @@ class FamilyCard extends Model
     protected $table = 'family_cards';
     protected $guarded = [];
 
-    public function village(){
+    public function village()
+    {
         return $this->belongsTo(Village::class, 'village_code', 'code');
     }
 
-    public function subdistrict(){
+    public function subdistrict()
+    {
         return $this->belongsTo(Subdistrict::class, 'subdistrict_code', 'code');
     }
 
-    public function district(){
+    public function district()
+    {
         return $this->belongsTo(District::class, 'district_code', 'code');
     }
 
-    public function province(){
+    public function province()
+    {
         return $this->belongsTo(Province::class, 'province_code', 'code');
+    }
+
+    public function citizens()
+    {
+        return $this->hasMany(Citizen::class, 'family_card_id', 'id');
     }
 }

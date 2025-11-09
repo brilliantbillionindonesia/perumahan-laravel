@@ -1,0 +1,55 @@
+.cta-app {
+    form {
+        position: relative;
+        .form-control {
+            box-shadow: none;
+            width: 50%;
+            height: 45px;
+            border: 1px solid $light;
+            @media (max-width: 991px) {
+                width: 60% !important;
+            }
+        }
+        .btn {
+            padding: 7px 34px;
+        }
+    }
+
+    .carousel {
+        .carousel-item {
+            .carousel-image {
+                padding: 350px 0;
+            }
+        }
+    }
+}
+
+.cta-bg {
+    // background: url(../images/cta-3.jpg) fixed;
+    background-color: $primary;
+}
+//
+// Cta.scss
+//
+
+.cta-home {
+
+    .cta-content {
+        position: absolute;
+        top: 30%;
+        max-width: 510px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
+
+    .mobile-cta {
+        position: relative;
+        top: -140px;
+        .cta-box-2 {
+            border-radius: 10px;
+        }
+    }
+
+}
+

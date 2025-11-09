@@ -2,34 +2,30 @@
 
 namespace App\Http\Middleware;
 
-use App\Constants\HttpStatusCodes;
-use App\Http\Repositories\HousingRepository;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Validator;
 
 class WebTokenMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $webTokenEnv = env('WEB_TOKEN');
-        $validator = Validator::make($request->all(), [
-            'token' => ['required', 'in:'.$webTokenEnv],
-        ]);
+        // Ambil token dari query / header / session
+        $tokenRequest = $request->query('token')
+            ?? $request->header('X-Access-Token')
+            ?? session('web_token');
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => $validator->errors()->first(),
-            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        // Token valid dari .env
+        $validToken = config('app.web_token');
+
+        // Jika token tidak ada atau salah
+        if (!$tokenRequest || $tokenRequest !== $validToken) {
+            return redirect()->route('login')->with([
+                'error' => 'Akses ditolak. Token tidak valid.',
+            ]);
         }
+
+        // Simpan token ke session supaya tidak perlu kirim ulang
+        session(['web_token' => $tokenRequest]);
 
         return $next($request);
     }

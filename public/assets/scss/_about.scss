@@ -1,0 +1,28 @@
+.about-part {
+    .icon-text {
+        box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.about-part-1 {
+    overflow: hidden;
+    .content {
+        box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.about-section-3 {
+    .nav-link {
+        color: $dark;
+        background-color: $white;
+        padding: 8px;
+        margin-left: 10px;
+        border: 1px solid $primary;
+        &.active {
+            background-color: $primary;
+        }
+    }
+}
+
