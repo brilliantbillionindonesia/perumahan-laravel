@@ -3,11 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Management\CitizenController;
 use App\Http\Controllers\Web\Management\HousingController;
-<<<<<<< HEAD
-=======
-use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
->>>>>>> b3d629c1d79767cf8b58264debce1682206cd50d
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,36 +28,23 @@ Route::get('test/email', function () {
         'password' => 'password',
     ]);
 });
-
-/*
-|--------------------------------------------------------------------------
-| ADMIN ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::prefix('admin')->group(function () {
-    // Dashboard admin
-    Route::get('/dashboard', [HousingController::class, 'dashboard'])->name('admin.dashboard');
-
-    // CRUD data perumahan
-    Route::resource('/housings', HousingController::class);
-
-    // Daftar penghuni (residents) untuk perumahan tertentu
-    Route::get('/housings/{id}/residents', [HousingController::class, 'residents'])
-        ->name('admin.housings.residents');
-});
-
 /*
 |--------------------------------------------------------------------------
 | AUTHENTICATED ROUTES (WEB TOKEN)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['web_token'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('user.dashboard');
+Route::prefix('admin')
+    ->middleware(['web_token'])
+    ->group(function () {
 
-    Route::get('/citizen', [CitizenController::class, 'index'])->name('citizen.index');
-});
+        Route::get('/dashboard', [HousingController::class, 'dashboard'])
+            ->name('admin.dashboard');
+
+        Route::resource('/housings', HousingController::class);
+
+        Route::get('/housings/{id}/residents', [HousingController::class, 'residents'])
+            ->name('admin.housings.residents');
+    });
 
 Route::get('/qr-drive', function () {
     // $link = 'https://drive.google.com/file/d/1WkE7tduTGaSVHocBMDv55C_x_5GcmlGi/view?usp=drive_link';
