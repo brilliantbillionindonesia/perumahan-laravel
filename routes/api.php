@@ -17,6 +17,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('generate-password', [UserController::class, 'generatePassword']);
+    Route::post('register-demo', [UserController::class, 'storeDemo'])->name('register-demo');
 });
 
 Route::prefix('admin')->group(function(){
