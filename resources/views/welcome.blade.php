@@ -91,21 +91,15 @@
                             </span>
                         </h1>
                         <p class="fw-medium mt-3 lh-base">
-                            Pengelolaan perumahan sering terasa melelahkan: pencatatan manual, penagihan berulang,
-                            laporan yang tercecer, dan komunikasi yang tidak terarah.
-                            {{-- Dengan Serumpun Padi, data warga bisa di-update jauh lebih cepat berkat <b>AI</b> yang mampu membaca Kartu
-                            Keluarga (KK) — cukup foto, data langsung terisi, pengurus cukup validasi.<br>
-                            Pengurus tidak lagi perlu mengetik satu per satu — menghemat
-                            banyak waktu. --}}
+                            Capek input data warga <b>satu-satu</b> ?<br>
+                            Capek data warga tidak <b>rapih</b> ?<br>
+                            Capek <b>mengingatkan</b> penagihan tiap bulan ?<br>
+                            Sering <b>lupa untuk verifikasi</b> pembayaran iuran warga ?<br>
                             <br>
-                            Serumpun Padi menyederhanakan semuanya dalam satu aplikasi — dari pengelolaan data warga,
-                            kas, iuran, hingga laporan keuangan.
-                            Jalan lebih cepat, data lebih rapi.
+                            Jika semua itu terdengar familiar, berarti saatnya Anda punya sistem yang membantu — bukan membebani. <b>Serumpun Padi</b> jawabannya.
                         </p>
                     </div>
                     <div class="main-btn mt-4">
-                        {{-- <a href="#" class="btn p-0 m-0"><img src="assets/images/app-store.png"
-                                alt="" /></a> --}}
                         <a href="#" class="btn p-0 m-0 ms-2"><img src="assets/images/play-store.png"
                                 alt="" /></a>
                     </div>

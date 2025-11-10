@@ -8,6 +8,7 @@ use App\Http\Repositories\HousingRepository;
 use App\Http\Services\ActivityLogService;
 use App\Jobs\SendGeneratedPassword;
 use App\Models\Citizen;
+use App\Models\Housing;
 use App\Models\HousingUser;
 use App\Models\User;
 use DB;
@@ -208,6 +209,83 @@ class UserController extends Controller
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'message' => 'User berhasil ditambahkan',
+            'user' => $user,
+        ], HttpStatusCodes::HTTP_OK);
+
+    }
+
+    public function storeDemo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required'],
+        ], [
+            'name.required' => 'Nama wajib diisi',
+            'email.unique' => 'Email sudah terdaftar',
+            'email.required' => 'Email wajib diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $generatedPassword = Str::random(8);
+        $checkuser = User::where('email', $request->input('email'))->first();
+
+        if (!$checkuser) {
+            $isNewUser = true;
+            $user = User::create([
+                'name' => ucwords($request->input('name')),
+                'email' => $request->input('email'),
+                'password' => bcrypt($generatedPassword),
+                'is_generated_password' => true
+            ]);
+        } else {
+            $isNewUser = false;
+            $user = $checkuser;
+        }
+
+        $housingId = Housing::where('is_demo', 1)->first();
+
+        if (!$housingId) {
+            return response()->json([
+                'success' => false,
+                'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => 'Housing demo tidak ditemukan',
+            ]);
+        }
+
+        if ($request->input('citizen_id')) {
+            HousingUser::updateOrCreate(
+                [
+                    'housing_id' => $housingId->id,
+                ],
+                [
+                    'user_id' => $user->id,
+                    'role_code' => 'citizen',
+                    'is_active' => true,
+                ]
+            );
+        } else {
+            HousingUser::create([
+                'housing_id' => $housingId->id,
+                'user_id' => $user->id,
+                'role_code' => 'citizen',
+                'is_active' => true,
+            ]);
+        }
+
+        $housingName = $housingId->housing_name;
+        SendWelcomeEmailJob::dispatch($user->id, $generatedPassword, $isNewUser, $housingName)->onQueue('notifications');
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'message' => 'Anda berhasil daftar untuk Demo Aplikasi',
             'user' => $user,
         ], HttpStatusCodes::HTTP_OK);
 
