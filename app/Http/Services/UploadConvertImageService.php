@@ -32,7 +32,7 @@ class UploadConvertImageService
 
         $folder = self::$folder ?? 'family_cards';
         $filename = Str::random(12) . '.jpg'; // pakai JPG supaya ukuran kecil
-        $storagePath = "public/{$folder}/{$housingId}";
+        $storagePath = "private/{$folder}/{$housingId}";
         $fullPath = storage_path("app/{$storagePath}");
 
         if (!file_exists($fullPath)) {
@@ -45,8 +45,8 @@ class UploadConvertImageService
         try {
             if ($ext === 'pdf') {
                 // === Konversi PDF ke image ===
-                $tempPath = $file->store("temp/{$housingId}", 'public');
-                $fullPdfPath = storage_path('app/public/' . $tempPath);
+                $tempPath = $file->store("temp/{$housingId}", 'private');
+                $fullPdfPath = storage_path('app/private/' . $tempPath);
 
                 $pdfToImage = new \Spatie\PdfToImage\Pdf($fullPdfPath);
                 $imageTemp = "{$fullPath}/temp_{$filename}";
@@ -54,7 +54,7 @@ class UploadConvertImageService
                     ->setOutputFormat('jpg')
                     ->saveImage($imageTemp);
 
-                Storage::disk('public')->delete($tempPath);
+                Storage::disk('private')->delete($tempPath);
 
                 $image = $manager->read($imageTemp);
             } else {
