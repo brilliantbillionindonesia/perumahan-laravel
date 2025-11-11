@@ -16,6 +16,7 @@ class RelationshipStatusOption
     public const PEMBANTU = 'Pembantu';
     public const KANDUNG = 'Saudara Kandung';
     public const KEPONAKAN = 'Keponakan';
+    public const TEMAN = 'Teman';
     public const LAINNYA = 'Lainnya';
 
     public static function all(): array
@@ -33,6 +34,7 @@ class RelationshipStatusOption
             self::PEMBANTU,
             self::KANDUNG,
             self::KEPONAKAN,
+            self::TEMAN,
             self::LAINNYA,
         ];
     }

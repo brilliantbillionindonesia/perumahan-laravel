@@ -6,6 +6,7 @@ use App\Constants\HttpStatusCodes;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\HousingRepository;
 use App\Http\Services\ActivityLogService;
+use App\Jobs\SendEmailToMarketing;
 use App\Jobs\SendGeneratedPassword;
 use App\Models\Citizen;
 use App\Models\Housing;
@@ -218,7 +219,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required'],
+            'email' => ['required', 'unique:users'],
         ], [
             'name.required' => 'Nama wajib diisi',
             'email.unique' => 'Email sudah terdaftar',
@@ -255,7 +256,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                'message' => 'Housing demo tidak ditemukan',
+                'message' => 'Maaf demo aplikasi sedang tidak tersedia. Silahkan hubungi tim kami.',
             ]);
         }
 
@@ -281,7 +282,7 @@ class UserController extends Controller
 
         $housingName = $housingId->housing_name;
         SendWelcomeEmailJob::dispatch($user->id, $generatedPassword, $isNewUser, $housingName)->onQueue('notifications');
-
+        SendEmailToMarketing::dispatch($user->id)->onQueue('notifications');
         return response()->json([
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,

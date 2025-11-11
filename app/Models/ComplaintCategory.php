@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ComplaintCategory extends Model
 {
     protected $table = 'complaint_categories';
-    protected $fillable = ['code', 'name'];
+    protected $guarded = [];
 
     // Relasi ke Complaint
     public function complaints()
