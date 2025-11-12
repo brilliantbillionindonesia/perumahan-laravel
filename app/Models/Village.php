@@ -11,8 +11,7 @@ class Village extends Model
         'province_code',
         'district_code',
         'subdistrict_code',
-        'code', 
+        'code',
         'name',
-
     ];
 }

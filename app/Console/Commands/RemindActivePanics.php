@@ -16,57 +16,60 @@ class RemindActivePanics extends Command
 
     public function handle(PushService $push)
     {
-        PanicRecipient::with('eventActive')
+        $panicData = PanicRecipient::with('eventActive')
             ->where(function ($q) {
                 $q->whereNull('last_reminded_at')
                     ->orWhere('last_reminded_at', '<=', now()->subSeconds(60));
-            })
-            ->chunkById(200, function ($rows) use ($push) {
-                foreach ($rows as $rec) {
-                    $panic = $rec->eventActive;
-                    if(!$panic) continue;
-                    $tokens = $rec->user->devices->pluck('token')->filter()->values()->all();
-                    if (empty($tokens)) {
-                        $rec->update(['last_reminded_at' => now(), 'reminder_count' => $rec->reminder_count + 1]);
-                        continue;
-                    }
-
-                    $citizen = Citizen::where('id', $panic->citizen_id)->first();
-
-                    if(!$citizen) continue;
-
-                    $house = House::where('family_card_id', $citizen->family_card_id)->first();
-
-                    if(!$house) continue;
-
-                    $name = $panic->citizen->fullname ?? $panic->user->name;
-                    $house = $house->block .'|'. $house->number;
-
-                    $data = [
-                        'type' => 'panic',
-                        'panic_id' => $panic->id,
-                        'name' => $name .' - '.$house,
-                        'lat' => $panic->latitude,
-                        'long' => $panic->longitude,
-                        'created_at' => $panic->created_at->toIso8601String(),
-                    ];
-
-                    $ok = $push->sendPanic(
-                        tokens: $tokens,
-                        data: $data,
-                        title: 'Permintaan PANIC!',
-                        body: ($data['name'] ? "{$data['name']} masih membutuhkan bantuan." : 'Butuh bantuan segera.')
-                    );
-
-                    if ($ok) {
-                        $rec->update([
-                            'status' => $rec->status, // biarkan, atau tetap 'delivered'
-                            'last_reminded_at' => now(),
-                            'reminder_count' => $rec->reminder_count + 1,
-                        ]);
-                    }
-                }
             });
+        $panicData->chunkById(200, function ($rows) use ($push) {
+            foreach ($rows as $rec) {
+                $panic = $rec->eventActive;
+                if (!$panic)
+                    continue;
+                $tokens = $rec->user->devices->pluck('token')->filter()->values()->all();
+                if (empty($tokens)) {
+                    $rec->update(['last_reminded_at' => now(), 'reminder_count' => $rec->reminder_count + 1]);
+                    continue;
+                }
+
+                $citizen = Citizen::where('id', $panic->citizen_id)->first();
+
+                if (!$citizen)
+                    continue;
+
+                $house = House::where('family_card_id', $citizen->family_card_id)->first();
+
+                if (!$house)
+                    continue;
+
+                $name = $panic->citizen->fullname ?? $panic->user->name;
+                $house = $house->block . '|' . $house->number;
+
+                $data = [
+                    'type' => 'panic',
+                    'panic_id' => $panic->id,
+                    'name' => $name . ' - ' . $house,
+                    'lat' => $panic->latitude,
+                    'long' => $panic->longitude,
+                    'created_at' => $panic->created_at->toIso8601String(),
+                ];
+
+                $ok = $push->sendPanic(
+                    tokens: $tokens,
+                    data: $data,
+                    title: 'Permintaan PANIC!',
+                    body: ($data['name'] ? "{$data['name']} masih membutuhkan bantuan." : 'Butuh bantuan segera.')
+                );
+
+                if ($ok) {
+                    $rec->update([
+                        'status' => $rec->status, // biarkan, atau tetap 'delivered'
+                        'last_reminded_at' => now(),
+                        'reminder_count' => $rec->reminder_count + 1,
+                    ]);
+                }
+            }
+        });
 
         $this->info('Reminder panic diproses.');
         return Command::SUCCESS;

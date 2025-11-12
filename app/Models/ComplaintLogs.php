@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ComplaintLogs extends Model
 {
     protected $table = 'complaint_logs';
-    protected $fillable = ['complaint_id', 'logged_by', 'logged_at', 'status_code', 'note'];
+    protected $guarded = [];
 
     public function complaint()
     {

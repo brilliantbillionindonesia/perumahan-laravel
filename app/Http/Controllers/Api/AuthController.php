@@ -75,18 +75,18 @@ class AuthController extends Controller
 
         $userToken = null;
         if($request->token) {
-            $userToken = DeviceToken::where('user_id', $user->id)
-            ->first();
+            // $userToken = DeviceToken::where('user_id', $user->id)
+            // ->first();
 
-            if($userToken) {
-                if($userToken->token != $request->token) {
-                    return response()->json([
-                        'success' => false,
-                        'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
-                        'message' => 'Akun masih login di perangkat lain',
-                    ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
-                }
-            }
+            // if($userToken) {
+            //     if($userToken->token != $request->token) {
+            //         return response()->json([
+            //             'success' => false,
+            //             'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
+            //             'message' => 'Akun masih login di perangkat lain',
+            //         ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
+            //     }
+            // }
 
             DeviceToken::create([
                 'user_id' => $user->id,

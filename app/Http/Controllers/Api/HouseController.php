@@ -9,6 +9,7 @@ use App\Models\Citizen;
 use App\Models\House;
 use App\Models\Housing;
 use App\Models\HousingUser;
+use DB;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -153,6 +154,28 @@ class HouseController extends Controller
             'success' => true,
             'code' => HttpStatusCodes::HTTP_OK,
             'data' => $data
+        ], HttpStatusCodes::HTTP_OK);
+    }
+
+    public function statisticOwnerRenter(Request $request)
+    {
+        $housingId = $request->input('housing_id');
+        $result = DB::table('houses')
+            ->selectRaw("
+                SUM(owner_citizen_id IS NOT NULL) AS owner_count,
+                SUM(renter_citizen_id IS NOT NULL) AS renter_count
+            ")
+            ->where('housing_id', $housingId)
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'code' => HttpStatusCodes::HTTP_OK,
+            'data' => [
+                'owner_count' => (int)$result->owner_count,
+                'renter_count' => (int)$result->renter_count,
+                'total' => $result->owner_count + $result->renter_count
+            ],
         ], HttpStatusCodes::HTTP_OK);
     }
 
