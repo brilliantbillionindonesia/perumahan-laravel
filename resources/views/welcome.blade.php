@@ -563,10 +563,28 @@
                                 <p class="mb-4 text-white-50">Segera daftarkan email Anda untuk mencoba aplikasi
                                     sekarang juga.</p>
                                 <div class="form-button cta-app mt-4">
-                                    <form class="d-flex align-items-center justify-content-center">
-                                        <input type="email" class="form-control border rounded-2 w-75"
-                                            placeholder="Masukkan email" required />
-                                        <button type="submit" class="btn btn-light ms-2 rounded-2">
+                                    <form class="subscribe-form d-flex align-items-center justify-content-center flex-wrap">
+                                        <!-- Nama -->
+                                        <input 
+                                            type="text" 
+                                            class="form-control border rounded-2 me-2 mb-2 flex-grow-1" 
+                                            placeholder="Masukkan nama" 
+                                            required 
+                                        />
+                                    
+                                        <!-- Email -->
+                                        <input 
+                                            type="email" 
+                                            class="form-control border rounded-2 me-2 mb-2 flex-grow-1" 
+                                            placeholder="Masukkan email" 
+                                            required 
+                                        />
+                                    
+                                        <!-- Button -->
+                                        <button 
+                                            type="submit" 
+                                            class="btn btn-light rounded-2 mb-2 d-flex align-items-center justify-content-center"
+                                        >
                                             <i class="ri-mail-add-line fs-5 fw-normal text-primary"></i>
                                         </button>
                                     </form>
