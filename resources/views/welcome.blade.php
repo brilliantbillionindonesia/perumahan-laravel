@@ -96,7 +96,8 @@
                             Capek <b>mengingatkan</b> penagihan tiap bulan ?<br>
                             Sering <b>lupa untuk verifikasi</b> pembayaran iuran warga ?<br>
                             <br>
-                            Jika semua itu terdengar familiar, berarti saatnya Anda punya sistem yang membantu — bukan membebani. <b>Serumpun Padi</b> jawabannya.
+                            Jika semua itu terdengar familiar, berarti saatnya Anda punya sistem yang membantu — bukan
+                            membebani. <b>Serumpun Padi</b> jawabannya.
                         </p>
                     </div>
                     <div class="main-btn mt-4">
@@ -557,20 +558,33 @@
                                 <p class="mb-4 text-white-50">Segera daftarkan email Anda untuk mencoba aplikasi
                                     sekarang juga.</p>
                                 <div class="form-button cta-app mt-4">
-                                    <form class="d-flex align-items-center justify-content-center">
-                                        <input type="email" class="form-control border rounded-2 w-75"
-                                            placeholder="Masukkan email" required />
-                                        <button type="submit" class="btn btn-light ms-2 rounded-2">
+                                    <form id="registerForm"
+                                        class="subscribe-form d-flex align-items-center justify-content-center flex-wrap">
+
+                                        <!-- Nama -->
+                                        <input type="text" id="name"
+                                            class="form-control border rounded-2 me-2 mb-2 flex-grow-1"
+                                            placeholder="Masukkan nama lengkap" required />
+
+                                        <!-- Email -->
+                                        <input type="email" id="email"
+                                            class="form-control border rounded-2 me-2 mb-2 flex-grow-1"
+                                            placeholder="Masukkan email aktif" required />
+
+                                        <!-- Tombol -->
+                                        <button type="submit"
+                                            class="btn btn-light rounded-2 mb-2 d-flex align-items-center justify-content-center px-3">
                                             <i class="ri-mail-add-line fs-5 fw-normal text-primary"></i>
                                         </button>
                                     </form>
+
+                                    <div id="registerMessage" class="text-center mt-3"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- brand section start  -->
     <section class="section download-part bg-light" id="download">
@@ -639,6 +653,14 @@
                     </ul>
                 </div>
 
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="fw-semibold text-white mb-3">Legal</h6>
+                    <ul class="list-unstyled" style="font-size:0.9rem; line-height:1.9;">
+                        <a href="{{ route('privacy-policy') }}" class="text-light text-decoration-none">Privacy Policy</a>
+                        <li><a href="#" class="text-light text-decoration-none">Terms Of Condition</a></li>
+                    </ul>
+                </div>
+
             </div>
 
             <!-- Divider -->
@@ -676,6 +698,74 @@
     <script src="assets/js/swiper-bundle.min.js"></script>
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
     <script src="assets/js/app.js"></script>
+    <!-- Tambahkan SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById('registerForm');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = "password123";
+    
+            Swal.fire({
+                title: 'Mengirim...',
+                text: 'Mohon tunggu sebentar.',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+    
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/auth/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password,
+                        password_confirmation: password,
+                    }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pendaftaran Berhasil 🎉',
+                        html: `<p>Halo <b>${name}</b>! Silakan cek email <b>${email}</b> untuk informasi lebih lanjut.</p>`,
+                        confirmButtonColor: '#198754',
+                    });
+                    form.reset();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Mendaftar 😢',
+                        html: data.message || 'Terjadi kesalahan saat pendaftaran.',
+                        confirmButtonColor: '#dc3545',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Koneksi Gagal ⚠️',
+                    text: 'Tidak dapat terhubung ke server. Periksa koneksi Anda.',
+                    confirmButtonColor: '#dc3545',
+                });
+                console.error("Error:", error);
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
