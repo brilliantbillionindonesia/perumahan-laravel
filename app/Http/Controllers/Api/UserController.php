@@ -249,7 +249,7 @@ class UserController extends Controller
             $user = $checkuser;
         }
 
-        $housingId = Housing::where('is_demo', 1)->first();
+        $housingId = Housing::where('is_demo', 1)->first(); 
 
         if (!$housingId) {
             return response()->json([

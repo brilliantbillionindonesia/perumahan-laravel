@@ -703,69 +703,70 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById('registerForm');
-    
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-    
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = "password123";
-    
-            Swal.fire({
-                title: 'Mengirim...',
-                text: 'Mohon tunggu sebentar.',
-                allowOutsideClick: false,
-                didOpen: () => Swal.showLoading()
-            });
-    
-            try {
-                const response = await fetch("http://127.0.0.1:8000/api/user/register-demo", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                    },
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password,
-                        password_confirmation: password,
-                    }),
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById('registerForm');
+        
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+        
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+        
+                if (!name || !email) {
+                    Swal.fire("Oops!", "Nama dan Email wajib diisi.", "warning");
+                    return;
+                }
+        
+                Swal.fire({
+                    title: 'Mengirim...',
+                    text: 'Mohon tunggu sebentar.',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
                 });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Pendaftaran Berhasil 🎉',
-                        html: `<p>Halo <b>${name}</b>! Silakan cek email <b>${email}</b> untuk informasi lebih lanjut.</p>`,
-                        confirmButtonColor: '#198754',
+        
+                try {
+                    const response = await fetch("http://127.0.0.1:8000/api/user/register-demo", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name,
+                            email,
+                        }),
                     });
-                    form.reset();
-                } else {
+        
+                    const data = await response.json();
+        
+                    if (response.ok && data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pendaftaran Berhasil 🎉',
+                            html: `<p>Halo <b>${name}</b>! Silakan cek email <b>${email}</b> untuk informasi login.</p>`,
+                            confirmButtonColor: '#198754',
+                        });
+                        form.reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Mendaftar 😢',
+                            text: data.message || 'Terjadi kesalahan saat pendaftaran.',
+                            confirmButtonColor: '#dc3545',
+                        });
+                    }
+                } catch (error) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Gagal Mendaftar 😢',
-                        html: data.message || 'Terjadi kesalahan saat pendaftaran.',
+                        title: 'Koneksi Gagal ⚠️',
+                        text: 'Tidak dapat terhubung ke server.',
                         confirmButtonColor: '#dc3545',
                     });
+                    console.error("Error:", error);
                 }
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Koneksi Gagal ⚠️',
-                    text: 'Tidak dapat terhubung ke server. Periksa koneksi Anda.',
-                    confirmButtonColor: '#dc3545',
-                });
-                console.error("Error:", error);
-            }
+            });
         });
-    });
-    </script>
+        </script>
 </body>
 
 </html>
