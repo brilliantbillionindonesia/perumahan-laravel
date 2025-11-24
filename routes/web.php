@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+
 // Route test email (tanpa login)
 Route::get('test/email', function () {
     return view('emails.users.generated-password', [
