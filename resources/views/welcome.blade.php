@@ -721,7 +721,7 @@
             });
     
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/auth/register", {
+                const response = await fetch("http://127.0.0.1:8000/api/user/register-demo", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

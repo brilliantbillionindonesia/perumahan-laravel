@@ -11,7 +11,7 @@ export default defineConfig({
     server: {
         host: "localhost",
         port: 5173,
-        strictPort: true,
+        strictPort: false,
 
         // 🔥 Watcher super ringan
         watch: {
