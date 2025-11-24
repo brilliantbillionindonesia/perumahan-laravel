@@ -44,20 +44,17 @@ class HousingController extends Controller
         $currentYear = now()->year;
 
         // === Pertumbuhan per Bulan ===
-        $housingGrowth = Housing::selectRaw("$monthQuery as month, COUNT(*) as count")
-            ->whereRaw("$yearQuery = ?", [$currentYear])
+        $housingGrowth = Housing::selectRaw("MONTH(created_at) AS month, COUNT(*) AS count")
             ->groupBy('month')
             ->pluck('count', 'month')
             ->toArray();
 
         $userGrowthByMonth = User::selectRaw("$monthQuery as month, COUNT(*) as count")
-            ->whereRaw("$yearQuery = ?", [$currentYear])
             ->groupBy('month')
             ->pluck('count', 'month')
             ->toArray();
 
         $citizenGrowth = Citizen::selectRaw("$monthQuery as month, COUNT(*) as count")
-            ->whereRaw("$yearQuery = ?", [$currentYear])
             ->groupBy('month')
             ->pluck('count', 'month')
             ->toArray();
@@ -71,9 +68,9 @@ class HousingController extends Controller
         $salesVolume = [
             'labels' => $months,
             'data' => [
-                'Perumahan' => array_values(array_replace(array_fill(1, 12, 0), $housingGrowth)),
-                'Pengguna'  => array_values(array_replace(array_fill(1, 12, 0), $userGrowthByMonth)),
-                'Warga'     => array_values(array_replace(array_fill(1, 12, 0), $citizenGrowth)),
+                'Perumahan' => array_map(fn($i) => $housingGrowth[$i] ?? 0, range(1, 12)),
+                'Pengguna'  => array_map(fn($i) => $userGrowthByMonth[$i] ?? 0, range(1, 12)),
+                'Warga'     => array_map(fn($i) => $citizenGrowth[$i] ?? 0, range(1, 12)),
             ],
             'colors' => ['#EF4444', '#10B981', '#3B82F6'],
         ];
