@@ -144,7 +144,6 @@ class UserController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

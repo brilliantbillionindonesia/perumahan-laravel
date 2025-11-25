@@ -9,15 +9,15 @@ require __DIR__.'/api/housing.php';
 require __DIR__.'/api/device.php';
 require __DIR__.'/api/panic.php';
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::post('change-password', [UserController::class, 'changePassword']);
-    });
-});
 
 Route::prefix('user')->group(function () {
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('change-password', [UserController::class, 'changePassword']);
+    });
     Route::post('generate-password', [UserController::class, 'generatePassword']);
     Route::post('register-demo', [UserController::class, 'storeDemo'])->name('register-demo');
+
 });
 
 Route::prefix('admin')->group(function(){

@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // 🔥 Aktifkan agar Sanctum bisa baca token Bearer dari request API
-        $middleware->statefulApi();
+        // $middleware->statefulApi();
 
         // 🔥 Tambahkan alias middleware Sanctum dan lainnya
         $middleware->alias([
@@ -31,7 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->withCommands([
-            RemindActivePanics::class,   // daftar command kamu
         ])->withSchedule(function (Schedule $schedule) {
             $schedule->command('panic:remind')
                 ->everyMinute()

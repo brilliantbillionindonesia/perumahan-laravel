@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Serumpun Padi') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
         /**
