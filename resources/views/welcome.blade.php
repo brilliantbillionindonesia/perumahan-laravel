@@ -705,27 +705,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById('registerForm');
-        
+
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-        
+
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
-        
+
                 if (!name || !email) {
                     Swal.fire("Oops!", "Nama dan Email wajib diisi.", "warning");
                     return;
                 }
-        
+
                 Swal.fire({
                     title: 'Mengirim...',
                     text: 'Mohon tunggu sebentar.',
                     allowOutsideClick: false,
                     didOpen: () => Swal.showLoading()
                 });
-        
+
                 try {
-                    const response = await fetch("http://127.0.0.1:8000/api/user/register-demo", {
+                    const response = await fetch("{{ url('') }}/api/user/register-demo", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -736,9 +736,9 @@
                             email,
                         }),
                     });
-        
+
                     const data = await response.json();
-        
+
                     if (response.ok && data.success) {
                         Swal.fire({
                             icon: 'success',

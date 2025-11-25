@@ -144,7 +144,6 @@ class UserController extends Controller
         ], HttpStatusCodes::HTTP_OK);
     }
 
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -249,7 +248,7 @@ class UserController extends Controller
             $user = $checkuser;
         }
 
-        $housingId = Housing::where('is_demo', 1)->first(); 
+        $housingId = Housing::where('is_demo', 1)->first();
 
         if (!$housingId) {
             return response()->json([
