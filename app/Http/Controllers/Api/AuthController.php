@@ -119,8 +119,12 @@ class AuthController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        if($request->token) {
-            DeviceToken::where('user_id', $request->user()->id)->delete();
+        try {
+            if($request->token) {
+                DeviceToken::where('user_id', $request->user()->id)->delete();
+            }
+        } catch (\Throwable $th) {
+
         }
 
         // Hapus token yang sedang digunakan
