@@ -1,8 +1,6 @@
 <?php
 use App\Http\Controllers\Api\UserController;
 
-Route::post('/user/register-demo', [UserController::class, 'storeDemo']);
-
 Route::middleware(['permission:manage_users'])->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('list', [UserController::class, 'list']);
