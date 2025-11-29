@@ -30,7 +30,7 @@ class CitizenRepository
 
         if ($role != 'citizen') {
             $selectRaw = $selectRaw . ',
-                u.email,
+                fc.phone_number as email,
                 fm.relationship_status,
                 c.birth_place,
                 c.blood_type,

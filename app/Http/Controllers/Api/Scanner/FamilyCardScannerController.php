@@ -57,7 +57,7 @@ class FamilyCardScannerController extends Controller
         $data = FamilyCardScannedDoc::selectRaw(
             "family_card_scanned_docs.id,housing_id,CONCAT(house_block, '|', house_number) AS house_label,house_block,house_number,ownership_status,verified_at,verified_by,verified.name as verified_name,accuracy"
         )->where('housing_id', $request->input('housing_id'))
-        ->leftjoin('users as verified', 'family_card_scanned_docs.verified_by', '=', 'verified.id');
+            ->leftjoin('users as verified', 'family_card_scanned_docs.verified_by', '=', 'verified.id');
         $data->when($request->input('is_verified'), function ($query) use ($request) {
             if ($request->input('is_verified') == true) {
                 $query->whereNotNull('verified_at');
@@ -95,7 +95,7 @@ class FamilyCardScannerController extends Controller
         }
 
         $data = FamilyCardScannedDoc::
-            selectRaw('family_card_scanned_docs.id,housing_id,family_card_id,house_block,house_number,ownership_status,data_json,data_json_verified,submitted_at,verified_by,verified.name as verified_name,verified_at,accuracy')
+            selectRaw('family_card_scanned_docs.id,housing_id,family_card_id,house_block,house_number,phone_number,ownership_status,data_json,data_json_verified,submitted_at,verified_by,verified.name as verified_name,verified_at,accuracy')
             ->where('family_card_scanned_docs.id', $request->input('id'))
             ->where('housing_id', $request->input('housing_id'))
             ->leftjoin('users as verified', 'family_card_scanned_docs.verified_by', '=', 'verified.id')
@@ -166,13 +166,18 @@ class FamilyCardScannerController extends Controller
             'house_block' => ['required', 'string'],
             'house_number' => ['required', 'string'],
             'ownership_status' => ['required', 'string', 'in:own,rent'],
+            'phone_number' => [
+                'required',
+                'regex:/^(\+628|628|08)[0-9]{7,13}$/'
+            ],
         ], [
             'file.required' => 'File wajib diisi',
             'file.mimes' => 'Format file tidak sesuai',
             'file.max' => 'Ukuran file tidak boleh lebih dari 5MB',
-            'ownership.in' => 'Pemilik harus diisi'
+            'ownership.in' => 'Pemilik harus diisi',
+            'phone_number.required' => 'Nomor telepon wajib diisi',
+            'phone_number.regex' => 'Nomor telepon tidak valid'
         ]);
-
 
         if ($validator->fails()) {
             return response()->json([
@@ -212,6 +217,7 @@ class FamilyCardScannerController extends Controller
             'house_number' => $request->input('house_number'),
             'ownership_status' => $request->input('ownership_status'),
             'file_name' => $originalName,
+            'phone_number' => $request->input('phone_number'),
             'path' => $convert['path'],
             'data_json' => $jsonDecode,
             'submitted_at' => Carbon::now()->toDateTimeString(),
@@ -258,7 +264,7 @@ class FamilyCardScannerController extends Controller
         $file = $request->file('file');
         $originalName = $file->getClientOriginalName();
 
-        $check = FamilyCardScannedDoc::where('id',$request->input('id'))
+        $check = FamilyCardScannedDoc::where('id', $request->input('id'))
             ->first();
 
         if (!$check) {
@@ -269,7 +275,7 @@ class FamilyCardScannerController extends Controller
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        if($check->verified_at != null) {
+        if ($check->verified_at != null) {
             return response()->json([
                 'success' => false,
                 'code' => HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY,
@@ -329,6 +335,10 @@ class FamilyCardScannerController extends Controller
             "house_number" => ['required', 'integer'],
             "ownership_status" => ['required', 'string', 'in:own,rent'],
             "data_json" => ['required', 'array'],
+            'phone_number' => [
+                'required',
+                'regex:/^(\+628|628|08)[0-9]{7,13}$/'
+            ],
         ]);
 
         if ($validator->fails()) {
@@ -338,6 +348,7 @@ class FamilyCardScannerController extends Controller
                 'message' => $validator->errors()->first(),
             ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         }
+
 
         $check = FamilyCardScannedDoc::where('id', $request->input('id'))
             ->where('housing_id', $request->input('housing_id'))
@@ -365,7 +376,6 @@ class FamilyCardScannerController extends Controller
         //     ], HttpStatusCodes::HTTP_UNPROCESSABLE_ENTITY);
         // }
 
-
         $parsedJson = $this->parseDataJson($request->input('data_json'), $check->path, $request);
 
         return response()->json([
@@ -379,7 +389,7 @@ class FamilyCardScannerController extends Controller
 
     public function parseDataJson($json, $path, $request)
     {
-        $parseJson = $this->parseJsonFile($json, $path);
+        $parseJson = $this->parseJsonFile($json, $path, $request);
         foreach ($parseJson['citizen'] as $key => $citizen) {
             HousingUser::updateOrCreate([
                 'citizen_id' => $citizen['id'],
@@ -462,7 +472,7 @@ class FamilyCardScannerController extends Controller
         return $jsonPath;
     }
 
-    private function parseJsonFile($json, $pathImage = null)
+    private function parseJsonFile($json, $pathImage = null, $request)
     {
         $dataFamilyCard = $json['data_kk'];
         $mainData = $dataFamilyCard['data_utama'];
@@ -474,6 +484,7 @@ class FamilyCardScannerController extends Controller
 
         $parsedFamilyCard = [
             'family_card_number' => $mainData['nomor_kk'],
+            'phone_number' => $request['phone_number'],
             'address' => $mainData['alamat'],
             'rt' => $explodeRtRw[0],
             'rw' => $explodeRtRw[1],
